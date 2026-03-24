@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Hall Effect – Abstract Information</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00e5ff;
+      --bg-dark: #0a0f1c;
+      --glass-bg: rgba(16, 25, 43, 0.6);
+      --glass-border: rgba(0, 229, 255, 0.2);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: radial-gradient(circle at 50% 120%, rgba(0, 229, 255, 0.15), var(--bg-dark) 70%), var(--bg-dark);
+      background-size: cover;
+      background-attachment: fixed;
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 40px 20px;
+      overflow-x: hidden;
+    }
+
+    .ambient-orb {
+      position: absolute;
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 70%);
+      top: -30%;
+      left: -20%;
+      z-index: -1;
+      animation: float 20s infinite alternate ease-in-out;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate(10%, 10%) scale(1.1);
+      }
+    }
+
+    h1 {
+      color: var(--primary);
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+    }
+
+    .info-box {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 40px 50px;
+      width: 100%;
+      max-width: 800px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+      text-align: left;
+      line-height: 1.8;
+      font-size: 1.1rem;
+      position: relative;
+    }
+
+    .info-box::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.5), transparent);
+    }
+
+    h2 {
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.5rem;
+      margin-top: 35px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: "";
+      display: block;
+      width: 8px;
+      height: 24px;
+      background: var(--primary);
+      border-radius: 4px;
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    p {
+      color: #a0aec0;
+      margin-bottom: 20px;
+    }
+
+    strong {
+      color: #fff;
+    }
+
+    code {
+      display: block;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 15px 20px;
+      border-radius: 12px;
+      font-family: monospace;
+      font-size: 1.2rem;
+      color: var(--primary);
+      border-left: 4px solid var(--primary);
+      margin: 20px 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      color: #a0aec0;
+    }
+
+    ul li {
+      position: relative;
+      padding-left: 25px;
+      margin-bottom: 12px;
+    }
+
+    ul li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-size: 1.2rem;
+      top: -2px;
+    }
+
+    .btn-container {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #00e5ff 0%, #007bb5 100%);
+      color: #fff;
+      border: none;
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(0, 229, 255, 0.2);
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transform: skewX(-20deg);
+      transition: 0.5s;
+    }
+
+    .btn:hover {
+      box-shadow: 0 15px 25px rgba(0, 229, 255, 0.4);
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    .btn:hover::after {
+      left: 150%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ambient-orb"></div>
+  <h1>The Hall Effect</h1>
+  <div class="info-box">
+    <p>
+      The <strong>Hall Effect</strong> was discovered by Edwin Hall in 1879.
+      It occurs when a magnetic field is applied perpendicular to the flow of electric current in a conductor or
+      semiconductor.
+      This creates a measurable transverse voltage that allows us to determine the density and polarity of charge
+      carriers.
+    </p>
+
+    <h2>Physics & Derivation</h2>
+    <p>
+      When a magnetic field (B) is applied perpendicularly to a current (I), the charge carriers with drift velocity
+      (v<sub>d</sub>) experience a <strong>Lorentz force</strong>:
+    </p>
+    <code>F<sub>B</sub> = q(v<sub>d</sub> × B)</code>
+    <p>
+      This sideways force displaces the charge carriers, causing them to accumulate on one transverse edge of the
+      material. This accumulation generates an opposing <strong>Hall Electric Field (E<sub>H</sub>)</strong>.
+    </p>
+    <p>
+      At steady-state equilibrium, the electric force perfectly balances the magnetic force:
+    </p>
+    <code>F<sub>E</sub> = F<sub>B</sub> &nbsp;→&nbsp; qE<sub>H</sub> = q v<sub>d</sub> B &nbsp;→&nbsp; E<sub>H</sub> = v<sub>d</sub> B</code>
+    <p>
+      Since the electric field relates to the potential difference (the Hall Voltage V<sub>H</sub>) across the width
+      (w), we know <code>E<sub>H</sub> = V<sub>H</sub> / w</code>. Substituting the drift velocity
+      <code>v<sub>d</sub> = I / (n q A) = I / (n q w d)</code> yields the core equation:
+    </p>
+    <code>V<sub>H</sub> = (I × B) / (n × q × d)</code>
+    <ul>
+      <li><strong>B</strong> = Magnetic field (Tesla)</li>
+      <li><strong>I</strong> = Current (Ampere)</li>
+      <li><strong>n</strong> = Charge carrier density (m⁻³)</li>
+      <li><strong>q</strong> = Elementary charge (1.602 × 10⁻¹⁹ C)</li>
+      <li><strong>d</strong> = Thickness of the material (m)</li>
+    </ul>
+
+    <h2>Real-world Applications</h2>
+    <ul>
+      <li><strong>Material Characterization:</strong> Measuring the Hall Coefficient (R<sub>H</sub> = 1/nq) verifies
+        whether a semiconductor is <strong>n-type</strong> (electrons) or <strong>p-type</strong> (holes).</li>
+      <li><strong>Hall Effect Sensors:</strong> Used extensively in smartphones to detect magnetic fields (compasses).
+      </li>
+      <li><strong>Position Encoders & Switches:</strong> Contactless rotational speed measurement (e.g., in anti-lock
+        braking systems).</li>
+      <li><strong>Current Measurement:</strong> Used safely measure large currents in circuits without cutting the
+        wires.</li>
+    </ul>
+
+    <div class="btn-container">
+      <button class="btn" onclick="window.location.href='simulation.html'">Launch Simulation 🚀</button>
+    </div>
+  </div>
+</body>
+
+</html>
