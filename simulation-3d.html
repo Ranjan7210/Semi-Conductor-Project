@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Hall Effect Simulation - Premium</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+        
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #020205; /* Deep dark space */
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* Glassmorphism Dashboard */
+        #ui-panel {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            width: 360px;
+            background: rgba(10, 10, 15, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0;
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .control-group {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            margin-bottom: 5px;
+        }
+
+        .control-group label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #a0a0b0;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        
+        .control-group label span.val {
+            color: #ffffff;
+            font-family: monospace;
+            font-size: 0.95rem;
+        }
+
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #4facfe;
+            box-shadow: 0 0 10px rgba(79, 172, 254, 0.6);
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        /* Buttons Grid */
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        button {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        button:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        
+        button.active {
+            background: rgba(79, 172, 254, 0.15);
+            border-color: rgba(79, 172, 254, 0.5);
+            color: #4facfe;
+            box-shadow: 0 0 15px rgba(79, 172, 254, 0.2);
+        }
+
+        #btn-carrier.electron {
+            color: #00f2fe;
+            border-color: rgba(0, 242, 254, 0.4);
+        }
+        #btn-carrier.hole {
+            color: #ff4757;
+            border-color: rgba(255, 71, 87, 0.4);
+        }
+
+        /* Dashboards / Output Data */
+        .data-display {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .data-label {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-val {
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+        
+        .data-val.vh { color: #feca57; text-shadow: 0 0 10px rgba(254, 202, 87, 0.4); }
+        .data-val.rh { color: #1dd1a1; text-shadow: 0 0 10px rgba(29, 209, 161, 0.4); }
+
+        #formula-box {
+            font-size: 0.75rem;
+            color: #666;
+            text-align: center;
+            line-height: 1.5;
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+        }
+        
+        .color-scale {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(to right, #0984e3, #2d3436 50%, #d63031);
+            border-radius: 3px;
+            margin-top: -10px;
+            margin-bottom: 5px;
+        }
+        .color-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: #666;
+        }
+
+    </style>
+</head>
+<body>
+    <a href="index.html" style="position: absolute; top: 25px; right: 25px; z-index: 20; padding: 10px 20px; font-size: 0.9rem; background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; cursor: pointer; text-decoration: none; transition: all 0.2s; font-family: 'Inter', sans-serif; font-weight: 500; display: flex; align-items: center; gap: 8px; backdrop-filter: blur(10px);" onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.borderColor='rgba(255,255,255,0.3)';" onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.borderColor='rgba(255,255,255,0.1)';">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Dashboard
+    </a>
+
+    <div id="ui-panel">
+        <h1>Advanced Hall Effect 3D</h1>
+        
+        <div class="control-group">
+            <label>
+                <span>Magnetic Field ($B$)</span>
+                <span class="val" id="b-val">1.0 T</span>
+            </label>
+            <input type="range" id="B-field" min="-5" max="5" step="0.1" value="1.0">
+        </div>
+        
+        <div class="control-group">
+            <label>
+                <span>Current ($I$)</span>
+                <span class="val" id="i-val">5.0 mA</span>
+            </label>
+            <input type="range" id="I-current" min="1" max="15" step="0.5" value="5.0">
+        </div>
+        
+        <div class="control-group">
+            <label>
+                <span>Carrier Conc. ($n$)</span>
+                <span class="val" id="n-val">5.0 ×10²² m³</span>
+            </label>
+            <input type="range" id="n-conc" min="1" max="10" step="0.5" value="5.0">
+        </div>
+        
+        <div class="btn-grid">
+            <button class="active" id="btn-vectors">Field Vectors</button>
+            <button class="active" id="btn-particles">Particle Flow</button>
+            <button id="btn-wireframe">Hologram Mode</button>
+            <button class="electron" id="btn-carrier">Carrier: Electron (e⁻)</button>
+        </div>
+        
+        <div class="data-display">
+            <div>
+                <div class="color-scale"></div>
+                <div class="color-labels"><span>- Potential</span><span>+ Potential</span></div>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Hall Voltage (V_H)</span>
+                <span class="data-val vh" id="out-vh">0.00 μV</span>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Hall Coeff (R_H)</span>
+                <span class="data-val rh" id="out-rh">0.00</span>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Drift Velocity (v_d)</span>
+                <span class="data-val" id="out-vd">0.00 mm/s</span>
+            </div>
+        </div>
+        
+        <div id="formula-box">
+            V_H = (I × B) / (n × q × t)<br>
+            R_H = 1 / (n × q)
+        </div>
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    
+    <!-- Post Processing for Bloom -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+
+    <script>
+        // --- 1. SETUP PHYSICS VARIABLES ---
+        const CONSTANTS = {
+            q: 1.602e-19,
+            thickness: 1e-3, 
+            width: 5e-3,     
+            length: 20e-3    
+        };
+
+        let state = {
+            B: 1.0,           
+            I: 5.0e-3,        
+            n: 5.0e22,        
+            carrierType: -1,  
+            showVectors: true,
+            showParticles: true,
+            wireframe: false,
+            Vh: 0,
+            Rh: 0,
+            vd: 0,
+            simTime: 0
+        };
+
+        // --- 2. THREE.JS SCENE SETUP w/ BLOOM ---
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x020205, 0.015);
+
+        const gridHelper = new THREE.GridHelper(60, 60, 0x112233, 0x050a10);
+        gridHelper.position.y = -3;
+        scene.add(gridHelper);
+
+        const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(-10, 18, 30);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: false, powerPreference: "high-performance" });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // optimize
+        renderer.toneMapping = THREE.ReinhardToneMapping;
+        container.appendChild(renderer.domElement);
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.04;
+        controls.maxPolarAngle = Math.PI / 2 - 0.05; // Don't go below ground
+
+        // Post-Processing
+        const renderScene = new THREE.RenderPass(scene, camera);
+        const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+        bloomPass.threshold = 0.2;
+        bloomPass.strength = 1.6; // High intensity for neon look
+        bloomPass.radius = 0.5;
+
+        const composer = new THREE.EffectComposer(renderer);
+        composer.addPass(renderScene);
+        composer.addPass(bloomPass);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        dirLight.position.set(10, 20, 10);
+        scene.add(dirLight);
+
+        // --- 3. PREMIUM SCENE OBJECTS ---
+        
+        // A. Semiconductor Slab (Glassy Material)
+        const slabGeom = new THREE.BoxGeometry(20, 1, 8, 32, 1, 16); // High res for smooth vertex colors
+        
+        const colors = [];
+        for (let i = 0; i < slabGeom.attributes.position.count; i++) {
+            colors.push(0.1, 0.1, 0.15); // base dark glass
+        }
+        slabGeom.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+        
+        const slabMat = new THREE.MeshPhysicalMaterial({ 
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.65,
+            roughness: 0.1,
+            metalness: 0.6,
+            clearcoat: 1.0,
+            clearcoatRoughness: 0.1,
+            side: THREE.DoubleSide
+        });
+        
+        const slabMesh = new THREE.Mesh(slabGeom, slabMat);
+        scene.add(slabMesh);
+
+        // Edge Highlights
+        const edgesGeom = new THREE.EdgesGeometry(new THREE.BoxGeometry(20, 1, 8));
+        const edgesMat = new THREE.LineBasicMaterial({ color: 0x4facfe, transparent: true, opacity: 0.3 });
+        const edgesMesh = new THREE.LineSegments(edgesGeom, edgesMat);
+        scene.add(edgesMesh);
+
+        // B. Dynamic Particles with Trails
+        const particleCount = 250;
+        const trailLength = 8;
+        
+        // Use a Group to bold trails
+        const trailsGroup = new THREE.Group();
+        scene.add(trailsGroup);
+        
+        const particlesData = [];
+        
+        // create trails using lines
+        const trailMat = new THREE.LineBasicMaterial({
+            color: 0x00f2fe, 
+            transparent: true, 
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending
+        });
+
+        for(let i=0; i<particleCount; i++) {
+            const positions = new Float32Array(trailLength * 3);
+            const startX = (Math.random() - 0.5) * 20;
+            const startY = (Math.random() - 0.5) * 0.8;
+            const startZ = (Math.random() - 0.5) * 7.8;
+            
+            for(let j=0; j<trailLength; j++) {
+                positions[j*3] = startX - j*0.1; // trail behind
+                positions[j*3+1] = startY;
+                positions[j*3+2] = startZ;
+            }
+            
+            const geom = new THREE.BufferGeometry();
+            geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            
+            const line = new THREE.Line(geom, trailMat);
+            trailsGroup.add(line);
+            
+            particlesData.push({
+                line: line,
+                speed: Math.random() * 0.4 + 0.6,
+                offset: Math.random() * Math.PI * 2,
+                zTarget: startZ
+            });
+        }
+
+        // C. Glowing Vectors Custom Made (Arrows)
+        const arrowGroup = new THREE.Group();
+        scene.add(arrowGroup);
+        
+        function createGlowingArrow(colorHex, length) {
+            const group = new THREE.Group();
+            
+            // Neon shaft
+            const cylGeo = new THREE.CylinderGeometry(0.05, 0.05, length, 8);
+            cylGeo.translate(0, length/2, 0);
+            const mat = new THREE.MeshBasicMaterial({ color: colorHex });
+            const cylinder = new THREE.Mesh(cylGeo, mat);
+            
+            // Neon head
+            const coneGeo = new THREE.ConeGeometry(0.2, 0.5, 8);
+            coneGeo.translate(0, length + 0.25, 0);
+            const cone = new THREE.Mesh(coneGeo, mat);
+            
+            group.add(cylinder);
+            group.add(cone);
+            return group;
+        }
+
+        const bFieldArrows = [];
+        for(let x=-8; x<=8; x+=4) {
+            for(let z=-3; z<=3; z+=3) {
+                const arrow = createGlowingArrow(0x1dd1a1, 2); // Greenish B field
+                arrow.position.set(x, -1, z);
+                bFieldArrows.push(arrow);
+                arrowGroup.add(arrow);
+            }
+        }
+
+        // Central Force Indicators
+        const indicatorGroup = new THREE.Group();
+        indicatorGroup.position.set(0, 0, 0);
+        scene.add(indicatorGroup);
+        
+        const indParticleMat = new THREE.MeshBasicMaterial({color: 0x00f2fe});
+        const indParticle = new THREE.Mesh(new THREE.SphereGeometry(0.4, 32, 32), indParticleMat);
+        indParticle.position.set(0, 2.5, 5); // Floating above in front
+        indicatorGroup.add(indParticle);
+        
+        // Vectors extending from center particle
+        const vAxis = new THREE.Group(); vAxis.position.copy(indParticle.position);
+        indicatorGroup.add(vAxis);
+        
+        const velArrowGroup = createGlowingArrow(0x00f2fe, 1.5);
+        velArrowGroup.rotation.z = -Math.PI/2; // point +X
+        vAxis.add(velArrowGroup);
+        
+        const fbArrowGroup = createGlowingArrow(0xff4757, 1.5);
+        fbArrowGroup.rotation.x = Math.PI/2; // point +Z
+        vAxis.add(fbArrowGroup);
+        
+        const feArrowGroup = createGlowingArrow(0xfeca57, 1.5);
+        feArrowGroup.rotation.x = -Math.PI/2; // point -Z
+        vAxis.add(feArrowGroup);
+
+        // Grid of labels for the vectors
+        // Simplification: We will just rely on standard physics colors
+        
+        // --- 4. UI INTERACTION ---
+        document.getElementById('B-field').addEventListener('input', (e) => {
+            state.B = parseFloat(e.target.value);
+            document.getElementById('b-val').innerText = state.B.toFixed(1) + ' T';
+            updatePhysics();
+        });
+
+        document.getElementById('I-current').addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            state.I = val * 1e-3; 
+            document.getElementById('i-val').innerText = val.toFixed(1) + ' mA';
+            updatePhysics();
+        });
+
+        document.getElementById('n-conc').addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            state.n = val * 1e22; 
+            document.getElementById('n-val').innerText = val.toFixed(1) + ' ×10²² m³';
+            updatePhysics();
+        });
+
+        document.getElementById('btn-vectors').addEventListener('click', (e) => {
+            state.showVectors = !state.showVectors;
+            e.target.classList.toggle('active');
+            arrowGroup.visible = state.showVectors;
+            indicatorGroup.visible = state.showVectors;
+        });
+
+        document.getElementById('btn-particles').addEventListener('click', (e) => {
+            state.showParticles = !state.showParticles;
+            e.target.classList.toggle('active');
+            trailsGroup.visible = state.showParticles;
+        });
+
+        document.getElementById('btn-wireframe').addEventListener('click', (e) => {
+            state.wireframe = !state.wireframe;
+            e.target.classList.toggle('active');
+            slabMat.wireframe = state.wireframe;
+            if(state.wireframe) {
+                slabMat.opacity = 0.2;
+            } else {
+                slabMat.opacity = 0.65;
+            }
+        });
+        
+        document.getElementById('btn-carrier').addEventListener('click', (e) => {
+            state.carrierType *= -1; 
+            const btn = e.target;
+            if(state.carrierType === -1) {
+                btn.className = "electron";
+                btn.innerText = "Carrier: Electron (e⁻)";
+                trailMat.color.setHex(0x00f2fe);
+                indParticleMat.color.setHex(0x00f2fe);
+                velArrowGroup.children.forEach(c => c.material.color.setHex(0x00f2fe));
+            } else {
+                btn.className = "hole";
+                btn.innerText = "Carrier: Hole (h⁺)";
+                trailMat.color.setHex(0xff4757);
+                indParticleMat.color.setHex(0xff4757);
+                velArrowGroup.children.forEach(c => c.material.color.setHex(0xff4757));
+            }
+            updatePhysics();
+        });
+
+        // Window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // --- 5. PHYSICS & VISUAL UPDATES ---
+        function formatVoltage(v) {
+            const absV = Math.abs(v);
+            if (absV === 0) return "0.00 V";
+            if (absV >= 1) return v.toFixed(3) + " V";
+            if (absV >= 1e-3) return (v * 1e3).toFixed(3) + " mV";
+            if (absV >= 1e-6) return (v * 1e6).toFixed(3) + " µV";
+            return (v * 1e9).toFixed(3) + " nV";
+        }
+
+        function formatVelocity(v) {
+            const absV = Math.abs(v);
+            if (absV === 0) return "0.00 m/s";
+            if (absV >= 1) return v.toFixed(3) + " m/s";
+            if (absV >= 1e-3) return (v * 1e3).toFixed(3) + " mm/s";
+            if (absV >= 1e-6) return (v * 1e6).toFixed(3) + " µm/s";
+            return v.toExponential(2) + " m/s";
+        }
+
+        function updatePhysics() {
+            const {q, thickness, width} = CONSTANTS;
+            const t = thickness, w = width;
+            
+            // Reconciled with index.html formats exactly
+            const q_eff = q * state.carrierType;
+            state.vd = state.I / (state.n * q_eff * w * t);
+            state.Rh = 1 / (state.n * q_eff);
+            state.Vh = (state.I * state.B * state.Rh) / t;
+
+            updateUI();
+            updateVisuals();
+        }
+
+        function updateUI() {
+            document.getElementById('out-vh').innerText = formatVoltage(state.Vh);
+            document.getElementById('out-rh').innerText = state.Rh.toExponential(2) + " m³/C";
+            document.getElementById('out-vd').innerText = formatVelocity(state.vd);
+        }
+
+        function updateVisuals() {
+            const bDir = Math.sign(state.B);
+            const bMag = Math.abs(state.B);
+            
+            // B Field arrows (Up/Down)
+            bFieldArrows.forEach(arrow => {
+                if(bMag > 0.05) {
+                    arrow.visible = true;
+                    // point up or down
+                    arrow.rotation.z = bDir > 0 ? 0 : Math.PI; 
+                    if(bDir < 0) {
+                        arrow.position.y = 1; // shift starting position if pointing down
+                    } else {
+                        arrow.position.y = -1;
+                    }
+                    arrow.scale.set(1, 0.5 + bMag*0.5, 1);
+                } else arrow.visible = false;
+            });
+
+            // Voltage Gradient Colors (Slab)
+            const maxVal = 100; 
+            const vNorm = Math.min(Math.max((state.Vh * 1e6 * 20) / maxVal, -1), 1); 
+            
+            const positionAttribute = slabGeom.attributes.position;
+            const colorAttribute = slabGeom.attributes.color;
+            
+            // #00f2fe (Cyan) for Negative, #ff4757 (Red) for Positive
+            const negColor = new THREE.Color(0x00f2fe);
+            const posColor = new THREE.Color(0xff4757);
+            const baseColor = new THREE.Color(0x1a1a24);
+
+            for(let i = 0; i < positionAttribute.count; i++) {
+                const z = positionAttribute.getZ(i);
+                let finalColor = baseColor.clone();
+                
+                if (Math.abs(vNorm) > 0.01) {
+                    const zNorm = z / 4; // -1 to 1
+                    const potential = zNorm * vNorm; 
+                    
+                    if (potential > 0) {
+                        finalColor.lerp(posColor, Math.abs(potential) * 1.5);
+                    } else {
+                        finalColor.lerp(negColor, Math.abs(potential) * 1.5);
+                    }
+                }
+                colorAttribute.setXYZ(i, finalColor.r, finalColor.g, finalColor.b);
+            }
+            colorAttribute.needsUpdate = true;
+
+            // Indicator vectors
+            const vdDir = state.carrierType === -1 ? -1 : 1; 
+            
+            // Velocity always points +X for net positive current of positive charges moving right
+            velArrowGroup.rotation.z = vdDir > 0 ? -Math.PI/2 : Math.PI/2;
+            const currentRatio = document.getElementById('I-current').value / 15;
+            velArrowGroup.scale.set(1, 0.5 + currentRatio*1.5, 1);
+
+            // Magnetic Force Direction: Both carriers push to the exact SAME side!
+            // Fb = q(v x B). 
+            const fMagDir = bDir; // Always pushes to +Z if B is positive
+            
+            if(Math.abs(state.B) > 0.05) {
+                fbArrowGroup.visible = true;
+                feArrowGroup.visible = true;
+                
+                fbArrowGroup.rotation.x = fMagDir > 0 ? Math.PI/2 : -Math.PI/2;
+                feArrowGroup.rotation.x = fMagDir > 0 ? -Math.PI/2 : Math.PI/2;
+                
+                const fLength = 0.5 + Math.abs(state.B)*0.4;
+                fbArrowGroup.scale.set(1, fLength, 1);
+                feArrowGroup.scale.set(1, fLength, 1);
+            } else {
+                fbArrowGroup.visible = false;
+                feArrowGroup.visible = false;
+            }
+        }
+
+        // --- 6. ANIMATION LOOP ---
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            state.simTime += 0.016;
+
+            if (state.showParticles) {
+                const uiCurrent = document.getElementById('I-current').value;
+                const vdDir = state.carrierType === -1 ? -1 : 1;
+                const baseSpeed = (uiCurrent / 5) * 0.2 * vdDir;
+
+                const bDir = Math.sign(state.B);
+                const bMag = Math.abs(state.B) / 5; 
+                const driftZTarget = bDir * bMag * 3.5;
+
+                particlesData.forEach(p => {
+                    const positions = p.line.geometry.attributes.position.array;
+                    
+                    // Shift trail history
+                    for(let j=trailLength-1; j>0; j--) {
+                        positions[j*3] = positions[(j-1)*3];
+                        positions[j*3+1] = positions[(j-1)*3+1];
+                        positions[j*3+2] = positions[(j-1)*3+2];
+                    }
+                    
+                    // Update head position
+                    positions[0] += baseSpeed * p.speed;
+                    
+                    // Box wrapping X
+                    if(vdDir > 0 && positions[0] > 10) { 
+                        positions[0] = -10; 
+                        // reset trail to prevent long stretching across screen
+                        for(let j=1; j<trailLength; j++) { positions[j*3] = -10 - j*0.2; }
+                    }
+                    if(vdDir < 0 && positions[0] < -10) { 
+                        positions[0] = 10; 
+                        for(let j=1; j<trailLength; j++) { positions[j*3] = 10 + j*0.2; }
+                    }
+
+                    // Move in Z towards Hall accumulation
+                    const headZ = positions[2];
+                    const randomScatter = (Math.random() - 0.5) * 0.08;
+                    const pull = (driftZTarget - headZ) * 0.03;
+                    
+                    positions[2] += pull + randomScatter;
+                    
+                    // Z Bounds
+                    if(positions[2] > 3.8) positions[2] = 3.8;
+                    if(positions[2] < -3.8) positions[2] = -3.8;
+                    
+                    // sine wave Y
+                    positions[1] = Math.sin(state.simTime * 4 + p.offset) * 0.2;
+
+                    p.line.geometry.attributes.position.needsUpdate = true;
+                });
+            }
+
+            composer.render(); // Use composer for bloom
+        }
+
+        function init() {
+            updatePhysics();
+            animate();
+        }
+
+        init();
+    </script>
+</body>
+</html>
