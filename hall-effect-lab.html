@@ -376,13 +376,7 @@
     <!-- Holder mount (wooden block on base) -->
     <rect x="485" y="310" width="30" height="90" rx="2" fill="url(#holderGrad)" stroke="#705828" stroke-width="1"/>
     <rect x="480" y="300" width="40" height="15" rx="2" fill="url(#holderGrad)" stroke="#705828" stroke-width="1"/>
-    <!-- Semiconductor sample chip (between poles) -->
-    <rect id="sample-rect" x="492" y="255" width="16" height="50" rx="2" fill="#94a3b8" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-    <text id="sample-label-svg" x="500" y="250" fill="#ccc" font-size="9" text-anchor="middle" font-family="Inter">Ge</text>
-    <rect id="sample-glow" x="491" y="254" width="18" height="52" rx="3" fill="none" stroke="rgba(0,242,254,0)" stroke-width="2"/>
-    <!-- Sample holder contact terminals (top and bottom of sample) -->
-    <rect x="494" y="244" width="12" height="6" rx="1" fill="#c0a030" stroke="#987020" stroke-width="0.5"/>
-    <rect x="494" y="300" width="12" height="6" rx="1" fill="#c0a030" stroke="#987020" stroke-width="0.5"/>
+    <!-- The sample itself is now mounted on the White Terminal Strip and inserted dynamically -->
 
     <!-- ===== COMMON WIRES: Power Supply → Electromagnet Cylinders ===== -->
     <!-- Black wire: PS left terminal → LEFT electromagnet cylinder body (end cap terminal) -->
@@ -401,14 +395,12 @@
         <path id="probe-cable" d="M780,445 C800,440 830,440 850,445" fill="none" stroke="#ddd" stroke-width="3" stroke-linecap="round"/>
     </g>
 
-    <!-- ===== MODE 2 WIRES: Sample Holder → White Terminal Strip ===== -->
+    <!-- ===== MODE 2 WIRES: Flexible Braided Wires (from terminal board to tester) ===== -->
     <g id="wires-mode2" style="display:none">
-        <!-- Braided wires from sample holder TOP terminal to White Terminal Strip (left side, now at x=680) -->
-        <path d="M500,244 C550,220 650,300 680,437" fill="none" stroke="#cc3333" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M504,244 C554,222 654,302 680,437" fill="none" stroke="#22aa66" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="4 3"/>
-        <!-- Braided wires from sample holder BOTTOM terminal to White Terminal Strip (left side) -->
-        <path d="M500,306 C480,350 630,420 680,447" fill="none" stroke="#cc3333" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M504,306 C484,352 634,422 680,447" fill="none" stroke="#22aa66" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="4 3"/>
+        <path id="bw1" fill="none" stroke="#cc3333" stroke-width="1.5" stroke-linecap="round"/>
+        <path id="bw2" fill="none" stroke="#22aa66" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6 4"/>
+        <path id="bw3" fill="none" stroke="#cc3333" stroke-width="1.5" stroke-linecap="round"/>
+        <path id="bw4" fill="none" stroke="#22aa66" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="5 3"/>
     </g>
 
     <!-- ===== CONSTANT CURRENT SOURCE (Power Supply) ===== -->
@@ -512,43 +504,7 @@
             <!-- Tester body -->
             <polygon points="490,435 770,435 760,455 500,455" fill="#3a4048" stroke="#2a3038" stroke-width="1"/>
             
-            <!-- ===== WHITE TERMINAL STRIP (Rests on top of unit) ===== -->
-            <g id="white-terminal-strip">
-                <!-- White board body -->
-                <rect x="520" y="420" width="105" height="30" rx="3" fill="#f4f5f8" stroke="#ccc" stroke-width="1"/>
-                <rect x="520" y="445" width="105" height="5" rx="1" fill="#d0d0d0"/>
-                
-                <!-- Diagram / connection traces on board -->
-                <circle cx="538" cy="435" r="8" fill="none" stroke="#bbb" stroke-width="1"/>
-                <rect x="534" y="431" width="8" height="8" fill="#555"/>
-                <circle cx="530" cy="435" r="2.5" fill="#888"/>
-                <circle cx="546" cy="435" r="2.5" fill="#888"/>
-                <circle cx="538" cy="427" r="2.5" fill="#888"/>
-                <circle cx="538" cy="443" r="2.5" fill="#888"/>
-                
-                <!-- PCB traces bridging to screw terminals -->
-                <path d="M546,435 C555,425 565,425 575,425 M546,435 C555,431 565,431 575,431 M538,443 L538,445 L575,445 M538,427 L538,438 L575,438" fill="none" stroke="#999" stroke-width="1"/>
-                
-                <!-- 4 Screw Terminals -->
-                <g stroke="#999" stroke-width="0.5">
-                    <circle cx="575" cy="425" r="2" fill="#d4d4d4"/><line x1="573" y1="425" x2="577" y2="425"/><line x1="575" y1="423" x2="575" y2="427"/>
-                    <circle cx="575" cy="431" r="2" fill="#d4d4d4"/><line x1="573" y1="431" x2="577" y2="431"/><line x1="575" y1="429" x2="575" y2="433"/>
-                    <circle cx="575" cy="438" r="2" fill="#d4d4d4"/><line x1="573" y1="438" x2="577" y2="438"/><line x1="575" y1="436" x2="575" y2="440"/>
-                    <circle cx="575" cy="445" r="2" fill="#d4d4d4"/><line x1="573" y1="445" x2="577" y2="445"/><line x1="575" y1="443" x2="575" y2="447"/>
-                </g>
-                
-                <!-- Plastic wire retention clip -->
-                <rect x="590" y="425" width="6" height="20" rx="2" fill="#f8f9fa" stroke="#c0c0c0" stroke-width="1"/>
-                <line x1="593" y1="425" x2="593" y2="445" stroke="#e0e0e0" stroke-width="1"/>
-                
-                <!-- Output wires from terminal board (bundled braids to front panel) -->
-                <!-- Red wiring -->
-                <path d="M575,425 Q585,425 593,433 Q610,440 620,445 C650,455 650,470 520,565" fill="none" stroke="#cc3333" stroke-width="1.5"/>
-                <path d="M575,445 Q585,445 593,437 Q610,442 620,447 C650,457 650,472 520,565" fill="none" stroke="#cc3333" stroke-width="1.5" stroke-dasharray="6 4"/>
-                <!-- Green wiring -->
-                <path d="M575,431 Q585,431 593,435 Q610,441 620,446 C650,456 650,471 538,565" fill="none" stroke="#22aa66" stroke-width="1.5"/>
-                <path d="M575,438 Q585,438 593,436 Q610,441.5 620,446.5 C650,456.5 650,471.5 538,565" fill="none" stroke="#22aa66" stroke-width="1.5" stroke-dasharray="6 4"/>
-            </g>
+
 
             <rect x="500" y="455" width="260" height="130" rx="3" fill="#e0d8cc" stroke="#999" stroke-width="1"/>
             <polygon points="490,435 500,455 500,585 490,570" fill="#444c54"/>
@@ -603,7 +559,48 @@
         <text id="probe-label" x="788" y="425" fill="#888" font-size="7" text-anchor="middle" font-family="Inter">HALL PROBE</text>
     </g>
 
+    <!-- ===== WHITE TERMINAL STRIP (Animates in Mode 2) ===== -->
+    <g id="white-board-group" style="display:none" data-x="680" data-y="425" transform="translate(680, 425)">
+        <!-- White board body at 0,0 -->
+        <rect x="0" y="0" width="105" height="30" rx="3" fill="#f4f5f8" stroke="#ccc" stroke-width="1"/>
+        <rect x="0" y="25" width="105" height="5" rx="1" fill="#d0d0d0"/>
+        
+        <!-- Sample Glow (only active when inserted) -->
+        <rect id="board-sample-glow" x="11" y="8" width="14" height="14" rx="2" fill="none" stroke="rgba(0,242,254,0)" stroke-width="1.5"/>
+
+        <!-- Diagram / connection traces on board -->
+        <circle cx="18" cy="15" r="8" fill="none" stroke="#bbb" stroke-width="1"/>
+        <rect id="board-sample-rect" x="14" y="11" width="8" height="8" fill="#555"/>
+        <text id="board-sample-label" x="18" y="9" fill="#888" font-size="5" text-anchor="middle" font-family="Inter">Ge</text>
+        <circle cx="10" cy="15" r="2.5" fill="#888"/>
+        <circle cx="26" cy="15" r="2.5" fill="#888"/>
+        <circle cx="18" cy="7" r="2.5" fill="#888"/>
+        <circle cx="18" cy="23" r="2.5" fill="#888"/>
+        
+        <!-- PCB traces bridging to screw terminals -->
+        <path d="M26,15 C35,5 45,5 55,5  M26,15 C35,11 45,11 55,11  M18,23 L18,25 L55,25  M18,7 L18,18 L55,18" fill="none" stroke="#999" stroke-width="1"/>
+        
+        <!-- 4 Screw Terminals -->
+        <g stroke="#999" stroke-width="0.5">
+            <circle cx="55" cy="5" r="2" fill="#d4d4d4"/><line x1="53" y1="5" x2="57" y2="5"/><line x1="55" y1="3" x2="55" y2="7"/>
+            <circle cx="55" cy="11" r="2" fill="#d4d4d4"/><line x1="53" y1="11" x2="57" y2="11"/><line x1="55" y1="9" x2="55" y2="13"/>
+            <circle cx="55" cy="18" r="2" fill="#d4d4d4"/><line x1="53" y1="18" x2="57" y2="18"/><line x1="55" y1="16" x2="55" y2="20"/>
+            <circle cx="55" cy="25" r="2" fill="#d4d4d4"/><line x1="53" y1="25" x2="57" y2="25"/><line x1="55" y1="23" x2="55" y2="27"/>
+        </g>
+        
+        <!-- Plastic wire retention clip -->
+        <rect x="70" y="5" width="6" height="20" rx="2" fill="#f8f9fa" stroke="#c0c0c0" stroke-width="1"/>
+        <line x1="73" y1="5" x2="73" y2="25" stroke="#e0e0e0" stroke-width="1"/>
+    </g>
+
 </svg>
+
+<!-- ===== MAGNIFIED PROBE VIEW (Canvas Animation) ===== -->
+<div id="magnified-specimen" style="position: absolute; top: 120px; left: 400px; width: 200px; height: 80px; display: none; background: rgba(0,0,0,0.6); border: 2px solid #555; border-radius: 6px; z-index: 50; backdrop-filter: blur(6px); box-shadow: 0 10px 30px rgba(0,0,0,0.6);">
+    <div style="position: absolute; top: -22px; left: 0; width: 100%; text-align: center; font-size: 11px; color: #aaa; font-weight: bold; font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 1px;">Carrier Deflection</div>
+    <canvas id="deflection-canvas" width="200" height="80" style="width: 100%; height: 100%; display: block; border-radius: 4px;"></canvas>
+    <div id="anim-legend" style="position: absolute; bottom: -20px; left: 0; width: 100%; text-align: center; font-size: 11px; font-weight: 600; font-family: 'Inter', sans-serif;"></div>
+</div>
 
 <div class="status-bar">
     <div class="sd" id="sd"></div>
@@ -829,10 +826,132 @@ function updateFieldLines() {
 // ========== 6. SAMPLE ==========
 function updateSampleVisual() {
     const m = MATERIALS[S.mat];
-    $('sample-rect').setAttribute('fill', m.color);
-    $('sample-label-svg').textContent = S.mat;
-    const glowI = Math.min(S.hcmA / 15, 0.6);
-    $('sample-glow').setAttribute('stroke', `rgba(0,242,254,${glowI})`);
+    const rect = $('board-sample-rect');
+    if (rect) {
+        rect.setAttribute('fill', m.color);
+        $('board-sample-label').textContent = S.mat;
+        const glowI = Math.min(S.hcmA / 15, 0.6);
+        $('board-sample-glow').setAttribute('stroke', `rgba(0,242,254,${glowI})`);
+    }
+}
+
+// ========== BOARD WIRES DRAWING ==========
+function updateBoardWires() {
+    const bg = $('white-board-group');
+    if(bg.style.display === 'none') return;
+    
+    const bx = parseFloat(bg.getAttribute('data-x') || 680);
+    const by = parseFloat(bg.getAttribute('data-y') || 425);
+    
+    // Front panel connection coordinates for Hall Unit
+    const tgtRedX = 680, tgtRedY = 570;
+    const tgtGreenX = 698, tgtGreenY = 570;
+    
+    // Clip origin on the board relative to absolute screen
+    const cx = bx + 73;
+    const cy = by + 5;
+    
+    // Wire 1 (Red)
+    $('bw1').setAttribute('d', `M${cx},${cy} C${cx+20},${cy} ${cx+30},${cy+30} ${tgtRedX},${tgtRedY}`);
+    // Wire 2 (Red)
+    $('bw2').setAttribute('d', `M${cx},${cy+20} C${cx+20},${cy+15} ${cx+30},${cy+35} ${tgtRedX},${tgtRedY}`);
+    // Wire 3 (Green)
+    $('bw3').setAttribute('d', `M${cx},${cy+5} C${cx+25},${cy+5} ${cx+35},${cy+25} ${tgtGreenX},${tgtGreenY}`);
+    // Wire 4 (Green)
+    $('bw4').setAttribute('d', `M${cx},${cy+15} C${cx+25},${cy+10} ${cx+35},${cy+30} ${tgtGreenX},${tgtGreenY}`);
+}
+
+// ========== CARRIER DEFLECTION ANIMATION ==========
+const defCanvas = $('deflection-canvas');
+const dCtx = defCanvas.getContext('2d');
+let particles = [];
+const numParticles = 20;
+
+function initParticles() {
+    particles = [];
+    for(let i=0; i<numParticles; i++) {
+        particles.push({
+            x: Math.random() * defCanvas.width,
+            baseY: Math.random() * defCanvas.height,
+            speed: 80 + Math.random()*40,
+            wobblePhase: Math.random() * Math.PI * 2
+        });
+    }
+}
+initParticles();
+
+function updateDeflectionAnim() {
+    // Only show canvas when experiment is active in Hall Setup mode with voltage on
+    if(!S.voltShown || !S.probeIn || S.mode !== 'hall_setup' || S.ivSwitch !== 'V') {
+        $('magnified-specimen').style.display = 'none';
+        return;
+    }
+    
+    $('magnified-specimen').style.display = 'block';
+    
+    // Synchronize UI visuals to material
+    const m = MATERIALS[S.mat];
+    $('magnified-specimen').style.borderColor = m.color;
+    
+    const isPType = m.sign === 1;
+    const legend = $('anim-legend');
+    if (isPType) {
+        legend.innerHTML = '<span style="color:#FF4444;">● Holes (p-type)</span>';
+    } else {
+        legend.innerHTML = '<span style="color:#4488FF;">● Electrons (n-type)</span>';
+    }
+    
+    // Redraw loop
+    dCtx.clearRect(0, 0, defCanvas.width, defCanvas.height);
+    
+    // Physics constants for canvas space
+    const dt = 1/60; // Approx 60fps frame delta
+    const maxB = 1.0; // Slider limit
+    const curB = S.B;
+    // p-type UP (-1 in canvas Y axis), n-type DOWN (+1 in canvas Y axis)
+    const direction = isPType ? -1 : 1; 
+    const w = defCanvas.width;
+    const h = defCanvas.height;
+    
+    dCtx.fillStyle = isPType ? '#FF4444' : '#4488FF';
+    
+    for(let p of particles) {
+        // Drift horizontally
+        const speedScale = Math.max(0.1, S.hcmA / 5.0); 
+        p.x += p.speed * speedScale * dt;
+        
+        // Loop back to left side
+        if(p.x > w + 10) {
+            p.x = -10;
+            p.baseY = Math.random() * h; // Uniform vertical distribution
+        }
+        
+        // Thermal Wobble
+        p.wobblePhase += 5 * dt;
+        const thermalWobble = Math.sin(p.wobblePhase) * 2;
+        
+        // Deflection: y_deflect = direction × (B / B_max) × max_deflect_px × (x / sample_width)²
+        const maxDeflect = 0.35 * h;
+        const y_deflect = direction * (curB / maxB) * maxDeflect * Math.pow(Math.max(0, p.x) / w, 2);
+        
+        let py = p.baseY + y_deflect + thermalWobble;
+        
+        // Accumulate exactly against the top/bottom boundary
+        if (py < 5) py = 5;
+        if (py > h - 5) py = h - 5;
+        
+        // Draw Carrier
+        dCtx.beginPath();
+        dCtx.arc(p.x, py, 4, 0, Math.PI*2);
+        dCtx.fill();
+        
+        // Sign label inside
+        dCtx.fillStyle = '#FFF';
+        dCtx.font = "8px Arial";
+        dCtx.textAlign = "center";
+        dCtx.fillText(isPType ? '+' : '-', p.x, py+3);
+        dCtx.fillStyle = isPType ? '#FF4444' : '#4488FF';
+    }
 }
 
 // ========== SMOOTH ANIMATION LOOP ==========
@@ -852,59 +971,103 @@ function animLoop() {
     const ta = parseFloat(kg.getAttribute('data-target-angle') || 0);
     curKA += (ta - curKA) * 0.08;
     kg.setAttribute('transform', `translate(260, 510) rotate(${curKA.toFixed(1)})`);
+    
+    // Update wires dynamically if board is moving
+    updateBoardWires();
+    
+    // Update Canvas Particle animation
+    updateDeflectionAnim();
 }
 animLoop();
 
 // ========== PROBE ANIMATION ==========
 function animateProbe(insert, cb) {
-    const handle = $('probe-handle');
-    const tip = $('probe-tip');
-    const needle = $('probe-needle');
-    const lbl = $('probe-label');
     const steps = 60;
     let step = 0;
-    const sHX = parseFloat(handle.getAttribute('x'));
-    const sHY = parseFloat(handle.getAttribute('y'));
-    const sTX = parseFloat(tip.getAttribute('x'));
-    const sTY = parseFloat(tip.getAttribute('y'));
-    const sNX1 = parseFloat(needle.getAttribute('x1'));
-    const sNY1 = parseFloat(needle.getAttribute('y1'));
-    const sNX2 = parseFloat(needle.getAttribute('x2'));
     
-    // Inserted position: probe tip enters the gap between electromagnet poles
-    let eHX, eHY, eTX, eTY, eNX2;
-    if(insert) {
-        eHX = 530; eHY = 263; eTX = 515; eTY = 266; eNX2 = 508;
+    if (S.mode === 'b_vs_i') {
+        const handle = $('probe-handle');
+        const tip = $('probe-tip');
+        const needle = $('probe-needle');
+        const lbl = $('probe-label');
+        
+        const sHX = parseFloat(handle.getAttribute('x'));
+        const sHY = parseFloat(handle.getAttribute('y'));
+        const sTX = parseFloat(tip.getAttribute('x'));
+        const sTY = parseFloat(tip.getAttribute('y'));
+        const sNX1 = parseFloat(needle.getAttribute('x1'));
+        const sNY1 = parseFloat(needle.getAttribute('y1'));
+        const sNX2 = parseFloat(needle.getAttribute('x2'));
+        
+        let eHX, eHY, eTX, eTY, eNX2;
+        if(insert) {
+            eHX = 530; eHY = 263; eTX = 515; eTY = 266; eNX2 = 508;
+        } else {
+            eHX = 760; eHY = 428; eTX = 745; eTY = 431; eNX2 = 732;
+        }
+        
+        function tickM1() {
+            step++;
+            const t = step / steps;
+            const ease = t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2,2)/2;
+            const hx = sHX + (eHX - sHX) * ease;
+            const hy = sHY + (eHY - sHY) * ease;
+            const tx2 = sTX + (eTX - sTX) * ease;
+            const ty2 = sTY + (eTY - sTY) * ease;
+            const enx = sNX2 + (eNX2 - sNX2) * ease;
+            
+            handle.setAttribute('x', hx.toFixed(1));
+            handle.setAttribute('y', hy.toFixed(1));
+            tip.setAttribute('x', tx2.toFixed(1));
+            tip.setAttribute('y', ty2.toFixed(1));
+            needle.setAttribute('x1', tx2.toFixed(1));
+            needle.setAttribute('y1', (ty2 + 3).toFixed(1));
+            needle.setAttribute('x2', enx.toFixed(1));
+            needle.setAttribute('y2', (ty2 + 3).toFixed(1));
+            lbl.setAttribute('x', (hx + 30).toFixed(1));
+            lbl.setAttribute('y', (hy - 5).toFixed(1));
+            
+            // Animate wire
+            const backX = hx + 55;
+            const backY = hy + 5;
+            $('probe-cable').setAttribute('d', `M${backX},${backY} C${backX+20},${backY+20} 830,440 850,445`);
+            
+            if(step < steps) requestAnimationFrame(tickM1);
+            else if(cb) cb();
+        }
+        tickM1();
+        
     } else {
-        eHX = 760; eHY = 428; eTX = 745; eTY = 431; eNX2 = 732;
-    }
-    
-    function tick() {
-        step++;
-        const t = step / steps;
-        const ease = t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2,2)/2;
-        const hx = sHX + (eHX - sHX) * ease;
-        const hy = sHY + (eHY - sHY) * ease;
-        const tx2 = sTX + (eTX - sTX) * ease;
-        const ty2 = sTY + (eTY - sTY) * ease;
-        const nx2 = parseFloat(needle.getAttribute('x2'));
-        const enx = sNX2 + (eNX2 - sNX2) * ease;
+        // Mode 2: Animate White Terminal Strip
+        const board = $('white-board-group');
+        const sx = parseFloat(board.getAttribute('data-x'));
+        const sy = parseFloat(board.getAttribute('data-y'));
         
-        handle.setAttribute('x', hx.toFixed(1));
-        handle.setAttribute('y', hy.toFixed(1));
-        tip.setAttribute('x', tx2.toFixed(1));
-        tip.setAttribute('y', ty2.toFixed(1));
-        needle.setAttribute('x1', (tx2).toFixed(1));
-        needle.setAttribute('y1', (ty2 + 3).toFixed(1));
-        needle.setAttribute('x2', enx.toFixed(1));
-        needle.setAttribute('y2', (ty2 + 3).toFixed(1));
-        lbl.setAttribute('x', (hx + 30).toFixed(1));
-        lbl.setAttribute('y', (hy - 5).toFixed(1));
+        let ex, ey;
+        if (insert) {
+            ex = 447; // Positioned right above the wooden stand block
+            ey = 280;
+        } else {
+            ex = 680; // Resting on Hall tester
+            ey = 425;
+        }
         
-        if(step < steps) requestAnimationFrame(tick);
-        else if(cb) cb();
+        function tickM2() {
+            step++;
+            const t = step / steps;
+            const ease = t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2,2)/2;
+            const nx = sx + (ex - sx) * ease;
+            const ny = sy + (ey - sy) * ease;
+            
+            board.setAttribute('data-x', nx);
+            board.setAttribute('data-y', ny);
+            board.setAttribute('transform', `translate(${nx}, ${ny})`);
+            
+            if(step < steps) requestAnimationFrame(tickM2);
+            else if(cb) cb();
+        }
+        tickM2();
     }
-    tick();
 }
 
 // ========== UI EVENTS ==========
@@ -1006,9 +1169,13 @@ $('ui-proc').addEventListener('change', e => {
     $('wires-mode1').style.display = mode === 'b_vs_i' ? '' : 'none';
     $('wires-mode2').style.display = mode === 'hall_setup' ? '' : 'none';
     
-    // Hall probe and its insertion button are ONLY for B vs I mode
+    // Toggle active probe object
     $('probe-group').style.display = mode === 'b_vs_i' ? '' : 'none';
-    $('btn-insert').parentElement.style.display = mode === 'b_vs_i' ? '' : 'none';
+    $('white-board-group').style.display = mode === 'hall_setup' ? '' : 'none';
+    
+    // Common insert button text mapping
+    $('btn-insert').innerHTML = mode === 'b_vs_i' ? '&#8681; Insert Probe' : '&#8681; Insert Sample Board';
+    $('btn-remove').innerHTML = mode === 'b_vs_i' ? '&#8679; Remove Probe' : '&#8679; Remove Sample Board';
     
     if(mode === 'b_vs_i') {
         chart.options.scales.x.title.text = 'Current (A)';
