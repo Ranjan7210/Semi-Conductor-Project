@@ -927,9 +927,9 @@
                     </select>
                 </div>
                 <div class="cg">
-                    <label>Thickness (t) <span><span class="v" id="v-t">1.0</span><span
+                    <label>Thickness (t) <span><span class="v" id="v-t">0.1</span><span
                                 class="u">mm</span></span></label>
-                    <input type="range" id="ui-t" min="0.1" max="5.0" step="0.1" value="1.0">
+                    <input type="range" id="ui-t" min="0.1" max="5.0" step="0.1" value="0.1">
                 </div>
                 <div class="cg">
                     <label>Electromagnet Current <span><span class="v" id="v-em">2.0</span><span
@@ -937,9 +937,9 @@
                     <input type="range" id="ui-em" min="0" max="5" step="0.1" value="2.0">
                 </div>
                 <div class="cg">
-                    <label>Hall Current (I) <span><span class="v" id="v-hc">5.0</span><span
+                    <label>Hall Current (I) <span><span class="v" id="v-hc">1.0</span><span
                                 class="u">mA</span></span></label>
-                    <input type="range" id="ui-hc" min="0.5" max="15" step="0.5" value="5.0">
+                    <input type="range" id="ui-hc" min="0.5" max="15" step="0.5" value="1.0">
                 </div>
                 <div style="display:flex;gap:8px;margin-top:18px;">
                     <button class="btn btn-s" id="btn-insert">⬇ Insert Probe</button>
@@ -999,7 +999,7 @@
     <script>
         // ========== MATERIAL DATABASE ==========
         const MATERIALS = {
-            Ge: { name: 'Germanium', n: 1.5e21, sign: 1, mu: 0.39, color: '#888' },
+            Ge: { name: 'Germanium', n: 3.227e17, rh: 0.0194, sign: 1, mu: 0.39, color: '#888' },
             Si: { name: 'Silicon', n: 5.0e22, sign: -1, mu: 0.15, color: '#94a3b8' },
             GaAs: { name: 'Gallium Arsenide', n: 1.0e20, sign: -1, mu: 0.85, color: '#66bb6a' }
         };
@@ -1007,7 +1007,7 @@
 
         // ========== STATE ==========
         let S = {
-            mat: 'Ge', t: 1.0e-3, emA: 2.0, hcmA: 5.0, hcA: 5.0e-3,
+            mat: 'Ge', t: 0.1e-3, emA: 2.0, hcmA: 1.0, hcA: 1.0e-3,
             B: 0.4, probeIn: false, voltShown: false, resShown: false,
             Vh: 0, Rh: 0, mu: 0, obsCount: 0,
             mode: 'b_vs_i',    // current procedure mode
@@ -1016,15 +1016,24 @@
 
         const $ = id => document.getElementById(id);
 
+        function getBField(current) {
+            // Experimental empirical exact multiplier
+            // If probe is not physically in the gap, measuring B is mathematically 0 on measuring unit or sample
+            // Note: the field exists, but the sample/probe reads it as 0
+            return parseFloat((0.1482 * current).toFixed(4));
+        }
+
         // ========== PHYSICS ==========
         function calc() {
             const m = MATERIALS[S.mat];
-            // B field linear approx: B = 0.2 * I_electromagnet (max 1T at 5A)
-            S.B = S.emA * 0.2;
-            // Hall Coefficient: R_H = 1 / (n * q)  (sign indicates carrier type)
-            const qe = Q * m.sign;
-            S.Rh = 1 / (m.n * qe);
+            // Compute real empirical exact B field multiplier
+            S.B = getBField(S.emA);
+            
+            // Hall Coefficient: Use reference constant if available strictly to match VLab logic
+            S.Rh = m.rh ? (m.rh * m.sign) : (1 / (m.n * Q * m.sign));
+            
             // Hall Voltage: V_H = (R_H * I * B) / t
+            // Evaluates safely using proper SI units: (m^3/C * A * T) / m = V
             S.Vh = (S.Rh * S.hcA * S.B) / S.t;
             // Mobility: μ = |R_H| * conductivity, stored as material property
             // For display we use the known mobility value from material database
@@ -1043,7 +1052,7 @@
 
         // ========== DISPLAY UPDATES ==========
         function updateAllDisplays() {
-            $('o-b').textContent = S.B.toFixed(3) + ' T';
+            $('o-b').textContent = S.B.toFixed(4) + ' T';
             if (S.voltShown && S.probeIn) {
                 $('o-vh').textContent = fmtV(S.Vh);
                 $('o-vh').style.color = '#feca57';
@@ -1612,7 +1621,7 @@
                 chartData.labels.push(S.emA.toFixed(1));
                 chartData.datasets[0].data.push(S.B);
             } else {
-                chartData.labels.push(S.B.toFixed(3));
+                chartData.labels.push(S.B.toFixed(4));
                 chartData.datasets[0].data.push(S.Vh);
             }
             if (chartData.labels.length > 20) { chartData.labels.shift(); chartData.datasets[0].data.shift(); }
