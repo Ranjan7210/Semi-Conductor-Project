@@ -776,7 +776,14 @@ function updateKnob() {
 // ========== 3. GAUSS METER ==========
 function updateGaussMeter() {
     const el = $('gauss-display');
-    if(el) el.textContent = S.B.toFixed(4);
+    if(!el) return;
+    
+    // Gauss meter only shows live values when probe is physically inserted
+    if(S.probeIn && S.mode === 'b_vs_i') {
+        el.textContent = S.B.toFixed(4);
+    } else {
+        el.textContent = "0.0000";
+    }
 }
 
 // ========== 4. HALL EFFECT TESTER ==========
@@ -806,12 +813,13 @@ function updateHallTester() {
             d.setAttribute('filter', 'url(#glow)');
             u.setAttribute('fill', '#997700');
         } else {
-            bg.setAttribute('fill', '#120c04');
-            d.textContent = '---';
-            d.setAttribute('fill', '#553300');
+            // When probe is removed, show exactly 0.0000
+            bg.setAttribute('fill', '#1a1508');
+            d.textContent = '0.0000';
+            d.setAttribute('fill', '#ffaa00');
             d.removeAttribute('filter');
             u.textContent = 'mV';
-            u.setAttribute('fill', '#442200');
+            u.setAttribute('fill', '#997700');
         }
     }
 }
