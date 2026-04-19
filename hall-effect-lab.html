@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +12,7 @@
         :root {
             --bg: #060a12;
             --panel-bg: rgba(12, 20, 38, 0.85);
-            --panel-border: rgba(255,255,255,0.08);
+            --panel-border: rgba(255, 255, 255, 0.08);
             --primary: #00f2fe;
             --accent: #4facfe;
             --text: #f1f5f9;
@@ -20,7 +21,13 @@
             --success: #1dd1a1;
             --warn: #feca57;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg);
@@ -34,1250 +41,1647 @@
             height: 56px;
             background: linear-gradient(90deg, #0a1628 0%, #172a45 100%);
             border-bottom: 1px solid var(--panel-border);
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 0 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            z-index: 100; position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            position: relative;
         }
+
         header h1 {
-            font-size: 1.15rem; font-weight: 600;
+            font-size: 1.15rem;
+            font-weight: 600;
             background: linear-gradient(135deg, #00f2fe, #4facfe);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .header-tabs { display: flex; gap: 10px; }
+
+        .header-tabs {
+            display: flex;
+            gap: 10px;
+        }
+
         .header-tabs a {
-            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-            color: #aaa; padding: 6px 14px; border-radius: 6px; text-decoration: none;
-            font-size: 0.85rem; font-weight: 500; transition: all 0.2s;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #aaa;
+            padding: 6px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
         }
-        .header-tabs a.active, .header-tabs a:hover {
-            color: #fff; background: rgba(0,242,254,0.1); border-color: rgba(0,242,254,0.4);
+
+        .header-tabs a.active,
+        .header-tabs a:hover {
+            color: #fff;
+            background: rgba(0, 242, 254, 0.1);
+            border-color: rgba(0, 242, 254, 0.4);
         }
 
         /* ===== WORKSPACE ===== */
-        .workspace { display: flex; height: calc(100vh - 56px); }
+        .workspace {
+            display: flex;
+            height: calc(100vh - 56px);
+        }
 
         /* ===== LEFT — SVG APPARATUS ===== */
         .sim-area {
-            flex: 1; position: relative;
+            flex: 1;
+            position: relative;
             overflow: hidden;
         }
-        .sim-area svg { width: 100%; height: 100%; }
+
+        .sim-area svg {
+            width: 100%;
+            height: 100%;
+        }
 
         /* ===== RIGHT — CONTROL PANEL ===== */
         .ctrl-panel {
-            width: 400px; background: var(--panel-bg);
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            width: 400px;
+            background: var(--panel-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-left: 1px solid var(--panel-border);
-            display: flex; flex-direction: column;
-            overflow-y: auto; box-shadow: -8px 0 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            box-shadow: -8px 0 30px rgba(0, 0, 0, 0.5);
             z-index: 10;
         }
+
         .section {
-            padding: 20px 22px; border-bottom: 1px solid rgba(255,255,255,0.04);
+            padding: 20px 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
+
         .section h2 {
-            font-size: 1rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+
         .section h2::before {
-            content: ''; width: 4px; height: 14px;
-            background: var(--primary); border-radius: 2px;
+            content: '';
+            width: 4px;
+            height: 14px;
+            background: var(--primary);
+            border-radius: 2px;
         }
 
         /* Controls */
-        .cg { margin-bottom: 14px; }
+        .cg {
+            margin-bottom: 14px;
+        }
+
         .cg label {
-            display: flex; justify-content: space-between; font-size: 0.82rem;
-            color: var(--muted); margin-bottom: 6px; font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-bottom: 6px;
+            font-weight: 500;
         }
-        .cg label .v { color: #fff; font-family: 'Orbitron', monospace; font-weight: 600; font-size: 0.85rem; }
-        .cg label .u { color: var(--primary); margin-left: 2px; font-family: 'Inter'; font-size: 0.78rem; }
+
+        .cg label .v {
+            color: #fff;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .cg label .u {
+            color: var(--primary);
+            margin-left: 2px;
+            font-family: 'Inter';
+            font-size: 0.78rem;
+        }
+
         select {
-            width: 100%; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.1);
-            color: #fff; padding: 9px 10px; border-radius: 7px; font-family: inherit;
-            font-size: 0.88rem; outline: none; transition: border-color 0.2s;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 9px 10px;
+            border-radius: 7px;
+            font-family: inherit;
+            font-size: 0.88rem;
+            outline: none;
+            transition: border-color 0.2s;
         }
-        select:focus { border-color: var(--primary); }
+
+        select:focus {
+            border-color: var(--primary);
+        }
+
         input[type=range] {
-            -webkit-appearance: none; width: 100%; height: 5px;
-            background: rgba(255,255,255,0.08); border-radius: 3px; outline: none;
+            -webkit-appearance: none;
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 3px;
+            outline: none;
         }
+
         input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%;
-            background: var(--primary); cursor: pointer;
-            box-shadow: 0 0 8px rgba(0,242,254,0.5); transition: transform 0.1s;
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(0, 242, 254, 0.5);
+            transition: transform 0.1s;
         }
-        input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
 
         /* Buttons */
         .btn {
-            width: 100%; padding: 11px; border-radius: 8px; font-weight: 600;
-            font-size: 0.9rem; cursor: pointer; border: none;
-            display: flex; justify-content: center; align-items: center; gap: 6px;
-            transition: all 0.25s cubic-bezier(0.25,0.8,0.25,1);
+            width: 100%;
+            padding: 11px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
+
         .btn-p {
             background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-            color: #000; box-shadow: 0 3px 12px rgba(0,242,254,0.3);
+            color: #000;
+            box-shadow: 0 3px 12px rgba(0, 242, 254, 0.3);
         }
-        .btn-p:hover { box-shadow: 0 5px 18px rgba(0,242,254,0.5); transform: translateY(-1px); }
+
+        .btn-p:hover {
+            box-shadow: 0 5px 18px rgba(0, 242, 254, 0.5);
+            transform: translateY(-1px);
+        }
+
         .btn-s {
-            background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .btn-s:hover { background: rgba(255,255,255,0.1); }
-        .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; box-shadow: none !important; filter: grayscale(0.8); }
+
+        .btn-s:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+            filter: grayscale(0.8);
+        }
 
         /* Output */
         .out-box {
-            background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 10px; padding: 14px; margin-top: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 14px;
+            margin-top: 12px;
         }
-        .dr { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.82rem; color: var(--muted); }
-        .dr:last-child { margin-bottom: 0; }
-        .dv { font-family: 'Orbitron', monospace; font-size: 1rem; color: #fff; font-weight: 600; }
-        .dv.volt { color: var(--warn); text-shadow: 0 0 8px rgba(254,202,87,0.4); }
-        .dv.grn { color: var(--success); text-shadow: 0 0 8px rgba(29,209,161,0.4); }
 
-        .hidden { display: none !important; }
+        .dr {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        .dr:last-child {
+            margin-bottom: 0;
+        }
+
+        .dv {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .dv.volt {
+            color: var(--warn);
+            text-shadow: 0 0 8px rgba(254, 202, 87, 0.4);
+        }
+
+        .dv.grn {
+            color: var(--success);
+            text-shadow: 0 0 8px rgba(29, 209, 161, 0.4);
+        }
+
+        .hidden {
+            display: none !important;
+        }
 
         /* Status overlay */
         .status-bar {
-            position: absolute; bottom: 20px; left: 20px;
-            background: rgba(8,12,20,0.85); backdrop-filter: blur(8px);
-            padding: 10px 18px; border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.08);
-            font-size: 0.82rem; z-index: 10; display: flex; align-items: center; gap: 8px;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(8, 12, 20, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.82rem;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+
         .sd {
-            width: 9px; height: 9px; border-radius: 50%;
-            background: var(--danger); box-shadow: 0 0 6px var(--danger);
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--danger);
+            box-shadow: 0 0 6px var(--danger);
         }
-        .sd.on { background: var(--success); box-shadow: 0 0 6px var(--success); }
+
+        .sd.on {
+            background: var(--success);
+            box-shadow: 0 0 6px var(--success);
+        }
 
         /* Obs table */
         .obs-wrap {
-            background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 8px; max-height: 140px; overflow-y: auto; margin-bottom: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            max-height: 140px;
+            overflow-y: auto;
+            margin-bottom: 8px;
         }
+
         .obs-wrap table {
-            width: 100%; border-collapse: collapse; font-size: 0.72rem;
-            color: #cbd5e1; text-align: left;
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.72rem;
+            color: #cbd5e1;
+            text-align: left;
         }
-        .obs-wrap thead { background: rgba(255,255,255,0.04); position: sticky; top: 0; }
-        .obs-wrap th, .obs-wrap td { padding: 6px 8px; }
-        .obs-wrap td { border-top: 1px solid rgba(255,255,255,0.03); }
+
+        .obs-wrap thead {
+            background: rgba(255, 255, 255, 0.04);
+            position: sticky;
+            top: 0;
+        }
+
+        .obs-wrap th,
+        .obs-wrap td {
+            padding: 6px 8px;
+        }
+
+        .obs-wrap td {
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
 
         /* Graph panel */
-        .graph-wrap { flex: 1; min-height: 180px; position: relative; }
-        .graph-wrap canvas { width: 100% !important; height: 100% !important; }
+        .graph-wrap {
+            flex: 1;
+            min-height: 180px;
+            position: relative;
+        }
+
+        .graph-wrap canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
     </style>
 </head>
+
 <body>
 
-<header>
-    <h1>Hall Effect Experiment — Charge Carrier Density Determination</h1>
-    <div class="header-tabs">
-        <a class="active" href="#">Simulation</a>
-        <a href="abstract.html">Theory</a>
-        <a href="index.html">Dashboard</a>
-    </div>
-</header>
-
-<div class="workspace">
-
-<!-- ==================== SVG APPARATUS ==================== -->
-<div class="sim-area">
-<svg id="lab-svg" viewBox="0 0 1000 720" preserveAspectRatio="xMidYMid meet">
-    <defs>
-        <!-- Warm lab background -->
-        <radialGradient id="labBg" cx="50%" cy="30%" r="70%">
-            <stop offset="0%" stop-color="#5a4a3a"/>
-            <stop offset="60%" stop-color="#3d3028"/>
-            <stop offset="100%" stop-color="#2a2018"/>
-        </radialGradient>
-        <!-- Wall gradient -->
-        <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#6b5d4f"/>
-            <stop offset="100%" stop-color="#4a3d30"/>
-        </linearGradient>
-        <!-- Table top -->
-        <linearGradient id="tableTop" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#8b7355"/>
-            <stop offset="40%" stop-color="#7a6348"/>
-            <stop offset="100%" stop-color="#5c4a35"/>
-        </linearGradient>
-        <!-- Table front -->
-        <linearGradient id="tableFront" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#6b5540"/>
-            <stop offset="100%" stop-color="#4a3828"/>
-        </linearGradient>
-        <!-- Metallic cylinder for electromagnets -->
-        <linearGradient id="cylGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#aaa"/>
-            <stop offset="15%" stop-color="#888"/>
-            <stop offset="50%" stop-color="#666"/>
-            <stop offset="85%" stop-color="#555"/>
-            <stop offset="100%" stop-color="#777"/>
-        </linearGradient>
-        <linearGradient id="cylEnd" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#999"/>
-            <stop offset="100%" stop-color="#555"/>
-        </linearGradient>
-        <!-- Power supply box -->
-        <linearGradient id="psTop" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#7090c0"/>
-            <stop offset="100%" stop-color="#5070a0"/>
-        </linearGradient>
-        <linearGradient id="psFront" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#c0c8d0"/>
-            <stop offset="100%" stop-color="#a0a8b0"/>
-        </linearGradient>
-        <!-- Gauss meter box -->
-        <linearGradient id="gmTop" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#606878"/>
-            <stop offset="100%" stop-color="#484e5c"/>
-        </linearGradient>
-        <linearGradient id="gmFront" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#8890a0"/>
-            <stop offset="100%" stop-color="#6a7080"/>
-        </linearGradient>
-        <!-- Ammeter face -->
-        <radialGradient id="meterFace" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#f5f0e8"/>
-            <stop offset="85%" stop-color="#e8e0d0"/>
-            <stop offset="100%" stop-color="#d0c8b8"/>
-        </radialGradient>
-        <!-- Glow filters -->
-        <filter id="glow">
-            <feGaussianBlur stdDeviation="2" result="blur"/>
-            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-        <filter id="softShadow">
-            <feDropShadow dx="3" dy="5" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
-        </filter>
-        <filter id="lightCone">
-            <feGaussianBlur stdDeviation="20" result="blur"/>
-            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-        <!-- Magnet base -->
-        <linearGradient id="baseGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#708090"/>
-            <stop offset="100%" stop-color="#4a5568"/>
-        </linearGradient>
-        <!-- Sample holder -->
-        <linearGradient id="holderGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#c4a06a"/>
-            <stop offset="100%" stop-color="#8b7040"/>
-        </linearGradient>
-    </defs>
-
-    <!-- ===== BACKGROUND: LAB WALL ===== -->
-    <rect x="0" y="0" width="1000" height="720" fill="url(#labBg)"/>
-    <!-- Warm overhead light cone -->
-    <ellipse cx="500" cy="0" rx="400" ry="250" fill="rgba(255,230,180,0.08)" filter="url(#lightCone)"/>
-
-    <!-- ===== LAB TABLE ===== -->
-    <!-- Table top surface (perspective) -->
-    <polygon points="20,480 980,480 940,520 60,520" fill="url(#tableTop)" stroke="#5c4a35" stroke-width="1"/>
-    <!-- Table top edge highlight -->
-    <line x1="20" y1="480" x2="980" y2="480" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-    <!-- Table front -->
-    <rect x="60" y="520" width="880" height="200" fill="url(#tableFront)"/>
-    <!-- Table legs -->
-    <rect x="80" y="680" width="40" height="40" rx="3" fill="#3a2a1a"/>
-    <rect x="880" y="680" width="40" height="40" rx="3" fill="#3a2a1a"/>
-
-    <!-- ===== ELECTROMAGNET ASSEMBLY ===== -->
-    <g filter="url(#softShadow)">
-        <!-- Base/Stand -->
-        <rect x="250" y="400" width="500" height="40" rx="5" fill="url(#baseGrad)" stroke="#3a4555" stroke-width="1"/>
-        <rect x="260" y="395" width="480" height="8" rx="3" fill="#5a6878"/>
-        <!-- Raised support pillars -->
-        <rect x="300" y="340" width="30" height="60" fill="#5a6878"/>
-        <rect x="670" y="340" width="30" height="60" fill="#5a6878"/>
-
-        <!-- LEFT ELECTROMAGNET CYLINDER -->
-        <g>
-            <!-- Cylinder body -->
-            <rect x="260" y="200" width="200" height="140" rx="5" fill="url(#cylGrad)" stroke="#555" stroke-width="1"/>
-            <!-- Cylinder highlight -->
-            <rect x="265" y="205" width="190" height="10" rx="3" fill="rgba(255,255,255,0.12)"/>
-            <!-- Left end cap (ellipse) -->
-            <ellipse cx="260" cy="270" rx="12" ry="70" fill="url(#cylEnd)" stroke="#555" stroke-width="1"/>
-            <!-- Terminal for black wire -->
-            <rect x="245" y="260" width="10" height="20" rx="2" fill="#222" stroke="#444" stroke-width="1"/>
-            <circle cx="248" cy="270" r="4" fill="#333" stroke="#111" stroke-width="1"/>
-            <!-- Right end (pole face) -->
-            <rect x="450" y="230" width="20" height="80" rx="2" fill="#4a4a4a" stroke="#333" stroke-width="1"/>
-            <!-- Pole tip -->
-            <polygon points="470,245 500,255 500,285 470,295" fill="#555" stroke="#444" stroke-width="1"/>
-            <!-- Coil windings visible -->
-            <rect x="310" y="195" width="100" height="150" rx="3" fill="none" stroke="#222" stroke-width="1"/>
-            <g opacity="0.15" stroke="#000" stroke-width="0.8">
-                <line x1="312" y1="200" x2="408" y2="200"/><line x1="312" y1="207" x2="408" y2="207"/>
-                <line x1="312" y1="214" x2="408" y2="214"/><line x1="312" y1="221" x2="408" y2="221"/>
-                <line x1="312" y1="228" x2="408" y2="228"/><line x1="312" y1="235" x2="408" y2="235"/>
-                <line x1="312" y1="242" x2="408" y2="242"/><line x1="312" y1="249" x2="408" y2="249"/>
-                <line x1="312" y1="256" x2="408" y2="256"/><line x1="312" y1="263" x2="408" y2="263"/>
-                <line x1="312" y1="270" x2="408" y2="270"/><line x1="312" y1="277" x2="408" y2="277"/>
-                <line x1="312" y1="284" x2="408" y2="284"/><line x1="312" y1="291" x2="408" y2="291"/>
-                <line x1="312" y1="298" x2="408" y2="298"/><line x1="312" y1="305" x2="408" y2="305"/>
-                <line x1="312" y1="312" x2="408" y2="312"/><line x1="312" y1="319" x2="408" y2="319"/>
-                <line x1="312" y1="326" x2="408" y2="326"/><line x1="312" y1="333" x2="408" y2="333"/>
-                <line x1="312" y1="340" x2="408" y2="340"/>
-            </g>
-        </g>
-
-        <!-- RIGHT ELECTROMAGNET CYLINDER -->
-        <g>
-            <rect x="540" y="200" width="200" height="140" rx="5" fill="url(#cylGrad)" stroke="#555" stroke-width="1"/>
-            <rect x="545" y="205" width="190" height="10" rx="3" fill="rgba(255,255,255,0.12)"/>
-            <!-- Right end cap -->
-            <ellipse cx="740" cy="270" rx="12" ry="70" fill="url(#cylEnd)" stroke="#555" stroke-width="1"/>
-            <!-- Terminal for red wire -->
-            <rect x="745" y="260" width="10" height="20" rx="2" fill="#222" stroke="#444" stroke-width="1"/>
-            <circle cx="752" cy="270" r="4" fill="#cc0000" stroke="#550000" stroke-width="1"/>
-            <!-- Left end (pole face) -->
-            <rect x="530" y="230" width="20" height="80" rx="2" fill="#4a4a4a" stroke="#333" stroke-width="1"/>
-            <!-- Pole tip -->
-            <polygon points="530,245 500,255 500,285 530,295" fill="#555" stroke="#444" stroke-width="1"/>
-            <!-- Coil winding area -->
-            <rect x="590" y="195" width="100" height="150" rx="3" fill="none" stroke="#222" stroke-width="1"/>
-            <g opacity="0.15" stroke="#000" stroke-width="0.8">
-                <line x1="592" y1="200" x2="688" y2="200"/><line x1="592" y1="207" x2="688" y2="207"/>
-                <line x1="592" y1="214" x2="688" y2="214"/><line x1="592" y1="221" x2="688" y2="221"/>
-                <line x1="592" y1="228" x2="688" y2="228"/><line x1="592" y1="235" x2="688" y2="235"/>
-                <line x1="592" y1="242" x2="688" y2="242"/><line x1="592" y1="249" x2="688" y2="249"/>
-                <line x1="592" y1="256" x2="688" y2="256"/><line x1="592" y1="263" x2="688" y2="263"/>
-                <line x1="592" y1="270" x2="688" y2="270"/><line x1="592" y1="277" x2="688" y2="277"/>
-                <line x1="592" y1="284" x2="688" y2="284"/><line x1="592" y1="291" x2="688" y2="291"/>
-                <line x1="592" y1="298" x2="688" y2="298"/><line x1="592" y1="305" x2="688" y2="305"/>
-                <line x1="592" y1="312" x2="688" y2="312"/><line x1="592" y1="319" x2="688" y2="319"/>
-                <line x1="592" y1="326" x2="688" y2="326"/><line x1="592" y1="333" x2="688" y2="333"/>
-                <line x1="592" y1="340" x2="688" y2="340"/>
-            </g>
-        </g>
-    </g>
-
-    <!-- Magnetic field lines (animated between poles) -->
-    <g id="field-lines" opacity="0.35">
-        <line x1="502" y1="258" x2="528" y2="258" stroke="#6cb4ee" stroke-width="1.5" stroke-dasharray="4 3">
-            <animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s" repeatCount="indefinite"/>
-        </line>
-        <line x1="502" y1="270" x2="528" y2="270" stroke="#6cb4ee" stroke-width="2" stroke-dasharray="4 3">
-            <animate attributeName="stroke-dashoffset" from="0" to="-14" dur="0.8s" repeatCount="indefinite"/>
-        </line>
-        <line x1="502" y1="282" x2="528" y2="282" stroke="#6cb4ee" stroke-width="1.5" stroke-dasharray="4 3">
-            <animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s" repeatCount="indefinite"/>
-        </line>
-    </g>
-
-    <!-- ===== HALL SAMPLE HOLDER (fixed between poles) ===== -->
-    <!-- Holder mount (wooden block on base) -->
-    <rect x="485" y="310" width="30" height="90" rx="2" fill="url(#holderGrad)" stroke="#705828" stroke-width="1"/>
-    <rect x="480" y="300" width="40" height="15" rx="2" fill="url(#holderGrad)" stroke="#705828" stroke-width="1"/>
-    <!-- The sample itself is now mounted on the White Terminal Strip and inserted dynamically -->
-
-    <!-- ===== COMMON WIRES: Power Supply → Electromagnet Cylinders ===== -->
-    <!-- Black wire: PS left terminal → LEFT electromagnet cylinder body (end cap terminal) -->
-    <path d="M130,550 C80,560 40,480 50,380 C55,300 100,265 248,270" fill="none" stroke="#222" stroke-width="4" stroke-linecap="round"/>
-    <!-- Red wire: PS right terminal → RIGHT electromagnet cylinder body (end cap terminal) -->
-    <path d="M310,550 C380,590 550,560 650,480 C750,400 820,320 752,270" fill="none" stroke="#cc3333" stroke-width="3" stroke-linecap="round"/>
-    <!-- Current flow particles on power wire -->
-    <circle r="3" fill="#ff6644" opacity="0" filter="url(#glow)">
-        <animateMotion dur="3s" repeatCount="indefinite" path="M130,550 C80,560 40,480 50,380 C55,300 100,265 248,270"/>
-        <animate attributeName="opacity" values="0;1;1;0" dur="3s" repeatCount="indefinite"/>
-    </circle>
-
-    <!-- ===== MODE 1 WIRES: Gauss Meter probe cable ===== -->
-    <g id="wires-mode1">
-        <!-- White probe cable: from probe handle back to Gauss Meter top -->
-        <path id="probe-cable" d="M780,445 C800,440 830,440 850,445" fill="none" stroke="#ddd" stroke-width="3" stroke-linecap="round"/>
-    </g>
-
-    <!-- ===== MODE 2 WIRES: Flexible Braided Wires (from terminal board to tester) ===== -->
-    <g id="wires-mode2" style="display:none">
-        <path id="bw1" fill="none" stroke="#cc3333" stroke-width="1.5" stroke-linecap="round"/>
-        <path id="bw2" fill="none" stroke="#22aa66" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6 4"/>
-        <path id="bw3" fill="none" stroke="#cc3333" stroke-width="1.5" stroke-linecap="round"/>
-        <path id="bw4" fill="none" stroke="#22aa66" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="5 3"/>
-    </g>
-
-    <!-- ===== CONSTANT CURRENT SOURCE (Power Supply) ===== -->
-    <g filter="url(#softShadow)">
-        <!-- Box body - 3D perspective -->
-        <!-- Top face (blue) -->
-        <polygon points="80,440 350,440 340,460 90,460" fill="url(#psTop)" stroke="#4060a0" stroke-width="1"/>
-        <!-- Front face (silver/gray) -->
-        <rect x="90" y="460" width="250" height="130" rx="3" fill="url(#psFront)" stroke="#8090a0" stroke-width="1"/>
-        <!-- Left side face -->
-        <polygon points="80,440 90,460 90,590 80,575" fill="#5070a0"/>
-        <!-- Blue border line on front -->
-        <rect x="88" y="458" width="254" height="134" rx="4" fill="none" stroke="#5080c0" stroke-width="2"/>
-
-        <!-- ANALOG AMMETER -->
-        <rect x="105" y="470" width="100" height="80" rx="4" fill="#111" stroke="#333" stroke-width="1.5"/>
-        <rect x="110" y="475" width="90" height="70" rx="3" fill="url(#meterFace)"/>
-        <!-- Scale arc -->
-        <path d="M125,535 Q155,480 185,535" fill="none" stroke="#333" stroke-width="0.5"/>
-        <!-- Tick marks rendered by JS -->
-        <g id="meter-ticks"></g>
-        <!-- Scale numbers -->
-        <text x="118" y="533" fill="#333" font-size="7" font-weight="600" font-family="Inter">0</text>
-        <text x="132" y="495" fill="#333" font-size="6" font-family="Inter">2</text>
-        <text x="142" y="487" fill="#333" font-size="6" font-family="Inter">4</text>
-        <text x="153" y="484" fill="#333" font-size="6" font-family="Inter">6</text>
-        <text x="164" y="487" fill="#333" font-size="6" font-family="Inter">8</text>
-        <text x="174" y="495" fill="#333" font-size="6" font-family="Inter">10</text>
-        <text x="185" y="533" fill="#333" font-size="7" font-weight="600" font-family="Inter"> </text>
-        <!-- A label -->
-        <text x="155" y="530" fill="#333" font-size="10" font-weight="700" text-anchor="middle" font-family="Inter">A</text>
-        <!-- NEEDLE -->
-        <line id="ammeter-needle" x1="155" y1="540" x2="125" y2="500" stroke="#cc0000" stroke-width="1.5" stroke-linecap="round"/>
-        <!-- Pivot -->
-        <circle cx="155" cy="540" r="3" fill="#444"/>
-
-        <!-- LARGE CURRENT KNOB -->
-        <g id="knob-group" transform="translate(260, 510)">
-            <circle r="24" fill="#1a1a1a" stroke="#444" stroke-width="2"/>
-            <circle r="21" fill="#222"/>
-            <!-- Grip ridges -->
-            <g id="knob-ridges" stroke="#444" stroke-width="1.2">
-                <line x1="0" y1="-21" x2="0" y2="-16"/>
-                <line x1="11" y1="-18" x2="9" y2="-14"/>
-                <line x1="19" y1="-10" x2="15" y2="-8"/>
-                <line x1="21" y1="0" x2="16" y2="0"/>
-                <line x1="19" y1="10" x2="15" y2="8"/>
-                <line x1="11" y1="18" x2="9" y2="14"/>
-                <line x1="0" y1="21" x2="0" y2="16"/>
-                <line x1="-11" y1="18" x2="-9" y2="14"/>
-                <line x1="-19" y1="10" x2="-15" y2="8"/>
-                <line x1="-21" y1="0" x2="-16" y2="0"/>
-                <line x1="-19" y1="-10" x2="-15" y2="-8"/>
-                <line x1="-11" y1="-18" x2="-9" y2="-14"/>
-            </g>
-            <!-- Indicator mark -->
-            <line id="knob-indicator" x1="0" y1="0" x2="0" y2="-19" stroke="#00f2fe" stroke-width="2.5" stroke-linecap="round"/>
-            <circle r="5" fill="#111"/>
-        </g>
-        <!-- Arrow buttons (decorative) -->
-        <text x="260" y="478" fill="#333" font-size="16" text-anchor="middle" font-weight="700">◄ ►</text>
-
-        <!-- Power indicator LED -->
-        <circle id="power-led" cx="310" y="500" r="5" fill="#44cc44" stroke="#228822" stroke-width="1"/>
-        <!-- Power switch -->
-        <rect x="290" y="525" width="20" height="28" rx="3" fill="#333" stroke="#555" stroke-width="1"/>
-        <rect x="293" y="527" width="14" height="12" rx="2" fill="#222"/>
-        
-        <!-- MAIN POWER TERMINALS -->
-        <!-- Negative terminal (Black wire connects here) -->
-        <circle cx="130" cy="550" r="8" fill="#222" stroke="#111" stroke-width="2"/>
-        <circle cx="130" cy="550" r="4" fill="#111"/>
-        <!-- Positive terminal (Red wire connects here) -->
-        <circle cx="310" cy="550" r="8" fill="#cc0000" stroke="#880000" stroke-width="2"/>
-        <circle cx="310" cy="550" r="4" fill="#770000"/>
-        <!-- Terminal labels -->
-        <text x="130" y="575" fill="#333" font-size="10" font-weight="700" text-anchor="middle" font-family="Inter">−</text>
-        <text x="310" y="575" fill="#333" font-size="10" font-weight="700" text-anchor="middle" font-family="Inter">+</text>
-    </g>
-
-    <!-- ===== MODE 1 INSTRUMENT: GAUSS METER ===== -->
-    <g id="instrument-mode1" filter="url(#softShadow)">
-        <polygon points="650,440 900,440 890,460 660,460" fill="url(#gmTop)" stroke="#3a4050" stroke-width="1"/>
-        <rect x="660" y="460" width="230" height="120" rx="3" fill="url(#gmFront)" stroke="#555" stroke-width="1"/>
-        <polygon points="900,440 890,460 890,580 900,565" fill="#5a6070"/>
-        <!-- LCD green screen -->
-        <rect x="680" y="475" width="130" height="45" rx="4" fill="#c8d4a8" stroke="#8a9060" stroke-width="1.5"/>
-        <rect x="684" y="479" width="122" height="37" rx="2" fill="#b8c898"/>
-        <text id="gauss-display" x="745" y="508" fill="#2a3a18" font-size="26" text-anchor="middle"
-              font-family="'Orbitron', monospace" font-weight="700">0.4000</text>
-        <text x="745" y="540" fill="#333" font-size="12" text-anchor="middle" font-weight="700" font-family="Inter">GAUSS METER</text>
-        <text x="775" y="518" fill="#4a5a28" font-size="8" font-family="Inter">Tesla</text>
-        <!-- Knobs -->
-        <circle cx="830" cy="555" r="8" fill="#444" stroke="#555" stroke-width="1.5"/>
-        <circle cx="860" cy="555" r="6" fill="#333" stroke="#555" stroke-width="1"/>
-    </g>
-
-    <!-- ===== MODE 2 INSTRUMENT: HALL EFFECT TESTER ===== -->
-    <g id="instrument-mode2" style="display:none" transform="translate(160, 5)">
-        <g filter="url(#softShadow)">
-            <!-- Tester body -->
-            <polygon points="490,435 770,435 760,455 500,455" fill="#3a4048" stroke="#2a3038" stroke-width="1"/>
-            
-
-
-            <rect x="500" y="455" width="260" height="130" rx="3" fill="#e0d8cc" stroke="#999" stroke-width="1"/>
-            <polygon points="490,435 500,455 500,585 490,570" fill="#444c54"/>
-            <!-- Border accent -->
-            <rect x="498" y="453" width="264" height="134" rx="4" fill="none" stroke="#888" stroke-width="1.5"/>
-
-            <!-- Digital display screen -->
-            <rect x="515" y="465" width="145" height="45" rx="4" fill="#1a1208" stroke="#555" stroke-width="1.5"/>
-            <rect id="he-screen" x="519" y="469" width="137" height="37" rx="2" fill="#120c04"/>
-            <!-- Display reading -->
-            <text id="he-display" x="588" y="495" fill="#553300" font-size="22" text-anchor="middle"
-                  font-family="'Orbitron', monospace" font-weight="700">---</text>
-            <!-- Unit indicator -->
-            <text id="he-unit" x="588" y="505" fill="#442200" font-size="7" text-anchor="middle" font-family="Inter">mV</text>
-
-            <!-- TITLE -->
-            <text x="630" y="530" fill="#333" font-size="9" text-anchor="middle" font-weight="700" font-family="Inter">HALL EFFECT MEASUREMENT UNIT</text>
-
-            <!-- ===== CURRENT / VOLTAGE SELECTOR SWITCH ===== -->
-            <!-- Switch housing -->
-            <rect x="680" y="540" width="65" height="28" rx="4" fill="#2a2a2a" stroke="#555" stroke-width="1"/>
-            <!-- Labels -->
-            <text x="695" y="554" fill="#6cb4ee" font-size="7" font-weight="600" text-anchor="middle" font-family="Inter">I</text>
-            <text x="730" y="554" fill="#feca57" font-size="7" font-weight="600" text-anchor="middle" font-family="Inter">V</text>
-            <!-- Toggle track -->
-            <rect x="688" y="558" width="50" height="6" rx="3" fill="#111"/>
-            <!-- Toggle thumb (movable) -->
-            <circle id="iv-switch-thumb" cx="697" cy="561" r="7" fill="#00f2fe" stroke="#008899" stroke-width="1.5" style="cursor:pointer"/>
-            <!-- Click area (invisible) -->
-            <rect id="iv-switch-click" x="680" y="536" width="65" height="36" fill="transparent" style="cursor:pointer"/>
-            <!-- Mode label -->
-            <text id="iv-mode-label" x="713" y="578" fill="#888" font-size="6" text-anchor="middle" font-family="Inter">CURRENT</text>
-
-            <!-- Terminals -->
-            <circle cx="520" cy="565" r="5" fill="#cc3333" stroke="#aa2222" stroke-width="1"/>
-            <circle cx="538" cy="565" r="5" fill="#2255aa" stroke="#113366" stroke-width="1"/>
-            <text x="520" y="576" fill="#666" font-size="6" text-anchor="middle" font-family="Inter">+</text>
-            <text x="538" y="576" fill="#666" font-size="6" text-anchor="middle" font-family="Inter">−</text>
-        </g>
-    </g>
-
-    <!-- ===== GAUSS METER HALL PROBE (rests on top of Gauss Meter) ===== -->
-    <g id="probe-group">
-        <!-- Probe handle (cylindrical gray body) -->
-        <rect id="probe-handle" x="760" y="428" width="55" height="10" rx="4" fill="#666" stroke="#888" stroke-width="1"/>
-        <!-- Probe stem (thin metallic) -->
-        <rect id="probe-tip" x="745" y="431" width="17" height="4" rx="1" fill="#c0a030" stroke="#987020" stroke-width="0.5"/>
-        <!-- Probe needle tip -->
-        <line id="probe-needle" x1="745" y1="433" x2="732" y2="433" stroke="#aaa" stroke-width="2" stroke-linecap="round"/>
-        <!-- Black connector plug at back of handle -->
-        <rect x="815" y="430" width="8" height="6" rx="2" fill="#222" stroke="#444" stroke-width="0.5"/>
-        <text id="probe-label" x="788" y="425" fill="#888" font-size="7" text-anchor="middle" font-family="Inter">HALL PROBE</text>
-    </g>
-
-    <!-- ===== WHITE TERMINAL STRIP (Animates in Mode 2) ===== -->
-    <g id="white-board-group" style="display:none" data-x="680" data-y="425" transform="translate(680, 425)">
-        <!-- White board body at 0,0 -->
-        <rect x="0" y="0" width="105" height="30" rx="3" fill="#f4f5f8" stroke="#ccc" stroke-width="1"/>
-        <rect x="0" y="25" width="105" height="5" rx="1" fill="#d0d0d0"/>
-        
-        <!-- Sample Glow (only active when inserted) -->
-        <rect id="board-sample-glow" x="11" y="8" width="14" height="14" rx="2" fill="none" stroke="rgba(0,242,254,0)" stroke-width="1.5"/>
-
-        <!-- Diagram / connection traces on board -->
-        <circle cx="18" cy="15" r="8" fill="none" stroke="#bbb" stroke-width="1"/>
-        <rect id="board-sample-rect" x="14" y="11" width="8" height="8" fill="#555"/>
-        <text id="board-sample-label" x="18" y="9" fill="#888" font-size="5" text-anchor="middle" font-family="Inter">Ge</text>
-        <circle cx="10" cy="15" r="2.5" fill="#888"/>
-        <circle cx="26" cy="15" r="2.5" fill="#888"/>
-        <circle cx="18" cy="7" r="2.5" fill="#888"/>
-        <circle cx="18" cy="23" r="2.5" fill="#888"/>
-        
-        <!-- PCB traces bridging to screw terminals -->
-        <path d="M26,15 C35,5 45,5 55,5  M26,15 C35,11 45,11 55,11  M18,23 L18,25 L55,25  M18,7 L18,18 L55,18" fill="none" stroke="#999" stroke-width="1"/>
-        
-        <!-- 4 Screw Terminals -->
-        <g stroke="#999" stroke-width="0.5">
-            <circle cx="55" cy="5" r="2" fill="#d4d4d4"/><line x1="53" y1="5" x2="57" y2="5"/><line x1="55" y1="3" x2="55" y2="7"/>
-            <circle cx="55" cy="11" r="2" fill="#d4d4d4"/><line x1="53" y1="11" x2="57" y2="11"/><line x1="55" y1="9" x2="55" y2="13"/>
-            <circle cx="55" cy="18" r="2" fill="#d4d4d4"/><line x1="53" y1="18" x2="57" y2="18"/><line x1="55" y1="16" x2="55" y2="20"/>
-            <circle cx="55" cy="25" r="2" fill="#d4d4d4"/><line x1="53" y1="25" x2="57" y2="25"/><line x1="55" y1="23" x2="55" y2="27"/>
-        </g>
-        
-        <!-- Plastic wire retention clip -->
-        <rect x="70" y="5" width="6" height="20" rx="2" fill="#f8f9fa" stroke="#c0c0c0" stroke-width="1"/>
-        <line x1="73" y1="5" x2="73" y2="25" stroke="#e0e0e0" stroke-width="1"/>
-    </g>
-
-</svg>
-
-<!-- ===== MAGNIFIED PROBE VIEW (Canvas Animation) ===== -->
-<div id="magnified-specimen" style="position: absolute; top: 120px; left: 400px; width: 200px; height: 80px; display: none; background: rgba(0,0,0,0.6); border: 2px solid #555; border-radius: 6px; z-index: 50; backdrop-filter: blur(6px); box-shadow: 0 10px 30px rgba(0,0,0,0.6);">
-    <div style="position: absolute; top: -22px; left: 0; width: 100%; text-align: center; font-size: 11px; color: #aaa; font-weight: bold; font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 1px;">Carrier Deflection</div>
-    <canvas id="deflection-canvas" width="200" height="80" style="width: 100%; height: 100%; display: block; border-radius: 4px;"></canvas>
-    <div id="anim-legend" style="position: absolute; bottom: -20px; left: 0; width: 100%; text-align: center; font-size: 11px; font-weight: 600; font-family: 'Inter', sans-serif;"></div>
-</div>
-
-<div class="status-bar">
-    <div class="sd" id="sd"></div>
-    <span id="status-txt">Probe: Resting</span>
-</div>
-</div>
-
-<!-- ==================== CONTROL PANEL ==================== -->
-<div class="ctrl-panel">
-
-    <div class="section">
-        <h2>Variables</h2>
-        <div class="cg">
-            <label>Select Procedure</label>
-            <select id="ui-proc">
-                <option value="b_vs_i">Magnetic field Vs Current</option>
-                <option value="hall_setup">Hall Effect Setup</option>
-            </select>
+    <header>
+        <h1>Hall Effect Experiment — Charge Carrier Density Determination</h1>
+        <div class="header-tabs">
+            <a class="active" href="#">Simulation</a>
+            <a href="abstract.html">Theory</a>
+            <a href="index.html">Dashboard</a>
+            <a href="simulation-3d.html">3D View</a>
         </div>
-        <div class="cg">
-            <label>Select Material</label>
-            <select id="ui-mat">
-                <option value="Ge">Germanium (p-type)</option>
-                <option value="Si">Silicon (n-type)</option>
-                <option value="GaAs">Gallium Arsenide (n-type)</option>
-            </select>
-        </div>
-        <div class="cg">
-            <label>Thickness (t) <span><span class="v" id="v-t">1.0</span><span class="u">mm</span></span></label>
-            <input type="range" id="ui-t" min="0.5" max="5.0" step="0.1" value="1.0">
-        </div>
-        <div class="cg">
-            <label>Electromagnet Current <span><span class="v" id="v-em">2.0</span><span class="u">A</span></span></label>
-            <input type="range" id="ui-em" min="0" max="5" step="0.1" value="2.0">
-        </div>
-        <div class="cg">
-            <label>Hall Current (I) <span><span class="v" id="v-hc">5.0</span><span class="u">mA</span></span></label>
-            <input type="range" id="ui-hc" min="0.5" max="15" step="0.5" value="5.0">
-        </div>
-        <div style="display:flex;gap:8px;margin-top:18px;">
-            <button class="btn btn-s" id="btn-insert">⬇ Insert Probe</button>
-            <button class="btn btn-s hidden" id="btn-remove">⬆ Remove Probe</button>
-        </div>
-    </div>
+    </header>
 
-    <div class="section">
-        <h2>Measurement</h2>
-        <button class="btn btn-p" id="btn-volt" disabled>⚡ Show Voltage</button>
-        <div class="out-box">
-            <div class="dr"><span>Magnetic Field (B)</span><span class="dv" id="o-b">0.400 T</span></div>
-            <div class="dr"><span>Hall Voltage (V_H)</span><span class="dv volt" id="o-vh">---</span></div>
-            <div id="adv-results" class="hidden" style="margin-top:10px;padding-top:10px;border-top:1px dashed rgba(255,255,255,0.08);">
-                <div class="dr"><span>Hall Coefficient (R_H)</span><span class="dv grn" id="o-rh">---</span></div>
-                <div class="dr"><span>Carrier Density (n)</span><span class="dv" id="o-n">---</span></div>
-                <div class="dr"><span>Mobility (μ)</span><span class="dv" id="o-mu">---</span></div>
+    <div class="workspace">
+
+        <!-- ==================== SVG APPARATUS ==================== -->
+        <div class="sim-area">
+            <svg id="lab-svg" viewBox="0 0 1000 720" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                    <!-- Warm lab background -->
+                    <radialGradient id="labBg" cx="50%" cy="30%" r="70%">
+                        <stop offset="0%" stop-color="#5a4a3a" />
+                        <stop offset="60%" stop-color="#3d3028" />
+                        <stop offset="100%" stop-color="#2a2018" />
+                    </radialGradient>
+                    <!-- Wall gradient -->
+                    <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#6b5d4f" />
+                        <stop offset="100%" stop-color="#4a3d30" />
+                    </linearGradient>
+                    <!-- Table top -->
+                    <linearGradient id="tableTop" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#8b7355" />
+                        <stop offset="40%" stop-color="#7a6348" />
+                        <stop offset="100%" stop-color="#5c4a35" />
+                    </linearGradient>
+                    <!-- Table front -->
+                    <linearGradient id="tableFront" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#6b5540" />
+                        <stop offset="100%" stop-color="#4a3828" />
+                    </linearGradient>
+                    <!-- Metallic cylinder for electromagnets -->
+                    <linearGradient id="cylGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#aaa" />
+                        <stop offset="15%" stop-color="#888" />
+                        <stop offset="50%" stop-color="#666" />
+                        <stop offset="85%" stop-color="#555" />
+                        <stop offset="100%" stop-color="#777" />
+                    </linearGradient>
+                    <linearGradient id="cylEnd" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#999" />
+                        <stop offset="100%" stop-color="#555" />
+                    </linearGradient>
+                    <!-- Power supply box -->
+                    <linearGradient id="psTop" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#7090c0" />
+                        <stop offset="100%" stop-color="#5070a0" />
+                    </linearGradient>
+                    <linearGradient id="psFront" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#c0c8d0" />
+                        <stop offset="100%" stop-color="#a0a8b0" />
+                    </linearGradient>
+                    <!-- Gauss meter box -->
+                    <linearGradient id="gmTop" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#606878" />
+                        <stop offset="100%" stop-color="#484e5c" />
+                    </linearGradient>
+                    <linearGradient id="gmFront" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#8890a0" />
+                        <stop offset="100%" stop-color="#6a7080" />
+                    </linearGradient>
+                    <!-- Ammeter face -->
+                    <radialGradient id="meterFace" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#f5f0e8" />
+                        <stop offset="85%" stop-color="#e8e0d0" />
+                        <stop offset="100%" stop-color="#d0c8b8" />
+                    </radialGradient>
+                    <!-- Glow filters -->
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="2" result="blur" />
+                        <feMerge>
+                            <feMergeNode in="blur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                    <filter id="softShadow">
+                        <feDropShadow dx="3" dy="5" stdDeviation="6" flood-color="#000" flood-opacity="0.4" />
+                    </filter>
+                    <filter id="lightCone">
+                        <feGaussianBlur stdDeviation="20" result="blur" />
+                        <feMerge>
+                            <feMergeNode in="blur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                    <!-- Magnet base -->
+                    <linearGradient id="baseGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#708090" />
+                        <stop offset="100%" stop-color="#4a5568" />
+                    </linearGradient>
+                    <!-- Sample holder -->
+                    <linearGradient id="holderGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#c4a06a" />
+                        <stop offset="100%" stop-color="#8b7040" />
+                    </linearGradient>
+                </defs>
+
+                <!-- ===== BACKGROUND: LAB WALL ===== -->
+                <rect x="0" y="0" width="1000" height="720" fill="url(#labBg)" />
+                <!-- Warm overhead light cone -->
+                <ellipse cx="500" cy="0" rx="400" ry="250" fill="rgba(255,230,180,0.08)" filter="url(#lightCone)" />
+
+                <!-- ===== LAB TABLE ===== -->
+                <!-- Table top surface (perspective) -->
+                <polygon points="20,480 980,480 940,520 60,520" fill="url(#tableTop)" stroke="#5c4a35"
+                    stroke-width="1" />
+                <!-- Table top edge highlight -->
+                <line x1="20" y1="480" x2="980" y2="480" stroke="rgba(255,255,255,0.15)" stroke-width="1" />
+                <!-- Table front -->
+                <rect x="60" y="520" width="880" height="200" fill="url(#tableFront)" />
+                <!-- Table legs -->
+                <rect x="80" y="680" width="40" height="40" rx="3" fill="#3a2a1a" />
+                <rect x="880" y="680" width="40" height="40" rx="3" fill="#3a2a1a" />
+
+                <!-- ===== ELECTROMAGNET ASSEMBLY ===== -->
+                <g filter="url(#softShadow)">
+                    <!-- Base/Stand -->
+                    <rect x="250" y="400" width="500" height="40" rx="5" fill="url(#baseGrad)" stroke="#3a4555"
+                        stroke-width="1" />
+                    <rect x="260" y="395" width="480" height="8" rx="3" fill="#5a6878" />
+                    <!-- Raised support pillars -->
+                    <rect x="300" y="340" width="30" height="60" fill="#5a6878" />
+                    <rect x="670" y="340" width="30" height="60" fill="#5a6878" />
+
+                    <!-- LEFT ELECTROMAGNET CYLINDER -->
+                    <g>
+                        <!-- Cylinder body -->
+                        <rect x="260" y="200" width="200" height="140" rx="5" fill="url(#cylGrad)" stroke="#555"
+                            stroke-width="1" />
+                        <!-- Cylinder highlight -->
+                        <rect x="265" y="205" width="190" height="10" rx="3" fill="rgba(255,255,255,0.12)" />
+                        <!-- Left end cap (ellipse) -->
+                        <ellipse cx="260" cy="270" rx="12" ry="70" fill="url(#cylEnd)" stroke="#555" stroke-width="1" />
+                        <!-- Terminal for black wire -->
+                        <rect x="245" y="260" width="10" height="20" rx="2" fill="#222" stroke="#444"
+                            stroke-width="1" />
+                        <circle cx="248" cy="270" r="4" fill="#333" stroke="#111" stroke-width="1" />
+                        <!-- Right end (pole face) -->
+                        <rect x="450" y="230" width="20" height="80" rx="2" fill="#4a4a4a" stroke="#333"
+                            stroke-width="1" />
+                        <!-- Pole tip -->
+                        <polygon points="470,245 500,255 500,285 470,295" fill="#555" stroke="#444" stroke-width="1" />
+                        <!-- Coil windings visible -->
+                        <rect x="310" y="195" width="100" height="150" rx="3" fill="none" stroke="#222"
+                            stroke-width="1" />
+                        <g opacity="0.15" stroke="#000" stroke-width="0.8">
+                            <line x1="312" y1="200" x2="408" y2="200" />
+                            <line x1="312" y1="207" x2="408" y2="207" />
+                            <line x1="312" y1="214" x2="408" y2="214" />
+                            <line x1="312" y1="221" x2="408" y2="221" />
+                            <line x1="312" y1="228" x2="408" y2="228" />
+                            <line x1="312" y1="235" x2="408" y2="235" />
+                            <line x1="312" y1="242" x2="408" y2="242" />
+                            <line x1="312" y1="249" x2="408" y2="249" />
+                            <line x1="312" y1="256" x2="408" y2="256" />
+                            <line x1="312" y1="263" x2="408" y2="263" />
+                            <line x1="312" y1="270" x2="408" y2="270" />
+                            <line x1="312" y1="277" x2="408" y2="277" />
+                            <line x1="312" y1="284" x2="408" y2="284" />
+                            <line x1="312" y1="291" x2="408" y2="291" />
+                            <line x1="312" y1="298" x2="408" y2="298" />
+                            <line x1="312" y1="305" x2="408" y2="305" />
+                            <line x1="312" y1="312" x2="408" y2="312" />
+                            <line x1="312" y1="319" x2="408" y2="319" />
+                            <line x1="312" y1="326" x2="408" y2="326" />
+                            <line x1="312" y1="333" x2="408" y2="333" />
+                            <line x1="312" y1="340" x2="408" y2="340" />
+                        </g>
+                    </g>
+
+                    <!-- RIGHT ELECTROMAGNET CYLINDER -->
+                    <g>
+                        <rect x="540" y="200" width="200" height="140" rx="5" fill="url(#cylGrad)" stroke="#555"
+                            stroke-width="1" />
+                        <rect x="545" y="205" width="190" height="10" rx="3" fill="rgba(255,255,255,0.12)" />
+                        <!-- Right end cap -->
+                        <ellipse cx="740" cy="270" rx="12" ry="70" fill="url(#cylEnd)" stroke="#555" stroke-width="1" />
+                        <!-- Terminal for red wire -->
+                        <rect x="745" y="260" width="10" height="20" rx="2" fill="#222" stroke="#444"
+                            stroke-width="1" />
+                        <circle cx="752" cy="270" r="4" fill="#cc0000" stroke="#550000" stroke-width="1" />
+                        <!-- Left end (pole face) -->
+                        <rect x="530" y="230" width="20" height="80" rx="2" fill="#4a4a4a" stroke="#333"
+                            stroke-width="1" />
+                        <!-- Pole tip -->
+                        <polygon points="530,245 500,255 500,285 530,295" fill="#555" stroke="#444" stroke-width="1" />
+                        <!-- Coil winding area -->
+                        <rect x="590" y="195" width="100" height="150" rx="3" fill="none" stroke="#222"
+                            stroke-width="1" />
+                        <g opacity="0.15" stroke="#000" stroke-width="0.8">
+                            <line x1="592" y1="200" x2="688" y2="200" />
+                            <line x1="592" y1="207" x2="688" y2="207" />
+                            <line x1="592" y1="214" x2="688" y2="214" />
+                            <line x1="592" y1="221" x2="688" y2="221" />
+                            <line x1="592" y1="228" x2="688" y2="228" />
+                            <line x1="592" y1="235" x2="688" y2="235" />
+                            <line x1="592" y1="242" x2="688" y2="242" />
+                            <line x1="592" y1="249" x2="688" y2="249" />
+                            <line x1="592" y1="256" x2="688" y2="256" />
+                            <line x1="592" y1="263" x2="688" y2="263" />
+                            <line x1="592" y1="270" x2="688" y2="270" />
+                            <line x1="592" y1="277" x2="688" y2="277" />
+                            <line x1="592" y1="284" x2="688" y2="284" />
+                            <line x1="592" y1="291" x2="688" y2="291" />
+                            <line x1="592" y1="298" x2="688" y2="298" />
+                            <line x1="592" y1="305" x2="688" y2="305" />
+                            <line x1="592" y1="312" x2="688" y2="312" />
+                            <line x1="592" y1="319" x2="688" y2="319" />
+                            <line x1="592" y1="326" x2="688" y2="326" />
+                            <line x1="592" y1="333" x2="688" y2="333" />
+                            <line x1="592" y1="340" x2="688" y2="340" />
+                        </g>
+                    </g>
+                </g>
+
+                <!-- Magnetic field lines (animated between poles) -->
+                <g id="field-lines" opacity="0.35">
+                    <line x1="502" y1="258" x2="528" y2="258" stroke="#6cb4ee" stroke-width="1.5"
+                        stroke-dasharray="4 3">
+                        <animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s"
+                            repeatCount="indefinite" />
+                    </line>
+                    <line x1="502" y1="270" x2="528" y2="270" stroke="#6cb4ee" stroke-width="2" stroke-dasharray="4 3">
+                        <animate attributeName="stroke-dashoffset" from="0" to="-14" dur="0.8s"
+                            repeatCount="indefinite" />
+                    </line>
+                    <line x1="502" y1="282" x2="528" y2="282" stroke="#6cb4ee" stroke-width="1.5"
+                        stroke-dasharray="4 3">
+                        <animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s"
+                            repeatCount="indefinite" />
+                    </line>
+                </g>
+
+                <!-- ===== HALL SAMPLE HOLDER (fixed between poles) ===== -->
+                <!-- Holder mount (wooden block on base) -->
+                <rect x="485" y="310" width="30" height="90" rx="2" fill="url(#holderGrad)" stroke="#705828"
+                    stroke-width="1" />
+                <rect x="480" y="300" width="40" height="15" rx="2" fill="url(#holderGrad)" stroke="#705828"
+                    stroke-width="1" />
+                <!-- The sample itself is now mounted on the White Terminal Strip and inserted dynamically -->
+
+                <!-- ===== COMMON WIRES: Power Supply → Electromagnet Cylinders ===== -->
+                <!-- Black wire: PS left terminal → LEFT electromagnet cylinder body (end cap terminal) -->
+                <path d="M130,550 C80,560 40,480 50,380 C55,300 100,265 248,270" fill="none" stroke="#222"
+                    stroke-width="4" stroke-linecap="round" />
+
+                <!-- Red wire: PS right terminal → RIGHT electromagnet cylinder body (end cap terminal) -->
+                <path d="M310,550 C380,590 550,560 650,480 C750,400 820,320 752,270" fill="none" stroke="#cc3333"
+                    stroke-width="3" stroke-linecap="round" />
+                <!-- Additional Red wire: PS right terminal -> Hall measurement unit current input -->
+                <path id="ps-to-hall-wire" fill="none" stroke="#cc3333" stroke-width="2.5" stroke-linecap="round"/>
+                <!-- Current flow particles on power wire -->
+                <circle r="3" fill="#ff6644" opacity="0" filter="url(#glow)">
+                    <animateMotion dur="3s" repeatCount="indefinite"
+                        path="M130,550 C80,560 40,480 50,380 C55,300 100,265 248,270" />
+                    <animate attributeName="opacity" values="0;1;1;0" dur="3s" repeatCount="indefinite" />
+                </circle>
+
+                <!-- ===== MODE 1 WIRES: Gauss Meter probe cable ===== -->
+                <g id="wires-mode1">
+                    <!-- White probe cable: from probe handle back to Gauss Meter top -->
+                    <path id="probe-cable" d="M780,445 C800,440 830,440 850,445" fill="none" stroke="#ddd"
+                        stroke-width="3" stroke-linecap="round" />
+                </g>
+
+                <!-- ===== MODE 2 WIRES: Flexible Braided Wires (from terminal board to tester) ===== -->
+                <g id="wires-mode2" style="display:none">
+                    <!-- Current (Left side wires): Black and Blue -->
+                    <path id="bw1" fill="none" stroke="#666" stroke-width="3" stroke-linecap="round" />
+                    <path id="bw2" fill="none" stroke="#4488ff" stroke-width="3" stroke-linecap="round" />
+                    <!-- Voltage (Right side wires): Braided Red & Teal -->
+                    <g id="twisted-bundle"></g>
+                </g>
+
+                <!-- ===== CONSTANT CURRENT SOURCE (Power Supply) ===== -->
+                <g filter="url(#softShadow)">
+                    <!-- Box body - 3D perspective -->
+                    <!-- Top face (blue) -->
+                    <polygon points="80,440 350,440 340,460 90,460" fill="url(#psTop)" stroke="#4060a0"
+                        stroke-width="1" />
+                    <!-- Front face (silver/gray) -->
+                    <rect x="90" y="460" width="250" height="130" rx="3" fill="url(#psFront)" stroke="#8090a0"
+                        stroke-width="1" />
+                    <!-- Left side face -->
+                    <polygon points="80,440 90,460 90,590 80,575" fill="#5070a0" />
+                    <!-- Blue border line on front -->
+                    <rect x="88" y="458" width="254" height="134" rx="4" fill="none" stroke="#5080c0"
+                        stroke-width="2" />
+
+                    <!-- ANALOG AMMETER -->
+                    <rect x="105" y="470" width="100" height="80" rx="4" fill="#111" stroke="#333" stroke-width="1.5" />
+                    <rect x="110" y="475" width="90" height="70" rx="3" fill="url(#meterFace)" />
+                    <!-- Scale arc -->
+                    <path d="M125,535 Q155,480 185,535" fill="none" stroke="#333" stroke-width="0.5" />
+                    <!-- Tick marks rendered by JS -->
+                    <g id="meter-ticks"></g>
+                    <!-- Scale numbers -->
+                    <text x="118" y="533" fill="#333" font-size="7" font-weight="600" font-family="Inter">0</text>
+                    <text x="132" y="495" fill="#333" font-size="6" font-family="Inter">2</text>
+                    <text x="142" y="487" fill="#333" font-size="6" font-family="Inter">4</text>
+                    <text x="153" y="484" fill="#333" font-size="6" font-family="Inter">6</text>
+                    <text x="164" y="487" fill="#333" font-size="6" font-family="Inter">8</text>
+                    <text x="174" y="495" fill="#333" font-size="6" font-family="Inter">10</text>
+                    <text x="185" y="533" fill="#333" font-size="7" font-weight="600" font-family="Inter"> </text>
+                    <!-- A label -->
+                    <text x="155" y="530" fill="#333" font-size="10" font-weight="700" text-anchor="middle"
+                        font-family="Inter">A</text>
+                    <!-- NEEDLE -->
+                    <line id="ammeter-needle" x1="155" y1="540" x2="125" y2="500" stroke="#cc0000" stroke-width="1.5"
+                        stroke-linecap="round" />
+                    <!-- Pivot -->
+                    <circle cx="155" cy="540" r="3" fill="#444" />
+
+                    <!-- LARGE CURRENT KNOB -->
+                    <g id="knob-group" transform="translate(260, 510)">
+                        <circle r="24" fill="#1a1a1a" stroke="#444" stroke-width="2" />
+                        <circle r="21" fill="#222" />
+                        <!-- Grip ridges -->
+                        <g id="knob-ridges" stroke="#444" stroke-width="1.2">
+                            <line x1="0" y1="-21" x2="0" y2="-16" />
+                            <line x1="11" y1="-18" x2="9" y2="-14" />
+                            <line x1="19" y1="-10" x2="15" y2="-8" />
+                            <line x1="21" y1="0" x2="16" y2="0" />
+                            <line x1="19" y1="10" x2="15" y2="8" />
+                            <line x1="11" y1="18" x2="9" y2="14" />
+                            <line x1="0" y1="21" x2="0" y2="16" />
+                            <line x1="-11" y1="18" x2="-9" y2="14" />
+                            <line x1="-19" y1="10" x2="-15" y2="8" />
+                            <line x1="-21" y1="0" x2="-16" y2="0" />
+                            <line x1="-19" y1="-10" x2="-15" y2="-8" />
+                            <line x1="-11" y1="-18" x2="-9" y2="-14" />
+                        </g>
+                        <!-- Indicator mark -->
+                        <line id="knob-indicator" x1="0" y1="0" x2="0" y2="-19" stroke="#00f2fe" stroke-width="2.5"
+                            stroke-linecap="round" />
+                        <circle r="5" fill="#111" />
+                    </g>
+                    <!-- Arrow buttons (decorative) -->
+                    <text x="260" y="478" fill="#333" font-size="16" text-anchor="middle" font-weight="700">◄ ►</text>
+
+                    <!-- Power indicator LED -->
+                    <circle id="power-led" cx="310" y="500" r="5" fill="#44cc44" stroke="#228822" stroke-width="1" />
+                    <!-- Power switch -->
+                    <rect x="290" y="525" width="20" height="28" rx="3" fill="#333" stroke="#555" stroke-width="1" />
+                    <rect x="293" y="527" width="14" height="12" rx="2" fill="#222" />
+
+                    <!-- Terminal labels (wires still connect near these points) -->
+                    <text x="130" y="575" fill="#333" font-size="10" font-weight="700" text-anchor="middle"
+                        font-family="Inter">−</text>
+                    <text x="310" y="575" fill="#333" font-size="10" font-weight="700" text-anchor="middle"
+                        font-family="Inter">+</text>
+                </g>
+
+                <!-- ===== MODE 1 INSTRUMENT: GAUSS METER ===== -->
+                <g id="instrument-mode1" filter="url(#softShadow)">
+                    <polygon points="650,440 900,440 890,460 660,460" fill="url(#gmTop)" stroke="#3a4050"
+                        stroke-width="1" />
+                    <rect x="660" y="460" width="230" height="120" rx="3" fill="url(#gmFront)" stroke="#555"
+                        stroke-width="1" />
+                    <polygon points="900,440 890,460 890,580 900,565" fill="#5a6070" />
+                    <!-- LCD green screen -->
+                    <rect x="680" y="475" width="130" height="45" rx="4" fill="#c8d4a8" stroke="#8a9060"
+                        stroke-width="1.5" />
+                    <rect x="684" y="479" width="122" height="37" rx="2" fill="#b8c898" />
+                    <text id="gauss-display" x="745" y="508" fill="#2a3a18" font-size="26" text-anchor="middle"
+                        font-family="'Orbitron', monospace" font-weight="700">0.4000</text>
+                    <text x="745" y="540" fill="#333" font-size="12" text-anchor="middle" font-weight="700"
+                        font-family="Inter">GAUSS METER</text>
+                    <text x="775" y="518" fill="#4a5a28" font-size="8" font-family="Inter">Tesla</text>
+                    <!-- Knobs -->
+                    <circle cx="830" cy="555" r="8" fill="#444" stroke="#555" stroke-width="1.5" />
+                    <circle cx="860" cy="555" r="6" fill="#333" stroke="#555" stroke-width="1" />
+                </g>
+
+                <!-- ===== MODE 2 INSTRUMENT: HALL EFFECT TESTER ===== -->
+                <g id="instrument-mode2" style="display:none" transform="translate(160, 5)">
+                    <g filter="url(#softShadow)">
+                        <!-- Tester body -->
+                        <polygon points="490,435 770,435 760,455 500,455" fill="#c9c1b5" stroke="#a0988e"
+                            stroke-width="1" />
+                        <rect x="500" y="455" width="260" height="130" rx="3" fill="#e0d8cc" stroke="#baaead"
+                            stroke-width="1" />
+                        <polygon points="490,435 500,455 500,585 490,570" fill="#a8a096" />
+                        <!-- Border accent -->
+                        <rect x="498" y="453" width="264" height="134" rx="4" fill="none" stroke="#f6f2ee"
+                            stroke-width="1.5" />
+
+                        <!-- Digital display screen: Green LCD style -->
+                        <rect x="515" y="465" width="145" height="45" rx="4" fill="#182312" stroke="#22331c"
+                            stroke-width="1.5" />
+                        <rect id="he-screen" x="519" y="469" width="137" height="37" rx="2" fill="#12180c" />
+                        <!-- Display reading -->
+                        <text id="he-display" x="588" y="495" fill="#44ff44" font-size="22" text-anchor="middle"
+                            font-family="'Orbitron', monospace" font-weight="700">0.0000</text>
+                        <!-- Unit indicator -->
+                        <text id="he-unit" x="588" y="505" fill="#22aa22" font-size="7" text-anchor="middle"
+                            font-family="Inter">mV</text>
+
+                        <!-- TITLE -->
+                        <text x="630" y="530" fill="#333" font-size="9" text-anchor="middle" font-weight="700"
+                            font-family="Inter">HALL EFFECT MEASUREMENT UNIT</text>
+
+                        <!-- Label current / voltage -->
+                        <text x="588" y="520" fill="#555" font-size="7" text-anchor="middle" font-family="Inter"><tspan font-weight="bold">current</tspan> ◄ ► <tspan font-weight="bold">voltage</tspan></text>
+
+                        <!-- ===== CURRENT / VOLTAGE SELECTOR SWITCH ===== -->
+                        <!-- Switch housing -->
+                        <rect x="680" y="540" width="65" height="28" rx="4" fill="#2a2a2a" stroke="#555"
+                            stroke-width="1" />
+                        <!-- Labels -->
+                        <text x="695" y="554" fill="#6cb4ee" font-size="7" font-weight="600" text-anchor="middle"
+                            font-family="Inter">I</text>
+                        <text x="730" y="554" fill="#feca57" font-size="7" font-weight="600" text-anchor="middle"
+                            font-family="Inter">V</text>
+                        <!-- Toggle track -->
+                        <rect x="688" y="558" width="50" height="6" rx="3" fill="#111" />
+                        <!-- Toggle thumb (movable) -->
+                        <circle id="iv-switch-thumb" cx="697" cy="561" r="7" fill="#00f2fe" stroke="#008899"
+                            stroke-width="1.5" style="cursor:pointer" />
+                        <!-- Click area (invisible) -->
+                        <rect id="iv-switch-click" x="680" y="536" width="65" height="36" fill="transparent"
+                            style="cursor:pointer" />
+                        <!-- Mode label -->
+                        <text id="iv-mode-label" x="713" y="578" fill="#888" font-size="6" text-anchor="middle"
+                            font-family="Inter">CURRENT</text>
+
+                        <!-- Terminals -->
+                        <!-- Left Cluster (Current Input) -->
+                        <circle cx="530" cy="565" r="4" fill="#222" stroke="#111" stroke-width="1"/>
+                        <circle cx="545" cy="565" r="4" fill="#cc3333" stroke="#aa2222" stroke-width="1"/>
+                        <circle cx="560" cy="565" r="4" fill="#2255aa" stroke="#113366" stroke-width="1"/>
+                        <text x="545" y="555" fill="#555" font-size="6" text-anchor="middle" font-weight="bold">Current</text>
+                        
+                        <!-- Right Cluster (Voltage Input) -->
+                        <circle cx="610" cy="565" r="4" fill="#cc3333" stroke="#aa2222" stroke-width="1"/>
+                        <circle cx="625" cy="565" r="4" fill="#22aa22" stroke="#118811" stroke-width="1"/>
+                        <circle cx="640" cy="565" r="4" fill="#222" stroke="#111" stroke-width="1"/>
+                        <text x="625" y="555" fill="#555" font-size="6" text-anchor="middle" font-weight="bold">Voltage</text>
+
+                        <!-- Small indicator light -->
+                        <circle cx="493" cy="450" r="2.5" fill="#ff4444" stroke="#992222" stroke-width="0.5"/>
+                    </g>
+                </g>
+
+                <!-- ===== GAUSS METER HALL PROBE (rests on top of Gauss Meter) ===== -->
+                <g id="probe-group">
+                    <!-- Probe handle (cylindrical gray body) -->
+                    <rect id="probe-handle" x="760" y="428" width="55" height="10" rx="4" fill="#666" stroke="#888"
+                        stroke-width="1" />
+                    <!-- Probe stem (thin metallic) -->
+                    <rect id="probe-tip" x="745" y="431" width="17" height="4" rx="1" fill="#c0a030" stroke="#987020"
+                        stroke-width="0.5" />
+                    <!-- Probe needle tip -->
+                    <line id="probe-needle" x1="745" y1="433" x2="732" y2="433" stroke="#aaa" stroke-width="2"
+                        stroke-linecap="round" />
+                    <!-- Black connector plug at back of handle -->
+                    <rect x="815" y="430" width="8" height="6" rx="2" fill="#222" stroke="#444" stroke-width="0.5" />
+                    <text id="probe-label" x="788" y="425" fill="#888" font-size="7" text-anchor="middle"
+                        font-family="Inter">HALL PROBE</text>
+                </g>
+
+                <!-- ===== WHITE TERMINAL STRIP (Animates in Mode 2) ===== -->
+                <g id="white-board-group" style="display:none" data-x="680" data-y="425"
+                    transform="translate(680, 425)">
+                    <!-- White board body at 0,0 -->
+                    <rect x="0" y="0" width="105" height="30" rx="3" fill="#f4f5f8" stroke="#ccc" stroke-width="1" />
+                    <rect x="0" y="25" width="105" height="5" rx="1" fill="#d0d0d0" />
+
+                    <!-- Sample Glow (only active when inserted) -->
+                    <rect id="board-sample-glow" x="11" y="8" width="14" height="14" rx="2" fill="none"
+                        stroke="rgba(0,242,254,0)" stroke-width="1.5" />
+
+                    <!-- Diagram / connection traces on board -->
+                    <circle cx="18" cy="15" r="8" fill="none" stroke="#bbb" stroke-width="1" />
+                    <rect id="board-sample-rect" x="14" y="11" width="8" height="8" fill="#555" />
+                    <text id="board-sample-label" x="18" y="9" fill="#888" font-size="5" text-anchor="middle"
+                        font-family="Inter">Ge</text>
+                    <circle cx="10" cy="15" r="2.5" fill="#888" />
+                    <circle cx="26" cy="15" r="2.5" fill="#888" />
+                    <circle cx="18" cy="7" r="2.5" fill="#888" />
+                    <circle cx="18" cy="23" r="2.5" fill="#888" />
+
+                    <!-- PCB traces bridging to screw terminals -->
+                    <path
+                        d="M26,15 C35,5 45,5 55,5  M26,15 C35,11 45,11 55,11  M18,23 L18,25 L55,25  M18,7 L18,18 L55,18"
+                        fill="none" stroke="#999" stroke-width="1" />
+
+                    <!-- 4 Screw Terminals -->
+                    <g stroke="#999" stroke-width="0.5">
+                        <circle cx="55" cy="5" r="2" fill="#d4d4d4" />
+                        <line x1="53" y1="5" x2="57" y2="5" />
+                        <line x1="55" y1="3" x2="55" y2="7" />
+                        <circle cx="55" cy="11" r="2" fill="#d4d4d4" />
+                        <line x1="53" y1="11" x2="57" y2="11" />
+                        <line x1="55" y1="9" x2="55" y2="13" />
+                        <circle cx="55" cy="18" r="2" fill="#d4d4d4" />
+                        <line x1="53" y1="18" x2="57" y2="18" />
+                        <line x1="55" y1="16" x2="55" y2="20" />
+                        <circle cx="55" cy="25" r="2" fill="#d4d4d4" />
+                        <line x1="53" y1="25" x2="57" y2="25" />
+                        <line x1="55" y1="23" x2="55" y2="27" />
+                    </g>
+
+                    <!-- Plastic wire retention clip -->
+                    <rect x="70" y="5" width="6" height="20" rx="2" fill="#f8f9fa" stroke="#c0c0c0" stroke-width="1" />
+                    <line x1="73" y1="5" x2="73" y2="25" stroke="#e0e0e0" stroke-width="1" />
+                </g>
+
+            </svg>
+
+            <!-- ===== MAGNIFIED PROBE VIEW (Canvas Animation) ===== -->
+            <div id="magnified-specimen"
+                style="position: absolute; top: 120px; left: 400px; width: 200px; height: 80px; display: none; background: rgba(0,0,0,0.6); border: 2px solid #555; border-radius: 6px; z-index: 50; backdrop-filter: blur(6px); box-shadow: 0 10px 30px rgba(0,0,0,0.6);">
+                <div
+                    style="position: absolute; top: -22px; left: 0; width: 100%; text-align: center; font-size: 11px; color: #aaa; font-weight: bold; font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 1px;">
+                    Carrier Deflection</div>
+                <canvas id="deflection-canvas" width="200" height="80"
+                    style="width: 100%; height: 100%; display: block; border-radius: 4px;"></canvas>
+                <div id="anim-legend"
+                    style="position: absolute; bottom: -20px; left: 0; width: 100%; text-align: center; font-size: 11px; font-weight: 600; font-family: 'Inter', sans-serif;">
+                </div>
+            </div>
+
+            <div class="status-bar">
+                <div class="sd" id="sd"></div>
+                <span id="status-txt">Probe: Resting</span>
             </div>
         </div>
-        <div style="display:flex;gap:8px;margin-top:12px;">
-            <button class="btn btn-s" id="btn-calc" disabled>Calculate Results</button>
-            <button class="btn btn-s" id="btn-reset" style="flex:0.45;">Reset</button>
+
+        <!-- ==================== CONTROL PANEL ==================== -->
+        <div class="ctrl-panel">
+
+            <div class="section">
+                <h2>Variables</h2>
+                <div class="cg">
+                    <label>Select Procedure</label>
+                    <select id="ui-proc">
+                        <option value="b_vs_i">Magnetic field Vs Current</option>
+                        <option value="hall_setup">Hall Effect Setup</option>
+                    </select>
+                </div>
+                <div class="cg">
+                    <label>Select Material</label>
+                    <select id="ui-mat">
+                        <option value="Ge">Germanium (p-type)</option>
+                        <option value="Si">Silicon (n-type)</option>
+                        <option value="GaAs">Gallium Arsenide (n-type)</option>
+                    </select>
+                </div>
+                <div class="cg">
+                    <label>Thickness (t) <span><span class="v" id="v-t">1.0</span><span
+                                class="u">mm</span></span></label>
+                    <input type="range" id="ui-t" min="0.1" max="5.0" step="0.1" value="1.0">
+                </div>
+                <div class="cg">
+                    <label>Electromagnet Current <span><span class="v" id="v-em">2.0</span><span
+                                class="u">A</span></span></label>
+                    <input type="range" id="ui-em" min="0" max="5" step="0.1" value="2.0">
+                </div>
+                <div class="cg">
+                    <label>Hall Current (I) <span><span class="v" id="v-hc">5.0</span><span
+                                class="u">mA</span></span></label>
+                    <input type="range" id="ui-hc" min="0.5" max="15" step="0.5" value="5.0">
+                </div>
+                <div style="display:flex;gap:8px;margin-top:18px;">
+                    <button class="btn btn-s" id="btn-insert">⬇ Insert Probe</button>
+                    <button class="btn btn-s hidden" id="btn-remove">⬆ Remove Probe</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Measurement</h2>
+                <button class="btn btn-p" id="btn-volt" disabled>⚡ Show Voltage</button>
+                <div class="out-box">
+                    <div class="dr"><span>Magnetic Field (B)</span><span class="dv" id="o-b">0.400 T</span></div>
+                    <div class="dr"><span>Hall Voltage (V_H)</span><span class="dv volt" id="o-vh">---</span></div>
+                    <div id="adv-results" class="hidden"
+                        style="margin-top:10px;padding-top:10px;border-top:1px dashed rgba(255,255,255,0.08);">
+                        <div class="dr"><span>Hall Coefficient (R_H)</span><span class="dv grn" id="o-rh">---</span>
+                        </div>
+                        <div class="dr"><span>Carrier Density (n)</span><span class="dv" id="o-n">---</span></div>
+                        <div class="dr"><span>Mobility (μ)</span><span class="dv" id="o-mu">---</span></div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px;margin-top:12px;">
+                    <button class="btn btn-s" id="btn-calc" disabled>Calculate Results</button>
+                    <button class="btn btn-s" id="btn-reset" style="flex:0.45;">Reset</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Observation Table</h2>
+                <div class="obs-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>I(mA)</th>
+                                <th>B(T)</th>
+                                <th>V_H</th>
+                                <th>R_H</th>
+                            </tr>
+                        </thead>
+                        <tbody id="obs-body"></tbody>
+                    </table>
+                </div>
+                <button class="btn btn-s" style="font-size:0.8rem;" onclick="exportCSV()">📄 Export CSV</button>
+            </div>
+
+            <div class="section" style="flex:1;min-height:0;">
+                <h2>Live Graph</h2>
+                <div class="graph-wrap">
+                    <canvas id="chart-canvas"></canvas>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <div class="section">
-        <h2>Observation Table</h2>
-        <div class="obs-wrap">
-            <table>
-                <thead><tr><th>#</th><th>I(mA)</th><th>B(T)</th><th>V_H</th><th>R_H</th></tr></thead>
-                <tbody id="obs-body"></tbody>
-            </table>
-        </div>
-        <button class="btn btn-s" style="font-size:0.8rem;" onclick="exportCSV()">📄 Export CSV</button>
-    </div>
+    <script>
+        // ========== MATERIAL DATABASE ==========
+        const MATERIALS = {
+            Ge: { name: 'Germanium', n: 1.5e21, sign: 1, mu: 0.39, color: '#888' },
+            Si: { name: 'Silicon', n: 5.0e22, sign: -1, mu: 0.15, color: '#94a3b8' },
+            GaAs: { name: 'Gallium Arsenide', n: 1.0e20, sign: -1, mu: 0.85, color: '#66bb6a' }
+        };
+        const Q = 1.602e-19;
 
-    <div class="section" style="flex:1;min-height:0;">
-        <h2>Live Graph</h2>
-        <div class="graph-wrap">
-            <canvas id="chart-canvas"></canvas>
-        </div>
-    </div>
+        // ========== STATE ==========
+        let S = {
+            mat: 'Ge', t: 1.0e-3, emA: 2.0, hcmA: 5.0, hcA: 5.0e-3,
+            B: 0.4, probeIn: false, voltShown: false, resShown: false,
+            Vh: 0, Rh: 0, mu: 0, obsCount: 0,
+            mode: 'b_vs_i',    // current procedure mode
+            ivSwitch: 'I'      // I = current, V = voltage on Hall Tester
+        };
 
-</div>
-</div>
+        const $ = id => document.getElementById(id);
 
-<script>
-// ========== MATERIAL DATABASE ==========
-const MATERIALS = {
-    Ge:   { name:'Germanium',        n: 1.5e21,  sign: 1,  mu: 0.39,  color:'#888' },
-    Si:   { name:'Silicon',          n: 5.0e22,  sign:-1,  mu: 0.15,  color:'#94a3b8' },
-    GaAs: { name:'Gallium Arsenide', n: 1.0e20,  sign:-1,  mu: 0.85,  color:'#66bb6a' }
-};
-const Q = 1.602e-19;
-
-// ========== STATE ==========
-let S = {
-    mat: 'Ge', t: 1.0e-3, emA: 2.0, hcmA: 5.0, hcA: 5.0e-3,
-    B: 0.4, probeIn: false, voltShown: false, resShown: false,
-    Vh: 0, Rh: 0, mu: 0, obsCount: 0,
-    mode: 'b_vs_i',    // current procedure mode
-    ivSwitch: 'I'      // I = current, V = voltage on Hall Tester
-};
-
-const $ = id => document.getElementById(id);
-
-// ========== PHYSICS ==========
-function calc() {
-    const m = MATERIALS[S.mat];
-    // B field linear approx: B = 0.2 * I_electromagnet (max 1T at 5A)
-    S.B = S.emA * 0.2;
-    // Hall Coefficient: R_H = 1 / (n * q)  (sign indicates carrier type)
-    const qe = Q * m.sign;
-    S.Rh = 1 / (m.n * qe);
-    // Hall Voltage: V_H = (R_H * I * B) / t
-    S.Vh = (S.Rh * S.hcA * S.B) / S.t;
-    // Mobility: μ = |R_H| * conductivity, stored as material property
-    // For display we use the known mobility value from material database
-    S.mu = m.mu;
-    updateAllDisplays();
-}
-
-function fmtV(v) {
-    const a = Math.abs(v);
-    if(a === 0) return "0.000 V";
-    if(a >= 1) return v.toFixed(3) + " V";
-    if(a >= 1e-3) return (v*1e3).toFixed(3) + " mV";
-    if(a >= 1e-6) return (v*1e6).toFixed(3) + " µV";
-    return (v*1e9).toFixed(3) + " nV";
-}
-
-// ========== DISPLAY UPDATES ==========
-function updateAllDisplays() {
-    $('o-b').textContent = S.B.toFixed(3) + ' T';
-    if(S.voltShown && S.probeIn) {
-        $('o-vh').textContent = fmtV(S.Vh);
-        $('o-vh').style.color = '#feca57';
-    } else {
-        $('o-vh').textContent = '---';
-        $('o-vh').style.color = '#444';
-    }
-    if(S.resShown) {
-        $('o-rh').textContent = Math.abs(S.Rh).toExponential(2) + ' m³/C';
-        $('o-n').textContent = MATERIALS[S.mat].n.toExponential(2) + ' m⁻³';
-        $('o-mu').textContent = S.mu.toFixed(4) + ' m²/(V·s)';
-    }
-    updateAmmeterNeedle();
-    updateKnob();
-    updateGaussMeter();
-    updateHallTester();
-    updateFieldLines();
-    updateSampleVisual();
-}
-
-// ========== 1. AMMETER NEEDLE ==========
-function updateAmmeterNeedle() {
-    const frac = S.emA / 5.0;
-    // Map 0→5A to sweep from left to right on the dial
-    // Needle pivots at (155, 540), sweeps from about -55° to +55°
-    const angle = -55 + frac * 110; // degrees
-    const rad = angle * Math.PI / 180;
-    const len = 38;
-    const x2 = 155 + Math.sin(rad) * len;
-    const y2 = 540 - Math.cos(rad) * len;
-    $('ammeter-needle').setAttribute('data-target-x', x2);
-    $('ammeter-needle').setAttribute('data-target-y', y2);
-}
-
-// ========== 2. CURRENT KNOB ==========
-function updateKnob() {
-    const angle = (S.emA / 5.0) * 270;
-    $('knob-group').setAttribute('data-target-angle', angle);
-}
-
-// ========== 3. GAUSS METER ==========
-function updateGaussMeter() {
-    const el = $('gauss-display');
-    if(!el) return;
-    
-    // Gauss meter only shows live values when probe is physically inserted
-    if(S.probeIn && S.mode === 'b_vs_i') {
-        el.textContent = S.B.toFixed(4);
-    } else {
-        el.textContent = "0.0000";
-    }
-}
-
-// ========== 4. HALL EFFECT TESTER ==========
-function updateHallTester() {
-    const d = $('he-display');
-    const u = $('he-unit');
-    const bg = $('he-screen');
-    if(!d) return;
-    
-    if(S.ivSwitch === 'I') {
-        // Show current mode
-        bg.setAttribute('fill', '#0a1008');
-        d.textContent = S.hcmA.toFixed(1);
-        d.setAttribute('fill', '#6cb4ee');
-        u.textContent = 'mA';
-        u.setAttribute('fill', '#3a6a99');
-    } else {
-        // Voltage mode
-        if(S.probeIn && S.voltShown) {
-            bg.setAttribute('fill', '#1a1508');
-            const absV = Math.abs(S.Vh);
-            if(absV >= 1) { d.textContent = S.Vh.toFixed(3); u.textContent = 'V'; }
-            else if(absV >= 1e-3) { d.textContent = (S.Vh*1e3).toFixed(2); u.textContent = 'mV'; }
-            else if(absV >= 1e-6) { d.textContent = (S.Vh*1e6).toFixed(2); u.textContent = 'µV'; }
-            else { d.textContent = (S.Vh*1e9).toFixed(2); u.textContent = 'nV'; }
-            d.setAttribute('fill', '#ffaa00');
-            d.setAttribute('filter', 'url(#glow)');
-            u.setAttribute('fill', '#997700');
-        } else {
-            // When probe is removed, show exactly 0.0000
-            bg.setAttribute('fill', '#1a1508');
-            d.textContent = '0.0000';
-            d.setAttribute('fill', '#ffaa00');
-            d.removeAttribute('filter');
-            u.textContent = 'mV';
-            u.setAttribute('fill', '#997700');
+        // ========== PHYSICS ==========
+        function calc() {
+            const m = MATERIALS[S.mat];
+            // B field linear approx: B = 0.2 * I_electromagnet (max 1T at 5A)
+            S.B = S.emA * 0.2;
+            // Hall Coefficient: R_H = 1 / (n * q)  (sign indicates carrier type)
+            const qe = Q * m.sign;
+            S.Rh = 1 / (m.n * qe);
+            // Hall Voltage: V_H = (R_H * I * B) / t
+            S.Vh = (S.Rh * S.hcA * S.B) / S.t;
+            // Mobility: μ = |R_H| * conductivity, stored as material property
+            // For display we use the known mobility value from material database
+            S.mu = m.mu;
+            updateAllDisplays();
         }
-    }
-}
 
-// ========== 5. FIELD LINES ==========
-function updateFieldLines() {
-    const g = $('field-lines');
-    const intensity = Math.min(S.B / 1.0, 1);
-    g.setAttribute('opacity', (0.1 + intensity * 0.5).toFixed(2));
-}
+        function fmtV(v) {
+            const a = Math.abs(v);
+            if (a === 0) return "0.000 V";
+            if (a >= 1) return v.toFixed(3) + " V";
+            if (a >= 1e-3) return (v * 1e3).toFixed(3) + " mV";
+            if (a >= 1e-6) return (v * 1e6).toFixed(3) + " µV";
+            return (v * 1e9).toFixed(3) + " nV";
+        }
 
-// ========== 6. SAMPLE ==========
-function updateSampleVisual() {
-    const m = MATERIALS[S.mat];
-    const rect = $('board-sample-rect');
-    if (rect) {
-        rect.setAttribute('fill', m.color);
-        $('board-sample-label').textContent = S.mat;
-        const glowI = Math.min(S.hcmA / 15, 0.6);
-        $('board-sample-glow').setAttribute('stroke', `rgba(0,242,254,${glowI})`);
-    }
-}
+        // ========== DISPLAY UPDATES ==========
+        function updateAllDisplays() {
+            $('o-b').textContent = S.B.toFixed(3) + ' T';
+            if (S.voltShown && S.probeIn) {
+                $('o-vh').textContent = fmtV(S.Vh);
+                $('o-vh').style.color = '#feca57';
+            } else {
+                $('o-vh').textContent = '---';
+                $('o-vh').style.color = '#444';
+            }
+            if (S.resShown) {
+                $('o-rh').textContent = Math.abs(S.Rh).toExponential(2) + ' m³/C';
+                $('o-n').textContent = MATERIALS[S.mat].n.toExponential(2) + ' m⁻³';
+                $('o-mu').textContent = S.mu.toFixed(4) + ' m²/(V·s)';
+            }
+            updateAmmeterNeedle();
+            updateKnob();
+            updateGaussMeter();
+            updateHallTester();
+            updateFieldLines();
+            updateSampleVisual();
+        }
 
-// ========== BOARD WIRES DRAWING ==========
-function updateBoardWires() {
-    const bg = $('white-board-group');
-    if(bg.style.display === 'none') return;
-    
-    const bx = parseFloat(bg.getAttribute('data-x') || 680);
-    const by = parseFloat(bg.getAttribute('data-y') || 425);
-    
-    // Front panel connection coordinates for Hall Unit
-    const tgtRedX = 680, tgtRedY = 570;
-    const tgtGreenX = 698, tgtGreenY = 570;
-    
-    // Clip origin on the board relative to absolute screen
-    const cx = bx + 73;
-    const cy = by + 5;
-    
-    // Wire 1 (Red)
-    $('bw1').setAttribute('d', `M${cx},${cy} C${cx+20},${cy} ${cx+30},${cy+30} ${tgtRedX},${tgtRedY}`);
-    // Wire 2 (Red)
-    $('bw2').setAttribute('d', `M${cx},${cy+20} C${cx+20},${cy+15} ${cx+30},${cy+35} ${tgtRedX},${tgtRedY}`);
-    // Wire 3 (Green)
-    $('bw3').setAttribute('d', `M${cx},${cy+5} C${cx+25},${cy+5} ${cx+35},${cy+25} ${tgtGreenX},${tgtGreenY}`);
-    // Wire 4 (Green)
-    $('bw4').setAttribute('d', `M${cx},${cy+15} C${cx+25},${cy+10} ${cx+35},${cy+30} ${tgtGreenX},${tgtGreenY}`);
-}
+        // ========== 1. AMMETER NEEDLE ==========
+        function updateAmmeterNeedle() {
+            const frac = S.emA / 5.0;
+            // Map 0→5A to sweep from left to right on the dial
+            // Needle pivots at (155, 540), sweeps from about -55° to +55°
+            const angle = -55 + frac * 110; // degrees
+            const rad = angle * Math.PI / 180;
+            const len = 38;
+            const x2 = 155 + Math.sin(rad) * len;
+            const y2 = 540 - Math.cos(rad) * len;
+            $('ammeter-needle').setAttribute('data-target-x', x2);
+            $('ammeter-needle').setAttribute('data-target-y', y2);
+        }
 
-// ========== CARRIER DEFLECTION ANIMATION ==========
-const defCanvas = $('deflection-canvas');
-const dCtx = defCanvas.getContext('2d');
-let particles = [];
-const numParticles = 20;
+        // ========== 2. CURRENT KNOB ==========
+        function updateKnob() {
+            const angle = (S.emA / 5.0) * 270;
+            $('knob-group').setAttribute('data-target-angle', angle);
+        }
 
-function initParticles() {
-    particles = [];
-    for(let i=0; i<numParticles; i++) {
-        particles.push({
-            x: Math.random() * defCanvas.width,
-            baseY: Math.random() * defCanvas.height,
-            speed: 80 + Math.random()*40,
-            wobblePhase: Math.random() * Math.PI * 2
+        // ========== 3. GAUSS METER ==========
+        function updateGaussMeter() {
+            const el = $('gauss-display');
+            if (!el) return;
+
+            // Gauss meter only shows live values when probe is physically inserted
+            if (S.probeIn && S.mode === 'b_vs_i') {
+                el.textContent = S.B.toFixed(4);
+            } else {
+                el.textContent = "0.0000";
+            }
+        }
+
+        // ========== 4. HALL EFFECT TESTER ==========
+        function updateHallTester() {
+            const d = $('he-display');
+            const u = $('he-unit');
+            const bg = $('he-screen');
+            if (!d) return;
+
+            if (S.ivSwitch === 'I') {
+                // Show current mode
+                bg.setAttribute('fill', '#0a1008');
+                d.textContent = S.hcmA.toFixed(1);
+                d.setAttribute('fill', '#6cb4ee');
+                u.textContent = 'mA';
+                u.setAttribute('fill', '#3a6a99');
+            } else {
+                // Voltage mode
+                if (S.probeIn && S.voltShown) {
+                    bg.setAttribute('fill', '#12180c');
+                    const absV = Math.abs(S.Vh);
+                    if (absV >= 1) { d.textContent = S.Vh.toFixed(3); u.textContent = 'V'; }
+                    else if (absV >= 1e-3) { d.textContent = (S.Vh * 1e3).toFixed(2); u.textContent = 'mV'; }
+                    else if (absV >= 1e-6) { d.textContent = (S.Vh * 1e6).toFixed(2); u.textContent = 'µV'; }
+                    else { d.textContent = (S.Vh * 1e9).toFixed(2); u.textContent = 'nV'; }
+                    d.setAttribute('fill', '#44ff44');
+                    d.setAttribute('filter', 'url(#glow)');
+                    u.setAttribute('fill', '#22aa22');
+                } else {
+                    // When probe is removed, show exactly 0.0000
+                    bg.setAttribute('fill', '#12180c');
+                    d.textContent = '0.0000';
+                    d.setAttribute('fill', '#44ff44');
+                    d.removeAttribute('filter');
+                    u.textContent = 'mV';
+                    u.setAttribute('fill', '#22aa22');
+                }
+            }
+        }
+
+        // ========== 5. FIELD LINES ==========
+        function updateFieldLines() {
+            const g = $('field-lines');
+            const intensity = Math.min(S.B / 1.0, 1);
+            g.setAttribute('opacity', (0.1 + intensity * 0.5).toFixed(2));
+        }
+
+        // ========== 6. SAMPLE ==========
+        function updateSampleVisual() {
+            const m = MATERIALS[S.mat];
+            const rect = $('board-sample-rect');
+            if (rect) {
+                rect.setAttribute('fill', m.color);
+                $('board-sample-label').textContent = S.mat;
+                const glowI = Math.min(S.hcmA / 15, 0.6);
+                $('board-sample-glow').setAttribute('stroke', `rgba(0,242,254,${glowI})`);
+            }
+        }
+
+        function getBezierXY(t, sx, sy, cp1x, cp1y, cp2x, cp2y, ex, ey) {
+            const mt = 1-t;
+            return {
+                x: mt*mt*mt*sx + 3*mt*mt*t*cp1x + 3*mt*t*t*cp2x + t*t*t*ex,
+                y: mt*mt*mt*sy + 3*mt*mt*t*cp1y + 3*mt*t*t*cp2y + t*t*t*ey
+            };
+        }
+        function getBezierNormal(t, sx, sy, cp1x, cp1y, cp2x, cp2y, ex, ey) {
+            const mt = 1-t;
+            const dx = 3*mt*mt*(cp1x-sx) + 6*mt*t*(cp2x-cp1x) + 3*t*t*(ex-cp2x);
+            const dy = 3*mt*mt*(cp1y-sy) + 6*mt*t*(cp2y-cp1y) + 3*t*t*(ey-cp2y);
+            const len = Math.sqrt(dx*dx + dy*dy);
+            if(len===0) return {nx:0, ny:0};
+            return {nx: -dy/len, ny: dx/len};
+        }
+
+        // ========== BOARD WIRES DRAWING ==========
+        function updateBoardWires() {
+            const bg = $('white-board-group');
+            if (bg.style.display === 'none') return;
+            
+            // Draw the static red wire from PS to Hall Unit Current input
+            // PS Red is 310, 550. Tester Current is 690+160=705
+            const psToHT = $('ps-to-hall-wire');
+            if(psToHT) psToHT.setAttribute('d', `M310,550 C400,600 550,600 705,570`);
+
+            const bx = parseFloat(bg.getAttribute('data-x') || 680);
+            const by = parseFloat(bg.getAttribute('data-y') || 425);
+
+            // Front panel connection coordinates for Hall Unit
+            const tgtCurrentX1 = 160 + 530, tgtCurrentY = 570; // Left cluster
+            const tgtCurrentX2 = 160 + 545;
+
+            const tgtVoltX1 = 160 + 610, tgtVoltY = 570;   // Right cluster
+            const tgtVoltX2 = 160 + 625;
+
+            // Board origins
+            const cxL = bx + 10, cy = by + 12;
+            const cxR = bx + 80;
+
+            const droopL = cy + 120 + (tgtCurrentX1 - cxL) * 0.1;
+            const droopR = cy + 120 + (tgtVoltX1 - cxR) * 0.1;
+
+            // Current Wires (Left of board to Left Terminal Cluster)
+            $('bw1').setAttribute('d', `M${cxL},${cy - 5} C${cxL - 20},${droopL} ${tgtCurrentX1 - 20},${droopL} ${tgtCurrentX1},${tgtCurrentY}`);
+            $('bw2').setAttribute('d', `M${cxL},${cy + 3} C${cxL + 5},${droopL + 10} ${tgtCurrentX2 - 10},${droopL + 10} ${tgtCurrentX2},${tgtCurrentY}`);
+
+            // Voltage Twisted Pair (Right of board to Right Terminal Cluster)
+            const bundle = $('twisted-bundle');
+            if(bundle) {
+                const sx = cxR, sy = cy;
+                const ex = tgtVoltX1, ey = tgtVoltY;
+                const cp1x = cxR + 50, cp1y = droopR;
+                const cp2x = tgtVoltX1 - 30, cp2y = droopR;
+                
+                const numSegments = 50;
+                const braidWidth = 3;
+                const twists = 7;
+
+                // Init DOM elements if they don't exist
+                if(bundle.children.length === 0) {
+                    for(let i=0; i<numSegments; i++) {
+                        let l1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        l1.setAttribute('stroke-width', '2.5');
+                        l1.setAttribute('stroke-linecap', 'round');
+                        bundle.appendChild(l1);
+                        
+                        let l2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        l2.setAttribute('stroke-width', '2.5');
+                        l2.setAttribute('stroke-linecap', 'round');
+                        bundle.appendChild(l2);
+                    }
+                }
+                
+                let ptsRed = [];
+                let ptsTeal = [];
+                for(let i=0; i<=numSegments; i++) {
+                    let t = i / numSegments;
+                    let p = getBezierXY(t, sx, sy, cp1x, cp1y, cp2x, cp2y, ex, ey);
+                    let n = getBezierNormal(t, sx, sy, cp1x, cp1y, cp2x, cp2y, ex, ey);
+                    let offset = Math.sin(t * Math.PI * 2 * twists) * braidWidth;
+                    ptsRed.push({x: p.x + n.nx * offset, y: p.y + n.ny * offset});
+                    ptsTeal.push({x: p.x - n.nx * offset, y: p.y - n.ny * offset});
+                }
+                
+                for(let i=0; i<numSegments; i++) {
+                    let t = i/numSegments;
+                    let isRedTop = Math.cos(t * Math.PI * 2 * twists) > 0;
+                    
+                    let childIndex = i * 2;
+                    let lineBottom = bundle.children[childIndex];
+                    let lineTop = bundle.children[childIndex + 1];
+
+                    if (isRedTop) {
+                        lineBottom.setAttribute('stroke', '#00AA88');
+                        lineBottom.setAttribute('x1', ptsTeal[i].x); lineBottom.setAttribute('y1', ptsTeal[i].y);
+                        lineBottom.setAttribute('x2', ptsTeal[i+1].x); lineBottom.setAttribute('y2', ptsTeal[i+1].y);
+                        
+                        lineTop.setAttribute('stroke', '#CC2200');
+                        lineTop.setAttribute('x1', ptsRed[i].x); lineTop.setAttribute('y1', ptsRed[i].y);
+                        lineTop.setAttribute('x2', ptsRed[i+1].x); lineTop.setAttribute('y2', ptsRed[i+1].y);
+                    } else {
+                        lineBottom.setAttribute('stroke', '#CC2200');
+                        lineBottom.setAttribute('x1', ptsRed[i].x); lineBottom.setAttribute('y1', ptsRed[i].y);
+                        lineBottom.setAttribute('x2', ptsRed[i+1].x); lineBottom.setAttribute('y2', ptsRed[i+1].y);
+                        
+                        lineTop.setAttribute('stroke', '#00AA88');
+                        lineTop.setAttribute('x1', ptsTeal[i].x); lineTop.setAttribute('y1', ptsTeal[i].y);
+                        lineTop.setAttribute('x2', ptsTeal[i+1].x); lineTop.setAttribute('y2', ptsTeal[i+1].y);
+                    }
+                }
+            }
+        }
+
+        // ========== CARRIER DEFLECTION ANIMATION ==========
+        const defCanvas = $('deflection-canvas');
+        const dCtx = defCanvas.getContext('2d');
+        let particles = [];
+        const numParticles = 20;
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < numParticles; i++) {
+                particles.push({
+                    x: Math.random() * defCanvas.width,
+                    baseY: Math.random() * defCanvas.height,
+                    speed: 80 + Math.random() * 40,
+                    wobblePhase: Math.random() * Math.PI * 2
+                });
+            }
+        }
+        initParticles();
+
+        function updateDeflectionAnim() {
+            // Only show canvas when experiment is active in Hall Setup mode with voltage on
+            if (!S.voltShown || !S.probeIn || S.mode !== 'hall_setup' || S.ivSwitch !== 'V') {
+                $('magnified-specimen').style.display = 'none';
+                return;
+            }
+
+            $('magnified-specimen').style.display = 'block';
+
+            // Synchronize UI visuals to material
+            const m = MATERIALS[S.mat];
+            $('magnified-specimen').style.borderColor = m.color;
+
+            const isPType = m.sign === 1;
+            const legend = $('anim-legend');
+            if (isPType) {
+                legend.innerHTML = '<span style="color:#FF4444;">● Holes (p-type)</span>';
+            } else {
+                legend.innerHTML = '<span style="color:#4488FF;">● Electrons (n-type)</span>';
+            }
+
+            // Redraw loop
+            dCtx.clearRect(0, 0, defCanvas.width, defCanvas.height);
+
+            // Physics constants for canvas space
+            const dt = 1 / 60; // Approx 60fps frame delta
+            const maxB = 1.0; // Slider limit
+            const curB = S.B;
+            // p-type UP (-1 in canvas Y axis), n-type DOWN (+1 in canvas Y axis)
+            const direction = isPType ? -1 : 1;
+            const w = defCanvas.width;
+            const h = defCanvas.height;
+
+            dCtx.fillStyle = isPType ? '#FF4444' : '#4488FF';
+
+            for (let p of particles) {
+                // Drift horizontally
+                const speedScale = Math.max(0.1, S.hcmA / 5.0);
+                p.x += p.speed * speedScale * dt;
+
+                // Loop back to left side
+                if (p.x > w + 10) {
+                    p.x = -10;
+                    p.baseY = Math.random() * h; // Uniform vertical distribution
+                }
+
+                // Thermal Wobble
+                p.wobblePhase += 5 * dt;
+                const thermalWobble = Math.sin(p.wobblePhase) * 2;
+
+                // Deflection: y_deflect = direction × (B / B_max) × max_deflect_px × (x / sample_width)²
+                const maxDeflect = 0.35 * h;
+                const y_deflect = direction * (curB / maxB) * maxDeflect * Math.pow(Math.max(0, p.x) / w, 2);
+
+                let py = p.baseY + y_deflect + thermalWobble;
+
+                // Accumulate exactly against the top/bottom boundary
+                if (py < 5) py = 5;
+                if (py > h - 5) py = h - 5;
+
+                // Draw Carrier
+                dCtx.beginPath();
+                dCtx.arc(p.x, py, 4, 0, Math.PI * 2);
+                dCtx.fill();
+
+                // Sign label inside
+                dCtx.fillStyle = '#FFF';
+                dCtx.font = "8px Arial";
+                dCtx.textAlign = "center";
+                dCtx.fillText(isPType ? '+' : '-', p.x, py + 3);
+                dCtx.fillStyle = isPType ? '#FF4444' : '#4488FF';
+            }
+        }
+
+        // ========== SMOOTH ANIMATION LOOP ==========
+        let curNX = 125, curNY = 500, curKA = 0;
+        function animLoop() {
+            requestAnimationFrame(animLoop);
+            // Needle
+            const n = $('ammeter-needle');
+            const tx = parseFloat(n.getAttribute('data-target-x') || 125);
+            const ty = parseFloat(n.getAttribute('data-target-y') || 500);
+            curNX += (tx - curNX) * 0.08;
+            curNY += (ty - curNY) * 0.08;
+            n.setAttribute('x2', curNX.toFixed(1));
+            n.setAttribute('y2', curNY.toFixed(1));
+            // Knob
+            const kg = $('knob-group');
+            const ta = parseFloat(kg.getAttribute('data-target-angle') || 0);
+            curKA += (ta - curKA) * 0.08;
+            kg.setAttribute('transform', `translate(260, 510) rotate(${curKA.toFixed(1)})`);
+
+            // Update wires dynamically if board is moving
+            updateBoardWires();
+
+            // Update Canvas Particle animation
+            updateDeflectionAnim();
+        }
+        animLoop();
+
+        // ========== PROBE ANIMATION ==========
+        function animateProbe(insert, cb) {
+            const steps = 60;
+            let step = 0;
+
+            if (S.mode === 'b_vs_i') {
+                const handle = $('probe-handle');
+                const tip = $('probe-tip');
+                const needle = $('probe-needle');
+                const lbl = $('probe-label');
+
+                const sHX = parseFloat(handle.getAttribute('x'));
+                const sHY = parseFloat(handle.getAttribute('y'));
+                const sTX = parseFloat(tip.getAttribute('x'));
+                const sTY = parseFloat(tip.getAttribute('y'));
+                const sNX1 = parseFloat(needle.getAttribute('x1'));
+                const sNY1 = parseFloat(needle.getAttribute('y1'));
+                const sNX2 = parseFloat(needle.getAttribute('x2'));
+
+                let eHX, eHY, eTX, eTY, eNX2;
+                if (insert) {
+                    eHX = 530; eHY = 263; eTX = 515; eTY = 266; eNX2 = 508;
+                } else {
+                    eHX = 760; eHY = 428; eTX = 745; eTY = 431; eNX2 = 732;
+                }
+
+                function tickM1() {
+                    step++;
+                    const t = step / steps;
+                    const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+                    const hx = sHX + (eHX - sHX) * ease;
+                    const hy = sHY + (eHY - sHY) * ease;
+                    const tx2 = sTX + (eTX - sTX) * ease;
+                    const ty2 = sTY + (eTY - sTY) * ease;
+                    const enx = sNX2 + (eNX2 - sNX2) * ease;
+
+                    handle.setAttribute('x', hx.toFixed(1));
+                    handle.setAttribute('y', hy.toFixed(1));
+                    tip.setAttribute('x', tx2.toFixed(1));
+                    tip.setAttribute('y', ty2.toFixed(1));
+                    needle.setAttribute('x1', tx2.toFixed(1));
+                    needle.setAttribute('y1', (ty2 + 3).toFixed(1));
+                    needle.setAttribute('x2', enx.toFixed(1));
+                    needle.setAttribute('y2', (ty2 + 3).toFixed(1));
+                    lbl.setAttribute('x', (hx + 30).toFixed(1));
+                    lbl.setAttribute('y', (hy - 5).toFixed(1));
+
+                    // Animate wire
+                    const backX = hx + 55;
+                    const backY = hy + 5;
+                    $('probe-cable').setAttribute('d', `M${backX},${backY} C${backX + 20},${backY + 20} 830,440 850,445`);
+
+                    if (step < steps) requestAnimationFrame(tickM1);
+                    else if (cb) cb();
+                }
+                tickM1();
+
+            } else {
+                // Mode 2: Animate White Terminal Strip
+                const board = $('white-board-group');
+                const sx = parseFloat(board.getAttribute('data-x'));
+                const sy = parseFloat(board.getAttribute('data-y'));
+
+                let ex, ey;
+                if (insert) {
+                    ex = 447; // Positioned right above the wooden stand block
+                    ey = 280;
+                } else {
+                    ex = 680; // Resting on Hall tester
+                    ey = 425;
+                }
+
+                function tickM2() {
+                    step++;
+                    const t = step / steps;
+                    const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+                    const nx = sx + (ex - sx) * ease;
+                    const ny = sy + (ey - sy) * ease;
+
+                    board.setAttribute('data-x', nx);
+                    board.setAttribute('data-y', ny);
+                    board.setAttribute('transform', `translate(${nx}, ${ny})`);
+
+                    if (step < steps) requestAnimationFrame(tickM2);
+                    else if (cb) cb();
+                }
+                tickM2();
+            }
+        }
+
+        // ========== UI EVENTS ==========
+        $('ui-mat').addEventListener('change', e => { S.mat = e.target.value; calc(); });
+        $('ui-t').addEventListener('input', e => {
+            const v = parseFloat(e.target.value);
+            S.t = v * 1e-3; $('v-t').textContent = v.toFixed(1); calc();
         });
-    }
-}
-initParticles();
+        $('ui-em').addEventListener('input', e => {
+            const v = parseFloat(e.target.value);
+            S.emA = v; $('v-em').textContent = v.toFixed(1); calc();
+        });
+        $('ui-hc').addEventListener('input', e => {
+            const v = parseFloat(e.target.value);
+            S.hcmA = v; S.hcA = v * 1e-3; $('v-hc').textContent = v.toFixed(1); calc();
+        });
 
-function updateDeflectionAnim() {
-    // Only show canvas when experiment is active in Hall Setup mode with voltage on
-    if(!S.voltShown || !S.probeIn || S.mode !== 'hall_setup' || S.ivSwitch !== 'V') {
-        $('magnified-specimen').style.display = 'none';
-        return;
-    }
-    
-    $('magnified-specimen').style.display = 'block';
-    
-    // Synchronize UI visuals to material
-    const m = MATERIALS[S.mat];
-    $('magnified-specimen').style.borderColor = m.color;
-    
-    const isPType = m.sign === 1;
-    const legend = $('anim-legend');
-    if (isPType) {
-        legend.innerHTML = '<span style="color:#FF4444;">● Holes (p-type)</span>';
-    } else {
-        legend.innerHTML = '<span style="color:#4488FF;">● Electrons (n-type)</span>';
-    }
-    
-    // Redraw loop
-    dCtx.clearRect(0, 0, defCanvas.width, defCanvas.height);
-    
-    // Physics constants for canvas space
-    const dt = 1/60; // Approx 60fps frame delta
-    const maxB = 1.0; // Slider limit
-    const curB = S.B;
-    // p-type UP (-1 in canvas Y axis), n-type DOWN (+1 in canvas Y axis)
-    const direction = isPType ? -1 : 1; 
-    const w = defCanvas.width;
-    const h = defCanvas.height;
-    
-    dCtx.fillStyle = isPType ? '#FF4444' : '#4488FF';
-    
-    for(let p of particles) {
-        // Drift horizontally
-        const speedScale = Math.max(0.1, S.hcmA / 5.0); 
-        p.x += p.speed * speedScale * dt;
-        
-        // Loop back to left side
-        if(p.x > w + 10) {
-            p.x = -10;
-            p.baseY = Math.random() * h; // Uniform vertical distribution
+        $('btn-insert').addEventListener('click', () => {
+            $('btn-insert').disabled = true;
+            animateProbe(true, () => {
+                S.probeIn = true;
+                $('btn-insert').classList.add('hidden');
+                $('btn-remove').classList.remove('hidden');
+                $('btn-volt').disabled = false;
+                $('sd').classList.add('on');
+                $('status-txt').textContent = 'Probe: Embedded in Sample';
+                updateAllDisplays();
+            });
+        });
+
+        $('btn-remove').addEventListener('click', () => {
+            $('btn-remove').disabled = true;
+            $('btn-volt').disabled = true;
+            S.voltShown = false; S.resShown = false;
+            $('adv-results').classList.add('hidden');
+            $('btn-calc').disabled = true;
+            updateAllDisplays();
+            animateProbe(false, () => {
+                S.probeIn = false;
+                $('btn-remove').classList.add('hidden');
+                $('btn-remove').disabled = false;
+                $('btn-insert').classList.remove('hidden');
+                $('btn-insert').disabled = false;
+                $('sd').classList.remove('on');
+                $('status-txt').textContent = 'Probe: Resting';
+                updateAllDisplays();
+            });
+        });
+
+        $('btn-volt').addEventListener('click', () => {
+            S.voltShown = true; $('btn-calc').disabled = false;
+            updateAllDisplays();
+            $('o-vh').style.transition = 'color 0.3s';
+            $('o-vh').style.color = '#fff';
+            setTimeout(() => { $('o-vh').style.color = '#feca57'; }, 300);
+        });
+
+        $('btn-calc').addEventListener('click', () => {
+            S.resShown = true; $('adv-results').classList.remove('hidden');
+            updateAllDisplays();
+            S.obsCount++;
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${S.obsCount}</td><td>${S.hcmA.toFixed(1)}</td><td>${S.B.toFixed(3)}</td><td>${fmtV(S.Vh)}</td><td>${S.Rh.toExponential(1)}</td>`;
+            $('obs-body').appendChild(row);
+            addChartPoint();
+        });
+
+        $('btn-reset').addEventListener('click', () => location.reload());
+
+        // ========== CHART ==========
+        const chartCtx = $('chart-canvas').getContext('2d');
+        Chart.defaults.color = '#94a3b8'; Chart.defaults.font.family = 'Inter';
+        let chartData = {
+            labels: [],
+            datasets: [{
+                label: 'V_H', data: [], borderColor: '#feca57', backgroundColor: 'rgba(254,202,87,0.1)',
+                borderWidth: 2, fill: true, tension: 0.3, pointRadius: 4,
+                pointBackgroundColor: '#feca57', pointBorderColor: '#000', pointBorderWidth: 1
+            }]
+        };
+        const chart = new Chart(chartCtx, {
+            type: 'line', data: chartData,
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: {
+                    x: { title: { display: true, text: 'B (T)' }, grid: { color: 'rgba(255,255,255,0.04)' } },
+                    y: {
+                        title: { display: true, text: 'V_H' }, grid: { color: 'rgba(255,255,255,0.04)' },
+                        ticks: { callback: v => fmtV(v) }
+                    }
+                },
+                plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => fmtV(ctx.raw) } } }
+            }
+        });
+        $('ui-proc').addEventListener('change', e => {
+            const mode = e.target.value;
+            S.mode = mode;
+            chartData.labels = []; chartData.datasets[0].data = [];
+
+            // Toggle instrument visibility
+            $('instrument-mode1').style.display = mode === 'b_vs_i' ? '' : 'none';
+            $('instrument-mode2').style.display = mode === 'hall_setup' ? '' : 'none';
+            $('wires-mode1').style.display = mode === 'b_vs_i' ? '' : 'none';
+            $('wires-mode2').style.display = mode === 'hall_setup' ? '' : 'none';
+
+            // Toggle active probe object
+            $('probe-group').style.display = mode === 'b_vs_i' ? '' : 'none';
+            $('white-board-group').style.display = mode === 'hall_setup' ? '' : 'none';
+
+            // Common insert button text mapping
+            $('btn-insert').innerHTML = mode === 'b_vs_i' ? '&#8681; Insert Probe' : '&#8681; Insert Sample Board';
+            $('btn-remove').innerHTML = mode === 'b_vs_i' ? '&#8679; Remove Probe' : '&#8679; Remove Sample Board';
+
+            if (mode === 'b_vs_i') {
+                chart.options.scales.x.title.text = 'Current (A)';
+                chart.options.scales.y.title.text = 'B (T)';
+                chartData.datasets[0].label = 'B';
+                chartData.datasets[0].borderColor = '#6cb4ee';
+                chartData.datasets[0].pointBackgroundColor = '#6cb4ee';
+                chartData.datasets[0].backgroundColor = 'rgba(108,180,238,0.1)';
+            } else {
+                chart.options.scales.x.title.text = 'B (T)';
+                chart.options.scales.y.title.text = 'V_H';
+                chartData.datasets[0].label = 'V_H';
+                chartData.datasets[0].borderColor = '#feca57';
+                chartData.datasets[0].pointBackgroundColor = '#feca57';
+                chartData.datasets[0].backgroundColor = 'rgba(254,202,87,0.1)';
+            }
+            chart.update();
+            updateAllDisplays();
+        });
+        function addChartPoint() {
+            const proc = $('ui-proc').value;
+            if (proc === 'b_vs_i') {
+                chartData.labels.push(S.emA.toFixed(1));
+                chartData.datasets[0].data.push(S.B);
+            } else {
+                chartData.labels.push(S.B.toFixed(3));
+                chartData.datasets[0].data.push(S.Vh);
+            }
+            if (chartData.labels.length > 20) { chartData.labels.shift(); chartData.datasets[0].data.shift(); }
+            chart.update();
         }
-        
-        // Thermal Wobble
-        p.wobblePhase += 5 * dt;
-        const thermalWobble = Math.sin(p.wobblePhase) * 2;
-        
-        // Deflection: y_deflect = direction × (B / B_max) × max_deflect_px × (x / sample_width)²
-        const maxDeflect = 0.35 * h;
-        const y_deflect = direction * (curB / maxB) * maxDeflect * Math.pow(Math.max(0, p.x) / w, 2);
-        
-        let py = p.baseY + y_deflect + thermalWobble;
-        
-        // Accumulate exactly against the top/bottom boundary
-        if (py < 5) py = 5;
-        if (py > h - 5) py = h - 5;
-        
-        // Draw Carrier
-        dCtx.beginPath();
-        dCtx.arc(p.x, py, 4, 0, Math.PI*2);
-        dCtx.fill();
-        
-        // Sign label inside
-        dCtx.fillStyle = '#FFF';
-        dCtx.font = "8px Arial";
-        dCtx.textAlign = "center";
-        dCtx.fillText(isPType ? '+' : '-', p.x, py+3);
-        dCtx.fillStyle = isPType ? '#FF4444' : '#4488FF';
-    }
-}
 
-// ========== SMOOTH ANIMATION LOOP ==========
-let curNX = 125, curNY = 500, curKA = 0;
-function animLoop() {
-    requestAnimationFrame(animLoop);
-    // Needle
-    const n = $('ammeter-needle');
-    const tx = parseFloat(n.getAttribute('data-target-x') || 125);
-    const ty = parseFloat(n.getAttribute('data-target-y') || 500);
-    curNX += (tx - curNX) * 0.08;
-    curNY += (ty - curNY) * 0.08;
-    n.setAttribute('x2', curNX.toFixed(1));
-    n.setAttribute('y2', curNY.toFixed(1));
-    // Knob
-    const kg = $('knob-group');
-    const ta = parseFloat(kg.getAttribute('data-target-angle') || 0);
-    curKA += (ta - curKA) * 0.08;
-    kg.setAttribute('transform', `translate(260, 510) rotate(${curKA.toFixed(1)})`);
-    
-    // Update wires dynamically if board is moving
-    updateBoardWires();
-    
-    // Update Canvas Particle animation
-    updateDeflectionAnim();
-}
-animLoop();
-
-// ========== PROBE ANIMATION ==========
-function animateProbe(insert, cb) {
-    const steps = 60;
-    let step = 0;
-    
-    if (S.mode === 'b_vs_i') {
-        const handle = $('probe-handle');
-        const tip = $('probe-tip');
-        const needle = $('probe-needle');
-        const lbl = $('probe-label');
-        
-        const sHX = parseFloat(handle.getAttribute('x'));
-        const sHY = parseFloat(handle.getAttribute('y'));
-        const sTX = parseFloat(tip.getAttribute('x'));
-        const sTY = parseFloat(tip.getAttribute('y'));
-        const sNX1 = parseFloat(needle.getAttribute('x1'));
-        const sNY1 = parseFloat(needle.getAttribute('y1'));
-        const sNX2 = parseFloat(needle.getAttribute('x2'));
-        
-        let eHX, eHY, eTX, eTY, eNX2;
-        if(insert) {
-            eHX = 530; eHY = 263; eTX = 515; eTY = 266; eNX2 = 508;
-        } else {
-            eHX = 760; eHY = 428; eTX = 745; eTY = 431; eNX2 = 732;
+        function exportCSV() {
+            let csv = "data:text/csv;charset=utf-8,#,I(mA),B(T),V_H,R_H\n";
+            $('obs-body').querySelectorAll('tr').forEach(r => {
+                csv += Array.from(r.querySelectorAll('td')).map(c => c.textContent).join(',') + '\n';
+            });
+            const link = document.createElement('a');
+            link.setAttribute('href', encodeURI(csv)); link.setAttribute('download', 'hall_effect_observations.csv');
+            document.body.appendChild(link); link.click(); document.body.removeChild(link);
         }
-        
-        function tickM1() {
-            step++;
-            const t = step / steps;
-            const ease = t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2,2)/2;
-            const hx = sHX + (eHX - sHX) * ease;
-            const hy = sHY + (eHY - sHY) * ease;
-            const tx2 = sTX + (eTX - sTX) * ease;
-            const ty2 = sTY + (eTY - sTY) * ease;
-            const enx = sNX2 + (eNX2 - sNX2) * ease;
-            
-            handle.setAttribute('x', hx.toFixed(1));
-            handle.setAttribute('y', hy.toFixed(1));
-            tip.setAttribute('x', tx2.toFixed(1));
-            tip.setAttribute('y', ty2.toFixed(1));
-            needle.setAttribute('x1', tx2.toFixed(1));
-            needle.setAttribute('y1', (ty2 + 3).toFixed(1));
-            needle.setAttribute('x2', enx.toFixed(1));
-            needle.setAttribute('y2', (ty2 + 3).toFixed(1));
-            lbl.setAttribute('x', (hx + 30).toFixed(1));
-            lbl.setAttribute('y', (hy - 5).toFixed(1));
-            
-            // Animate wire
-            const backX = hx + 55;
-            const backY = hy + 5;
-            $('probe-cable').setAttribute('d', `M${backX},${backY} C${backX+20},${backY+20} 830,440 850,445`);
-            
-            if(step < steps) requestAnimationFrame(tickM1);
-            else if(cb) cb();
-        }
-        tickM1();
-        
-    } else {
-        // Mode 2: Animate White Terminal Strip
-        const board = $('white-board-group');
-        const sx = parseFloat(board.getAttribute('data-x'));
-        const sy = parseFloat(board.getAttribute('data-y'));
-        
-        let ex, ey;
-        if (insert) {
-            ex = 447; // Positioned right above the wooden stand block
-            ey = 280;
-        } else {
-            ex = 680; // Resting on Hall tester
-            ey = 425;
-        }
-        
-        function tickM2() {
-            step++;
-            const t = step / steps;
-            const ease = t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2,2)/2;
-            const nx = sx + (ex - sx) * ease;
-            const ny = sy + (ey - sy) * ease;
-            
-            board.setAttribute('data-x', nx);
-            board.setAttribute('data-y', ny);
-            board.setAttribute('transform', `translate(${nx}, ${ny})`);
-            
-            if(step < steps) requestAnimationFrame(tickM2);
-            else if(cb) cb();
-        }
-        tickM2();
-    }
-}
 
-// ========== UI EVENTS ==========
-$('ui-mat').addEventListener('change', e => { S.mat = e.target.value; calc(); });
-$('ui-t').addEventListener('input', e => {
-    const v = parseFloat(e.target.value);
-    S.t = v * 1e-3; $('v-t').textContent = v.toFixed(1); calc();
-});
-$('ui-em').addEventListener('input', e => {
-    const v = parseFloat(e.target.value);
-    S.emA = v; $('v-em').textContent = v.toFixed(1); calc();
-});
-$('ui-hc').addEventListener('input', e => {
-    const v = parseFloat(e.target.value);
-    S.hcmA = v; S.hcA = v * 1e-3; $('v-hc').textContent = v.toFixed(1); calc();
-});
+        // Draw tick marks on ammeter
+        (function () {
+            const g = $('meter-ticks');
+            for (let i = 0; i <= 10; i++) {
+                const frac = i / 10;
+                const angle = (-55 + frac * 110) * Math.PI / 180;
+                const r1 = 32, r2 = i % 2 === 0 ? 37 : 35;
+                const x1 = 155 + Math.sin(angle) * r1, y1 = 540 - Math.cos(angle) * r1;
+                const x2 = 155 + Math.sin(angle) * r2, y2 = 540 - Math.cos(angle) * r2;
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+                line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+                line.setAttribute('stroke', '#555'); line.setAttribute('stroke-width', i % 2 === 0 ? '1.5' : '0.8');
+                g.appendChild(line);
+            }
+        })();
 
-$('btn-insert').addEventListener('click', () => {
-    $('btn-insert').disabled = true;
-    animateProbe(true, () => {
-        S.probeIn = true;
-        $('btn-insert').classList.add('hidden');
-        $('btn-remove').classList.remove('hidden');
-        $('btn-volt').disabled = false;
-        $('sd').classList.add('on');
-        $('status-txt').textContent = 'Probe: Embedded in Sample';
-        updateAllDisplays();
-    });
-});
+        // Init
+        calc();
 
-$('btn-remove').addEventListener('click', () => {
-    $('btn-remove').disabled = true;
-    $('btn-volt').disabled = true;
-    S.voltShown = false; S.resShown = false;
-    $('adv-results').classList.add('hidden');
-    $('btn-calc').disabled = true;
-    updateAllDisplays();
-    animateProbe(false, () => {
-        S.probeIn = false;
-        $('btn-remove').classList.add('hidden');
-        $('btn-remove').disabled = false;
-        $('btn-insert').classList.remove('hidden');
-        $('btn-insert').disabled = false;
-        $('sd').classList.remove('on');
-        $('status-txt').textContent = 'Probe: Resting';
-        updateAllDisplays();
-    });
-});
+        // ========== I/V SWITCH ON HALL TESTER ==========
+        $('iv-switch-click').addEventListener('click', () => {
+            const thumb = $('iv-switch-thumb');
+            const label = $('iv-mode-label');
+            if (S.ivSwitch === 'I') {
+                S.ivSwitch = 'V';
+                thumb.setAttribute('cx', '731');
+                thumb.setAttribute('fill', '#feca57');
+                thumb.setAttribute('stroke', '#aa8800');
+                label.textContent = 'VOLTAGE';
+            } else {
+                S.ivSwitch = 'I';
+                thumb.setAttribute('cx', '697');
+                thumb.setAttribute('fill', '#00f2fe');
+                thumb.setAttribute('stroke', '#008899');
+                label.textContent = 'CURRENT';
+            }
+            updateHallTester();
+        });
 
-$('btn-volt').addEventListener('click', () => {
-    S.voltShown = true; $('btn-calc').disabled = false;
-    updateAllDisplays();
-    $('o-vh').style.transition = 'color 0.3s';
-    $('o-vh').style.color = '#fff';
-    setTimeout(() => { $('o-vh').style.color = '#feca57'; }, 300);
-});
-
-$('btn-calc').addEventListener('click', () => {
-    S.resShown = true; $('adv-results').classList.remove('hidden');
-    updateAllDisplays();
-    S.obsCount++;
-    const row = document.createElement('tr');
-    row.innerHTML = `<td>${S.obsCount}</td><td>${S.hcmA.toFixed(1)}</td><td>${S.B.toFixed(3)}</td><td>${fmtV(S.Vh)}</td><td>${S.Rh.toExponential(1)}</td>`;
-    $('obs-body').appendChild(row);
-    addChartPoint();
-});
-
-$('btn-reset').addEventListener('click', () => location.reload());
-
-// ========== CHART ==========
-const chartCtx = $('chart-canvas').getContext('2d');
-Chart.defaults.color = '#94a3b8'; Chart.defaults.font.family = 'Inter';
-let chartData = {
-    labels: [],
-    datasets: [{ label: 'V_H', data: [], borderColor: '#feca57', backgroundColor: 'rgba(254,202,87,0.1)',
-        borderWidth: 2, fill: true, tension: 0.3, pointRadius: 4,
-        pointBackgroundColor: '#feca57', pointBorderColor: '#000', pointBorderWidth: 1 }]
-};
-const chart = new Chart(chartCtx, {
-    type: 'line', data: chartData,
-    options: {
-        responsive: true, maintainAspectRatio: false,
-        scales: {
-            x: { title: { display: true, text: 'B (T)' }, grid: { color: 'rgba(255,255,255,0.04)' } },
-            y: { title: { display: true, text: 'V_H' }, grid: { color: 'rgba(255,255,255,0.04)' },
-                ticks: { callback: v => fmtV(v) } }
-        },
-        plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => fmtV(ctx.raw) } } }
-    }
-});
-$('ui-proc').addEventListener('change', e => {
-    const mode = e.target.value;
-    S.mode = mode;
-    chartData.labels = []; chartData.datasets[0].data = [];
-    
-    // Toggle instrument visibility
-    $('instrument-mode1').style.display = mode === 'b_vs_i' ? '' : 'none';
-    $('instrument-mode2').style.display = mode === 'hall_setup' ? '' : 'none';
-    $('wires-mode1').style.display = mode === 'b_vs_i' ? '' : 'none';
-    $('wires-mode2').style.display = mode === 'hall_setup' ? '' : 'none';
-    
-    // Toggle active probe object
-    $('probe-group').style.display = mode === 'b_vs_i' ? '' : 'none';
-    $('white-board-group').style.display = mode === 'hall_setup' ? '' : 'none';
-    
-    // Common insert button text mapping
-    $('btn-insert').innerHTML = mode === 'b_vs_i' ? '&#8681; Insert Probe' : '&#8681; Insert Sample Board';
-    $('btn-remove').innerHTML = mode === 'b_vs_i' ? '&#8679; Remove Probe' : '&#8679; Remove Sample Board';
-    
-    if(mode === 'b_vs_i') {
-        chart.options.scales.x.title.text = 'Current (A)';
-        chart.options.scales.y.title.text = 'B (T)';
-        chartData.datasets[0].label = 'B';
-        chartData.datasets[0].borderColor = '#6cb4ee';
-        chartData.datasets[0].pointBackgroundColor = '#6cb4ee';
-        chartData.datasets[0].backgroundColor = 'rgba(108,180,238,0.1)';
-    } else {
-        chart.options.scales.x.title.text = 'B (T)';
-        chart.options.scales.y.title.text = 'V_H';
-        chartData.datasets[0].label = 'V_H';
-        chartData.datasets[0].borderColor = '#feca57';
-        chartData.datasets[0].pointBackgroundColor = '#feca57';
-        chartData.datasets[0].backgroundColor = 'rgba(254,202,87,0.1)';
-    }
-    chart.update();
-    updateAllDisplays();
-});
-function addChartPoint() {
-    const proc = $('ui-proc').value;
-    if(proc === 'b_vs_i') {
-        chartData.labels.push(S.emA.toFixed(1));
-        chartData.datasets[0].data.push(S.B);
-    } else {
-        chartData.labels.push(S.B.toFixed(3));
-        chartData.datasets[0].data.push(S.Vh);
-    }
-    if(chartData.labels.length > 20) { chartData.labels.shift(); chartData.datasets[0].data.shift(); }
-    chart.update();
-}
-
-function exportCSV() {
-    let csv = "data:text/csv;charset=utf-8,#,I(mA),B(T),V_H,R_H\n";
-    $('obs-body').querySelectorAll('tr').forEach(r => {
-        csv += Array.from(r.querySelectorAll('td')).map(c => c.textContent).join(',') + '\n';
-    });
-    const link = document.createElement('a');
-    link.setAttribute('href', encodeURI(csv)); link.setAttribute('download', 'hall_effect_observations.csv');
-    document.body.appendChild(link); link.click(); document.body.removeChild(link);
-}
-
-// Draw tick marks on ammeter
-(function() {
-    const g = $('meter-ticks');
-    for(let i = 0; i <= 10; i++) {
-        const frac = i / 10;
-        const angle = (-55 + frac * 110) * Math.PI / 180;
-        const r1 = 32, r2 = i % 2 === 0 ? 37 : 35;
-        const x1 = 155 + Math.sin(angle) * r1, y1 = 540 - Math.cos(angle) * r1;
-        const x2 = 155 + Math.sin(angle) * r2, y2 = 540 - Math.cos(angle) * r2;
-        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-        line.setAttribute('x1',x1); line.setAttribute('y1',y1);
-        line.setAttribute('x2',x2); line.setAttribute('y2',y2);
-        line.setAttribute('stroke', '#555'); line.setAttribute('stroke-width', i%2===0 ? '1.5' : '0.8');
-        g.appendChild(line);
-    }
-})();
-
-// Init
-calc();
-
-// ========== I/V SWITCH ON HALL TESTER ==========
-$('iv-switch-click').addEventListener('click', () => {
-    const thumb = $('iv-switch-thumb');
-    const label = $('iv-mode-label');
-    if(S.ivSwitch === 'I') {
-        S.ivSwitch = 'V';
-        thumb.setAttribute('cx', '731');
-        thumb.setAttribute('fill', '#feca57');
-        thumb.setAttribute('stroke', '#aa8800');
-        label.textContent = 'VOLTAGE';
-    } else {
-        S.ivSwitch = 'I';
-        thumb.setAttribute('cx', '697');
-        thumb.setAttribute('fill', '#00f2fe');
-        thumb.setAttribute('stroke', '#008899');
-        label.textContent = 'CURRENT';
-    }
-    updateHallTester();
-});
-
-// Auto-switch to voltage mode when Show Voltage is clicked in Hall Setup mode
-const origVoltHandler = $('btn-volt').onclick;
-$('btn-volt').addEventListener('click', () => {
-    if(S.mode === 'hall_setup' && S.ivSwitch === 'I') {
-        // Auto-switch to Voltage
-        S.ivSwitch = 'V';
-        $('iv-switch-thumb').setAttribute('cx', '731');
-        $('iv-switch-thumb').setAttribute('fill', '#feca57');
-        $('iv-switch-thumb').setAttribute('stroke', '#aa8800');
-        $('iv-mode-label').textContent = 'VOLTAGE';
-    }
-});
-</script>
+        // Auto-switch to voltage mode when Show Voltage is clicked in Hall Setup mode
+        const origVoltHandler = $('btn-volt').onclick;
+        $('btn-volt').addEventListener('click', () => {
+            if (S.mode === 'hall_setup' && S.ivSwitch === 'I') {
+                // Auto-switch to Voltage
+                S.ivSwitch = 'V';
+                $('iv-switch-thumb').setAttribute('cx', '731');
+                $('iv-switch-thumb').setAttribute('fill', '#feca57');
+                $('iv-switch-thumb').setAttribute('stroke', '#aa8800');
+                $('iv-mode-label').textContent = 'VOLTAGE';
+            }
+        });
+    </script>
 </body>
+
 </html>
