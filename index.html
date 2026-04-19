@@ -6,6 +6,7 @@
   <title>Advanced Hall Effect Simulation</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=IBM+Plex+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #00e5ff;
@@ -334,11 +335,843 @@
         flex-direction: column;
       }
     }
+    /* ================================================
+       LANDING PAGE & GLOBAL NAVBAR STYLES
+       ================================================ */
+
+    /* Background Layers */
+    #bg-particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    #bg-gradient {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 60% at 30% 40%,
+          rgba(0, 212, 255, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 75% 60%,
+          rgba(123, 47, 255, 0.08) 0%, transparent 60%);
+    }
+
+    /* App Content & Landing Page Visibility */
+    #app-content {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      padding-top: 58px;
+      position: relative;
+      z-index: 1;
+    }
+    #app-content.visible {
+      display: flex;
+    }
+    #landing-page {
+      display: block;
+      position: relative;
+      z-index: 1;
+      padding-top: 58px;
+    }
+    #landing-page.hidden {
+      display: none;
+    }
+
+    /* Landing Page Heading Overrides */
+    #landing-page h1,
+    #landing-page h2,
+    #landing-page h3,
+    #landing-page h4 {
+      text-shadow: none;
+      text-align: left;
+    }
+    #landing-page h2::before {
+      display: none;
+    }
+    #landing-page h1 {
+      margin: 0;
+      text-align: center;
+    }
+    #landing-page h2 {
+      text-align: center;
+    }
+
+    /* Landing Page Button Overrides */
+    #landing-page .btn-primary,
+    #landing-page .btn-secondary,
+    .landing-footer .btn-primary {
+      flex: none;
+      min-width: auto;
+    }
+
+    /* ---- GLOBAL NAVBAR ---- */
+    #global-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(8, 12, 20, 0.90);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(0, 212, 255, 0.12);
+      z-index: 9999;
+    }
+    .nav-logo-text {
+      font-family: 'Orbitron', monospace;
+      color: #00D4FF;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+    .nav-tab {
+      background: none;
+      border: none;
+      color: #6B8CAE;
+      font-family: 'Orbitron', monospace;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      padding: 8px 16px;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.25s ease;
+      text-transform: uppercase;
+      flex: none;
+      min-width: auto;
+    }
+    .nav-tab:hover {
+      color: #B0D8F0;
+      background: none;
+      transform: none;
+    }
+    .nav-tab.active {
+      color: #00D4FF;
+    }
+    .nav-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 16px; right: 16px;
+      height: 2px;
+      background: #00D4FF;
+      border-radius: 2px;
+      box-shadow: 0 0 8px #00D4FF;
+    }
+    .nav-indicator {
+      position: absolute;
+      bottom: -2px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00D4FF, transparent);
+      border-radius: 2px;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                  width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+
+    /* ---- Keyframes ---- */
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 200% 0%; }
+    }
+    @keyframes ringPulse {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.08; transform: scale(1.02); }
+    }
+    @keyframes scrollWheel {
+      0%, 100% { transform: translateY(0); opacity: 1; }
+      50% { transform: translateY(8px); opacity: 0; }
+    }
+
+    /* ---- HERO SECTION ---- */
+    .hero-section {
+      min-height: calc(100vh - 58px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 40px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .magnet-ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid rgba(0, 212, 255, 0.08);
+      animation: ringPulse 4s ease-in-out infinite;
+    }
+    .ring-1 { width: 500px; height: 500px; animation-delay: 0s; }
+    .ring-2 { width: 750px; height: 750px; animation-delay: 1s; }
+    .ring-3 { width: 1000px; height: 1000px; animation-delay: 2s; }
+
+    .hero-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: #00D4FF;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      opacity: 0;
+      animation: fadeSlideUp 0.6s ease 0.2s forwards;
+    }
+    .eyebrow-dot {
+      width: 4px; height: 4px;
+      background: #00D4FF;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #00D4FF;
+    }
+
+    .hero-title {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      margin: 0 0 28px;
+      line-height: 1.1;
+      color: #fff;
+      font-size: inherit;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+    .title-line-1 {
+      display: block;
+      font-size: clamp(56px, 9vw, 110px);
+      color: #ffffff;
+      text-shadow: 0 0 60px rgba(0,212,255,0.2);
+      opacity: 0;
+      animation: fadeSlideUp 0.8s cubic-bezier(0,0,0.2,1) 0.5s forwards;
+    }
+    .title-line-2 {
+      display: block;
+      font-size: clamp(22px, 4vw, 46px);
+      background: linear-gradient(90deg, #00D4FF 0%, #7B2FFF 50%, #00D4FF 100%);
+      background-size: 200% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeSlideUp 0.8s cubic-bezier(0,0,0.2,1) 0.75s forwards,
+                 gradientShift 4s linear 1.5s infinite;
+      opacity: 0;
+    }
+
+    .hero-subtitle {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(14px, 1.8vw, 18px);
+      color: #6B8CAE;
+      line-height: 1.8;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      opacity: 0;
+      animation: fadeSlideUp 0.8s ease 1s forwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+      opacity: 0;
+      animation: fadeSlideUp 0.8s ease 1.2s forwards;
+    }
+
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #00D4FF, #0088CC);
+      color: #080C14;
+      border: none;
+      padding: 14px 32px;
+      font-family: 'Orbitron', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 0 20px rgba(0,212,255,0.3), 0 4px 12px rgba(0,0,0,0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 35px rgba(0,212,255,0.5), 0 8px 20px rgba(0,0,0,0.4);
+      background: linear-gradient(135deg, #00D4FF, #0088CC);
+    }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-shine {
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%; height: 100%;
+      background: linear-gradient(90deg,
+        transparent, rgba(255,255,255,0.3), transparent);
+      transform: skewX(-20deg);
+      transition: left 0.5s ease;
+    }
+    .btn-primary:hover .btn-shine { left: 150%; }
+
+    .btn-secondary {
+      background: transparent;
+      color: #00D4FF;
+      border: 1px solid rgba(0,212,255,0.4);
+      padding: 14px 32px;
+      font-family: 'Orbitron', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(8px);
+      flex: none;
+      min-width: auto;
+    }
+    .btn-secondary:hover {
+      background: rgba(0,212,255,0.08);
+      border-color: rgba(0,212,255,0.8);
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(0,212,255,0.15);
+    }
+    .btn-icon {
+      margin-right: 6px;
+    }
+
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      padding: 20px 40px;
+      background: rgba(13, 21, 37, 0.6);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(0,212,255,0.1);
+      border-radius: 50px;
+      opacity: 0;
+      animation: fadeSlideUp 0.8s ease 1.4s forwards;
+    }
+    .stat-item { text-align: center; }
+    .stat-value {
+      display: block;
+      font-family: 'Orbitron', monospace;
+      font-size: 20px;
+      font-weight: 700;
+      color: #00D4FF;
+    }
+    .stat-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: #6B8CAE;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .stat-divider {
+      width: 1px;
+      height: 36px;
+      background: rgba(0,212,255,0.15);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeSlideUp 0.8s ease 1.8s forwards;
+      color: #6B8CAE;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 3px;
+    }
+    .scroll-mouse {
+      width: 22px; height: 34px;
+      border: 1px solid rgba(0,212,255,0.3);
+      border-radius: 11px;
+      display: flex;
+      justify-content: center;
+      padding-top: 6px;
+    }
+    .scroll-wheel {
+      width: 3px; height: 6px;
+      background: #00D4FF;
+      border-radius: 2px;
+      animation: scrollWheel 2s ease infinite;
+    }
+
+    /* ---- FEATURES SECTION ---- */
+    .features-section {
+      padding: 100px 5% 80px;
+      position: relative;
+      z-index: 1;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .section-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(28px, 4vw, 42px);
+      color: #E8F4FD;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .section-subtitle {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #6B8CAE;
+      font-size: 16px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .feature-card {
+      position: relative;
+      background: rgba(13, 21, 37, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(0,212,255,0.08);
+      border-radius: 16px;
+      padding: 32px 28px;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .feature-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease,
+                  border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(0,212,255,0.25);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3),
+                  0 0 20px rgba(0,212,255,0.05);
+    }
+    .feature-icon {
+      font-size: 36px;
+      margin-bottom: 16px;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .feature-card:hover .feature-icon { transform: scale(1.15) rotate(5deg); }
+    .feature-card h3 {
+      font-family: 'Orbitron', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      color: #E8F4FD;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      color: #6B8CAE;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .card-glow {
+      position: absolute;
+      top: 0; right: 0;
+      width: 80px; height: 80px;
+      background: radial-gradient(circle, rgba(0,212,255,0.12), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .feature-card:hover .card-glow { opacity: 1; }
+
+    /* ---- HOW IT WORKS ---- */
+    .how-section {
+      padding: 80px 5%;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    .steps-timeline {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0;
+      max-width: 1000px;
+      margin: 50px auto 0;
+      flex-wrap: wrap;
+    }
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      min-width: 150px;
+      position: relative;
+      padding: 0 10px;
+    }
+    .step-number {
+      width: 48px; height: 48px;
+      border: 2px solid rgba(0,212,255,0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: #00D4FF;
+      background: rgba(0,212,255,0.05);
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .step:hover .step-number {
+      background: rgba(0,212,255,0.15);
+      box-shadow: 0 0 20px rgba(0,212,255,0.2);
+    }
+    .step-content h4 {
+      font-family: 'Orbitron', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      color: #E8F4FD;
+      margin: 0 0 6px;
+      text-align: center;
+    }
+    .step-content p {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      color: #6B8CAE;
+      line-height: 1.5;
+      margin: 0;
+      max-width: 160px;
+    }
+    .step-line {
+      position: absolute;
+      top: 24px;
+      left: calc(50% + 28px);
+      width: calc(100% - 56px);
+      height: 1px;
+      background: linear-gradient(90deg, rgba(0,212,255,0.3), rgba(0,212,255,0.05));
+    }
+
+    /* ---- LANDING FOOTER ---- */
+    .landing-footer {
+      text-align: center;
+      padding: 60px 5% 40px;
+      border-top: 1px solid rgba(0,212,255,0.08);
+      position: relative;
+      z-index: 1;
+    }
+    .footer-logo {
+      font-family: 'Orbitron', monospace;
+      color: #00D4FF;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .footer-text {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #6B8CAE;
+      font-size: 14px;
+      margin: 0 0 8px;
+    }
+    .footer-sub {
+      font-family: 'IBM Plex Mono', monospace;
+      color: #4a5f7a;
+      font-size: 11px;
+      margin: 0 0 24px;
+      letter-spacing: 0.5px;
+    }
+    .footer-cta {
+      display: inline-flex;
+      flex: none;
+    }
+
+    /* ---- LANDING PAGE RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      #global-nav {
+        padding: 0 16px;
+      }
+      .nav-right {
+        gap: 2px;
+      }
+      .nav-tab {
+        font-size: 10px;
+        padding: 8px 8px;
+        letter-spacing: 0.3px;
+      }
+      .hero-section {
+        padding: 60px 20px 40px;
+      }
+      .hero-stats {
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 16px 24px;
+        border-radius: 20px;
+      }
+      .stat-divider {
+        display: none;
+      }
+      .steps-timeline {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      .step-line {
+        display: none;
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
   </style>
 </head>
 
 <body>
-  <h1>Advanced Hall Effect Lab</h1>
+
+<!-- Background Layers -->
+<canvas id="bg-particles"></canvas>
+<div id="bg-gradient"></div>
+
+<!-- GLOBAL NAVBAR -->
+<nav id="global-nav">
+  <div class="nav-left" id="nav-logo">
+    <svg class="nav-logo-icon" width="28" height="28" viewBox="0 0 28 28">
+      <circle cx="14" cy="14" r="3" fill="#00D4FF"/>
+      <ellipse cx="14" cy="14" rx="12" ry="5"
+               fill="none" stroke="#00D4FF" stroke-width="1.2" opacity="0.7"/>
+      <ellipse cx="14" cy="14" rx="12" ry="5"
+               fill="none" stroke="#00D4FF" stroke-width="1.2" opacity="0.7"
+               transform="rotate(60 14 14)"/>
+      <ellipse cx="14" cy="14" rx="12" ry="5"
+               fill="none" stroke="#00D4FF" stroke-width="1.2" opacity="0.7"
+               transform="rotate(120 14 14)"/>
+    </svg>
+    <span class="nav-logo-text">Virtual Simulation of Hall Lab</span>
+  </div>
+  <div class="nav-right">
+    <button class="nav-tab active" data-target="landing">Home</button>
+    <button class="nav-tab" data-target="simulation">Simulation</button>
+    <button class="nav-tab" data-target="advanced">Advanced Lab</button>
+    <button class="nav-tab" data-target="3dview">3D View</button>
+    <button class="nav-tab" data-target="theory">Theory</button>
+    <div class="nav-indicator"></div>
+  </div>
+</nav>
+
+<!-- LANDING PAGE -->
+<section id="landing-page">
+  <!-- HERO -->
+  <div class="hero-section">
+    <div class="magnet-ring ring-1"></div>
+    <div class="magnet-ring ring-2"></div>
+    <div class="magnet-ring ring-3"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        PHYSICS VIRTUAL LABORATORY
+        <span class="eyebrow-dot"></span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="title-line-1">HALL EFFECT</span>
+        <span class="title-line-2">VIRTUAL LABORATORY</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Explore charge carrier dynamics, magnetic field interactions,<br>
+        and semiconductor physics through a fully interactive simulation<br>
+        built to Amrita VLab standards.
+      </p>
+
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="enterApp('simulation')">
+          <span class="btn-icon">▶</span>
+          LAUNCH SIMULATION
+          <span class="btn-shine"></span>
+        </button>
+        <button class="btn-secondary" onclick="enterApp('theory')">
+          <span class="btn-icon">📖</span>
+          EXPLORE THEORY
+        </button>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-value" data-count="5">0</span>
+          <span class="stat-label">Materials</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value" data-count="2">0</span>
+          <span class="stat-label">Procedures</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value">100%</span>
+          <span class="stat-label">Physics Accurate</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value">Real-time</span>
+          <span class="stat-label">VH Computation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <div class="scroll-mouse">
+        <div class="scroll-wheel"></div>
+      </div>
+      <span>SCROLL</span>
+    </div>
+  </div>
+
+  <!-- FEATURES SECTION -->
+  <div class="features-section">
+    <div class="section-header">
+      <h2 class="section-title">What's Inside</h2>
+      <p class="section-subtitle">
+        Everything you need to master the Hall Effect experiment
+      </p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card" data-delay="0">
+        <div class="feature-icon">⚡</div>
+        <h3>Live Physics Engine</h3>
+        <p>Real-time Hall voltage computation using VH = RH·I·B/d with verified Germanium carrier concentration values</p>
+        <div class="card-glow"></div>
+      </div>
+      <div class="feature-card" data-delay="100">
+        <div class="feature-icon">🔬</div>
+        <h3>Authentic Lab Setup</h3>
+        <p>Realistic electromagnet, ammeter, Gauss meter and Hall probe matching Amrita VLab standards exactly</p>
+        <div class="card-glow"></div>
+      </div>
+      <div class="feature-card" data-delay="200">
+        <div class="feature-icon">🧲</div>
+        <h3>Carrier Deflection</h3>
+        <p>Animated charge carriers curving under Lorentz force — electrons vs holes with correct polarity and deflection direction</p>
+        <div class="card-glow"></div>
+      </div>
+      <div class="feature-card" data-delay="300">
+        <div class="feature-icon">📊</div>
+        <h3>Data Dashboard</h3>
+        <p>Live VH vs B and VH vs I graphs, observation table with CSV export, and automatic carrier concentration calculation</p>
+        <div class="card-glow"></div>
+      </div>
+      <div class="feature-card" data-delay="400">
+        <div class="feature-icon">⚗️</div>
+        <h3>5 Materials</h3>
+        <p>Germanium, Silicon n/p-type, GaAs, and Copper — each with accurate Hall coefficients and carrier concentrations</p>
+        <div class="card-glow"></div>
+      </div>
+      <div class="feature-card" data-delay="500">
+        <div class="feature-icon">🎓</div>
+        <h3>3D Visualization</h3>
+        <p>Immersive 3D view of the Hall Effect geometry showing current, magnetic field, and force vectors in real space</p>
+        <div class="card-glow"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="how-section">
+    <h2 class="section-title">How It Works</h2>
+    <div class="steps-timeline">
+      <div class="step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <h4>Insert Hall Probe</h4>
+          <p>Place the semiconductor sample between the electromagnet poles</p>
+        </div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <h4>Set Electromagnet Current</h4>
+          <p>Adjust current to generate magnetic field B = 0.1482 × I</p>
+        </div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <h4>Read Gauss Meter</h4>
+          <p>Gauss meter displays the magnetic field B in Tesla</p>
+        </div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <h4>Show Hall Voltage</h4>
+          <p>Click Show Voltage to reveal VH = RH·I·B/d in mV</p>
+        </div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <h4>Record & Export</h4>
+          <p>Add to observation table and export CSV for analysis</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="landing-footer">
+    <div class="footer-logo">
+      <span>Virtual Simulation of Hall Lab</span>
+    </div>
+    <p class="footer-text">
+      Advanced Hall Effect Simulation · Physics Laboratory
+    </p>
+    <p class="footer-sub">
+      Built for Educational Excellence · Carrier Concentration: 3.22×10²⁰ m⁻³
+    </p>
+    <button class="btn-primary footer-cta" onclick="enterApp('advanced')">
+      ▶ START EXPERIMENT
+    </button>
+  </footer>
+</section>
+
+<!-- ALL EXISTING CONTENT (untouched inside) -->
+<div id="app-content">
+  <h1>Advanced Hall Effect Simulation</h1>
 
   <div class="main-container">
     <!-- CONTROL PANEL -->
@@ -753,6 +1586,169 @@
     animate();
 
   </script>
+</div><!-- end app-content -->
+
+<!-- Landing Page & Navigation Scripts -->
+<script>
+(function() {
+  // ---- PARTICLE BACKGROUND ----
+  const bgCanvas = document.getElementById('bg-particles');
+  const bgCtx = bgCanvas.getContext('2d');
+  let bgParticles = [];
+
+  function bgResize() {
+    bgCanvas.width = window.innerWidth;
+    bgCanvas.height = window.innerHeight;
+  }
+
+  function createBgParticles() {
+    bgParticles = [];
+    const count = Math.floor((bgCanvas.width * bgCanvas.height) / 12000);
+    for (let i = 0; i < count; i++) {
+      bgParticles.push({
+        x: Math.random() * bgCanvas.width,
+        y: Math.random() * bgCanvas.height,
+        r: Math.random() * 1.5 + 0.3,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        opacity: Math.random() * 0.5 + 0.1,
+        color: Math.random() > 0.7 ? '0,212,255' : '255,255,255'
+      });
+    }
+  }
+
+  function drawBgParticles() {
+    bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+    bgParticles.forEach(function(p) {
+      bgCtx.beginPath();
+      bgCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      bgCtx.fillStyle = 'rgba(' + p.color + ',' + p.opacity + ')';
+      bgCtx.fill();
+      if (p.r > 1.2) {
+        bgCtx.beginPath();
+        bgCtx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
+        bgCtx.fillStyle = 'rgba(' + p.color + ',' + (p.opacity * 0.15) + ')';
+        bgCtx.fill();
+      }
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0) p.x = bgCanvas.width;
+      if (p.x > bgCanvas.width) p.x = 0;
+      if (p.y < 0) p.y = bgCanvas.height;
+      if (p.y > bgCanvas.height) p.y = 0;
+    });
+    requestAnimationFrame(drawBgParticles);
+  }
+
+  bgResize();
+  createBgParticles();
+  drawBgParticles();
+  window.addEventListener('resize', function() { bgResize(); createBgParticles(); });
+
+  // ---- ENTER APP FUNCTION ----
+  window.enterApp = function(section) {
+    document.getElementById('landing-page').classList.add('hidden');
+    document.getElementById('app-content').classList.add('visible');
+    window.scrollTo(0, 0);
+
+    // Update nav active state
+    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+    
+    if (section === 'theory') {
+      window.location.href = 'abstract.html';
+      return;
+    }
+    
+    var targetTab = document.querySelector('.nav-tab[data-target="' + section + '"]');
+    if (targetTab) targetTab.classList.add('active');
+  };
+
+  // ---- NAV TAB CLICKS ----
+  document.querySelectorAll('.nav-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var target = this.dataset.target;
+
+      // Update active state
+      document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+      this.classList.add('active');
+
+      switch(target) {
+        case 'landing':
+          document.getElementById('landing-page').classList.remove('hidden');
+          document.getElementById('app-content').classList.remove('visible');
+          window.scrollTo(0, 0);
+          break;
+        case 'simulation':
+          window.location.href = 'hall-effect-lab.html';
+          break;
+        case 'advanced':
+          document.getElementById('landing-page').classList.add('hidden');
+          document.getElementById('app-content').classList.add('visible');
+          window.scrollTo(0, 0);
+          break;
+        case 'theory':
+          window.location.href = 'abstract.html';
+          break;
+        case '3dview':
+          window.location.href = 'simulation-3d.html';
+          break;
+      }
+    });
+  });
+
+  // ---- LOGO CLICK -> HOME ----
+  document.getElementById('nav-logo').addEventListener('click', function() {
+    document.getElementById('landing-page').classList.remove('hidden');
+    document.getElementById('app-content').classList.remove('visible');
+    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelector('.nav-tab[data-target="landing"]').classList.add('active');
+    window.scrollTo(0, 0);
+  });
+
+  // ---- INTERSECTION OBSERVER FOR FEATURE CARDS ----
+  var featureObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var delay = entry.target.dataset.delay || 0;
+        setTimeout(function() {
+          entry.target.classList.add('visible');
+        }, parseInt(delay));
+        featureObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.feature-card').forEach(function(card) {
+    featureObserver.observe(card);
+  });
+
+  // ---- COUNTER ANIMATION FOR STATS ----
+  function animateCounters() {
+    document.querySelectorAll('.stat-value[data-count]').forEach(function(el) {
+      var target = parseInt(el.dataset.count);
+      var current = 0;
+      var increment = target / 30;
+      var timer = setInterval(function() {
+        current += increment;
+        if (current >= target) {
+          el.textContent = target;
+          clearInterval(timer);
+        } else {
+          el.textContent = Math.floor(current);
+        }
+      }, 50);
+    });
+  }
+  setTimeout(animateCounters, 1500);
+
+  // ---- DEEP-LINK: Auto-enter Advanced Lab if coming from another page ----
+  if (sessionStorage.getItem('goAdvanced') === '1') {
+    sessionStorage.removeItem('goAdvanced');
+    window.enterApp('advanced');
+  }
+
+})();
+</script>
 </body>
 
 </html>
