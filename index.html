@@ -666,15 +666,17 @@
     }
 
     .hero-stats {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 32px;
-      padding: 20px 40px;
+      justify-content: center;
+      gap: 40px;
+      padding: 20px 56px;
       background: rgba(13, 21, 37, 0.6);
       backdrop-filter: blur(16px);
       border: 1px solid rgba(0,212,255,0.1);
-      border-radius: 50px;
+      border-radius: 100px;
       opacity: 0;
+      margin: 0 auto;
       animation: fadeSlideUp 0.8s ease 1.4s forwards;
     }
     .stat-item { text-align: center; }
@@ -1012,7 +1014,7 @@
       <p class="hero-subtitle">
         Explore charge carrier dynamics, magnetic field interactions,<br>
         and semiconductor physics through a fully interactive simulation<br>
-        built to Amrita VLab standards.
+        
       </p>
 
       <div class="hero-cta">
@@ -1076,7 +1078,7 @@
       <div class="feature-card" data-delay="100">
         <div class="feature-icon">🔬</div>
         <h3>Authentic Lab Setup</h3>
-        <p>Realistic electromagnet, ammeter, Gauss meter and Hall probe matching Amrita VLab standards exactly</p>
+        <p>Realistic electromagnet, ammeter, Gauss meter and Hall probe</p>
         <div class="card-glow"></div>
       </div>
       <div class="feature-card" data-delay="200">
@@ -1647,17 +1649,25 @@
 
   // ---- ENTER APP FUNCTION ----
   window.enterApp = function(section) {
+    if (section === 'simulation') {
+      window.location.href = 'hall-effect-lab.html';
+      return;
+    }
+    if (section === 'theory') {
+      window.location.href = 'abstract.html';
+      return;
+    }
+    if (section === '3dview') {
+      window.location.href = 'simulation-3d.html';
+      return;
+    }
+
     document.getElementById('landing-page').classList.add('hidden');
     document.getElementById('app-content').classList.add('visible');
     window.scrollTo(0, 0);
 
     // Update nav active state
     document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
-    
-    if (section === 'theory') {
-      window.location.href = 'abstract.html';
-      return;
-    }
     
     var targetTab = document.querySelector('.nav-tab[data-target="' + section + '"]');
     if (targetTab) targetTab.classList.add('active');
